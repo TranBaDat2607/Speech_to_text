@@ -13,8 +13,16 @@ seaborn>=0.11.0
 scikit-learn>=1.1.0
 wordcloud>=1.9.0
 
-# Audio processing (optional - for audio file analysis)
+# Audio processing for Whisper fine-tuning
 librosa>=0.9.0
+soundfile>=0.12.0
+
+# Whisper and OpenAI libraries
+openai-whisper>=20231117
+tiktoken>=0.5.0
+
+# Additional audio processing
+pydub>=0.25.1
 
 # Additional utilities
 pathlib2>=2.3.0  # For older Python versions compatibility

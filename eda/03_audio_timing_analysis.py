@@ -14,25 +14,61 @@ import librosa
 import warnings
 warnings.filterwarnings('ignore')
 
-def load_all_segments(data_dir):
-    """Load all segments from all topic folders"""
+def find_dataset_folders(datasets_root):
+    """Find all dataset folders that contain JSON files"""
+    dataset_folders = []
+    datasets_path = Path(datasets_root)
+    
+    for channel_folder in datasets_path.iterdir():
+        if channel_folder.is_dir():
+            # Check if there's a dataset subfolder
+            dataset_subfolder = channel_folder / "dataset"
+            if dataset_subfolder.exists() and dataset_subfolder.is_dir():
+                # Check if it contains JSON files
+                json_files = list(dataset_subfolder.glob("*.json"))
+                if json_files:
+                    dataset_folders.append({
+                        'channel': channel_folder.name,
+                        'path': dataset_subfolder,
+                        'json_count': len(json_files)
+                    })
+    
+    return dataset_folders
+
+def load_all_segments(datasets_root):
+    """Load all segments from all dataset folders"""
     all_segments = []
     
-    data_path = Path(data_dir)
+    # Find all dataset folders
+    dataset_folders = find_dataset_folders(datasets_root)
     
-    for topic_folder in data_path.iterdir():
-        if topic_folder.is_dir():
-            topic_name = topic_folder.name
-            
-            for json_file in topic_folder.glob("*.json"):
-                try:
-                    with open(json_file, 'r', encoding='utf-8') as f:
-                        segment = json.load(f)
-                        segment['topic'] = topic_name
-                        segment['audio_path'] = str(topic_folder / segment['audio_file'])
-                        all_segments.append(segment)
-                except Exception as e:
-                    print(f"Error loading {json_file}: {e}")
+    if not dataset_folders:
+        print(f"No dataset folders found in {datasets_root}")
+        return all_segments
+    
+    print(f"Found {len(dataset_folders)} dataset folders")
+    
+    for dataset_info in dataset_folders:
+        channel_name = dataset_info['channel']
+        dataset_path = dataset_info['path']
+        
+        # Load all JSON files in dataset folder
+        for json_file in dataset_path.glob("*.json"):
+            try:
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    segment = json.load(f)
+                    # Add channel/topic information
+                    segment['topic'] = channel_name
+                    # Calculate duration if not present
+                    if 'duration' not in segment and 'start' in segment and 'end' in segment:
+                        segment['duration'] = segment['end'] - segment['start']
+                    # Add segment_id for analysis
+                    segment['segment_id'] = json_file.stem
+                    # Note: audio_path will be set to None since we don't have audio files
+                    segment['audio_path'] = None
+                    all_segments.append(segment)
+            except Exception as e:
+                print(f"Error loading {json_file}: {e}")
     
     return all_segments
 
@@ -340,15 +376,20 @@ def save_timing_analysis_report(df, topic_timing, anomalies, audio_props, output
 
 def main():
     # Configuration
-    data_dir = "c:/Users/Admin/Desktop/dat301m/crawl_data/output_segments_grouped"
-    output_dir = "c:/Users/Admin/Desktop/dat301m/eda/outputs"
+    datasets_root = "c:/Users/Admin/Desktop/dat301m/Speech_to_text/crawl_data/datasets"
+    output_dir = "c:/Users/Admin/Desktop/dat301m/Speech_to_text/eda/outputs"
     
     # Create output directory
     os.makedirs(output_dir, exist_ok=True)
     
-    print("Loading dataset...")
-    segments = load_all_segments(data_dir)
+    print("Scanning for datasets...")
+    segments = load_all_segments(datasets_root)
     
+    if not segments:
+        print("No segments found! Please check the datasets directory.")
+        return
+    
+    print(f"Total segments loaded: {len(segments)}")
     print("Analyzing timing statistics...")
     df = analyze_timing_statistics(segments)
     
@@ -356,7 +397,8 @@ def main():
     topic_timing = analyze_timing_by_topic(df)
     
     print("Checking audio files...")
-    audio_props = check_audio_files_existence(df, sample_size=50)
+    print("Note: Audio files validation skipped as we only have JSON metadata")
+    audio_props = None
     
     print("Detecting timing anomalies...")
     anomalies = detect_timing_anomalies(df)

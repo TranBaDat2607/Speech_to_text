@@ -15,24 +15,59 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import re
 
-def load_all_segments(data_dir):
-    """Load all segments from all topic folders"""
+def find_dataset_folders(datasets_root):
+    """Find all dataset folders that contain JSON files"""
+    dataset_folders = []
+    datasets_path = Path(datasets_root)
+    
+    for channel_folder in datasets_path.iterdir():
+        if channel_folder.is_dir():
+            # Check if there's a dataset subfolder
+            dataset_subfolder = channel_folder / "dataset"
+            if dataset_subfolder.exists() and dataset_subfolder.is_dir():
+                # Check if it contains JSON files
+                json_files = list(dataset_subfolder.glob("*.json"))
+                if json_files:
+                    dataset_folders.append({
+                        'channel': channel_folder.name,
+                        'path': dataset_subfolder,
+                        'json_count': len(json_files)
+                    })
+    
+    return dataset_folders
+
+def load_all_segments(datasets_root):
+    """Load all segments from all dataset folders"""
     all_segments = []
     
-    data_path = Path(data_dir)
+    # Find all dataset folders
+    dataset_folders = find_dataset_folders(datasets_root)
     
-    for topic_folder in data_path.iterdir():
-        if topic_folder.is_dir():
-            topic_name = topic_folder.name
-            
-            for json_file in topic_folder.glob("*.json"):
-                try:
-                    with open(json_file, 'r', encoding='utf-8') as f:
-                        segment = json.load(f)
-                        segment['topic'] = topic_name
-                        all_segments.append(segment)
-                except Exception as e:
-                    print(f"Error loading {json_file}: {e}")
+    if not dataset_folders:
+        print(f"No dataset folders found in {datasets_root}")
+        return all_segments
+    
+    print(f"Found {len(dataset_folders)} dataset folders")
+    
+    for dataset_info in dataset_folders:
+        channel_name = dataset_info['channel']
+        dataset_path = dataset_info['path']
+        
+        # Load all JSON files in dataset folder
+        for json_file in dataset_path.glob("*.json"):
+            try:
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    segment = json.load(f)
+                    # Add channel/topic information
+                    segment['topic'] = channel_name
+                    # Calculate duration if not present
+                    if 'duration' not in segment and 'start' in segment and 'end' in segment:
+                        segment['duration'] = segment['end'] - segment['start']
+                    # Add segment_id for analysis
+                    segment['segment_id'] = json_file.stem
+                    all_segments.append(segment)
+            except Exception as e:
+                print(f"Error loading {json_file}: {e}")
     
     return all_segments
 
@@ -404,39 +439,35 @@ def save_topic_analysis_report(topic_stats, vocab_df, similarity_df, topic_domai
         fastest_topics = complexity_df.nlargest(5, 'Speaking_Rate')
         for _, row in fastest_topics.iterrows():
             f.write(f"- {row['Topic']}: {row['Speaking_Rate']:.2f} words/second\n")
-    
     print(f"\nTopic analysis results saved to {output_dir}/")
 
 def main():
     # Configuration
-    data_dir = "c:/Users/Admin/Desktop/dat301m/crawl_data/output_segments_grouped"
-    output_dir = "c:/Users/Admin/Desktop/dat301m/eda/outputs"
+    datasets_root = "c:/Users/Admin/Desktop/dat301m/Speech_to_text/crawl_data/datasets"
+    output_dir = "c:/Users/Admin/Desktop/dat301m/Speech_to_text/eda/outputs"
     
     # Create output directory
     os.makedirs(output_dir, exist_ok=True)
     
-    print("Loading dataset...")
-    segments = load_all_segments(data_dir)
+    print("Scanning for datasets...")
+    segments = load_all_segments(datasets_root)
+    
+    if not segments:
+        print("No segments found! Please check the datasets directory.")
+        return
+    
+    print(f"Total segments loaded: {len(segments)}")
+    print("Analyzing topic and domain features...")
     df = pd.DataFrame(segments)
     
-    print("Analyzing topic statistics...")
     topic_stats = analyze_topic_statistics(df)
-    
-    print("Analyzing topic vocabulary...")
     topic_vocab, vocab_df = analyze_topic_vocabulary(df)
-    
-    print("Calculating topic similarity...")
     similarity_matrix, similarity_df, topic_names = calculate_topic_similarity(df)
-    
-    print("Analyzing domain characteristics...")
     topic_domains, domain_counts = analyze_domain_characteristics(df, topic_vocab)
-    
-    print("Analyzing content complexity...")
     complexity_df = analyze_content_complexity(df)
     
-    print("\nCreating topic visualizations...")
-    create_topic_visualizations(topic_stats, vocab_df, similarity_matrix, topic_names,
-                               domain_counts, complexity_df, output_dir)
+    print("\nCreating topic analysis visualizations...")
+    create_topic_visualizations(topic_stats, vocab_df, similarity_matrix, topic_names, domain_counts, complexity_df, output_dir)
     
     print("Saving topic analysis reports...")
     save_topic_analysis_report(topic_stats, vocab_df, similarity_df, topic_domains,

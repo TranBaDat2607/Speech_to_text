@@ -29,13 +29,13 @@ class ChannelToDatasetPipeline:
         
         crawler = SingleChannelCrawler()
         
-        # Crawl channel với giới hạn video và lọc thời lượng
+        # Crawl channel với giới hạn video (không lọc thời lượng)
         result = crawler.crawl_channel(
             channel_url=self.channel_url,
             max_videos=self.max_videos,
-            filter_duration=True,
-            min_duration=120,    # Tối thiểu 2 phút
-            max_duration=1800    # Tối đa 30 phút
+            filter_duration=False,    # Tắt lọc thời lượng để lấy tất cả video
+            min_duration= 1800,          # Tối thiểu 1 phút
+            max_duration=float("inf")         
         )
         
         if not result:
@@ -282,7 +282,120 @@ class ChannelToDatasetPipeline:
             return False
 
 def main():
-    """Hàm main với input channel URL"""
+    """Hàm main tự động chạy tất cả channel URLs"""
+    print("YouTube Channel to Dataset Pipeline - AUTO MODE")
+    print("="*50)
+    
+    # Danh sách channel URLs
+    channels = [
+        "https://www.youtube.com/@sachnoivietnam15",  # Sách nói Việt Nam
+        "https://www.youtube.com/@KhoaiLangThang",     
+        "https://www.youtube.com/@Spiderum",           
+        "https://www.youtube.com/@betterversionvn",    
+        "https://www.youtube.com/@vtv24",
+        "https://www.youtube.com/@duythanhish",
+        "https://www.youtube.com/c/Ph%C3%AAPhim",
+        "https://www.youtube.com/@VatLyChill",
+        "https://www.youtube.com/@truy.lung.dau.vet.podcast",
+        "https://www.youtube.com/@Vietcetera",
+        "https://www.youtube.com/@thepodcastofthuan"
+    ]
+    
+    print(f"Se tu dong xu ly {len(channels)} channels:")
+    for i, url in enumerate(channels, 1):
+        print(f"  {i}. {url}")
+    
+    # Cấu hình mặc định
+    max_videos = 20  # Số video tối đa cho mỗi channel
+    cleanup = True   # Tự động cleanup sau mỗi channel
+    
+    print(f"\nCau hinh:")
+    print(f"- Max videos moi channel: {max_videos}")
+    print(f"- Auto cleanup: {'Co' if cleanup else 'Khong'}")
+    print(f"- Tong cong se xu ly toi da: {len(channels) * max_videos} videos")
+    
+    # Thống kê tổng quá trình
+    total_success = 0
+    total_failed = 0
+    failed_channels = []
+    
+    print(f"\nBat dau xu ly...")
+    print("="*60)
+    
+    for i, channel_url in enumerate(channels, 1):
+        print(f"\n{'='*60}")
+        print(f"XU LY CHANNEL {i}/{len(channels)}")
+        print(f"URL: {channel_url}")
+        print(f"{'='*60}")
+        
+        try:
+            # Tạo thư mục riêng cho mỗi channel
+            channel_name = channel_url.split('@')[-1] if '@' in channel_url else f"channel_{i}"
+            channel_folder = Path(f"datasets/{channel_name}")
+            channel_folder.mkdir(parents=True, exist_ok=True)
+            
+            # Chuyển vào thư mục channel
+            original_cwd = os.getcwd()
+            os.chdir(channel_folder)
+            
+            print(f"Dang xu ly trong thu muc: {channel_folder.absolute()}")
+            
+            # Chạy pipeline cho channel này
+            pipeline = ChannelToDatasetPipeline(channel_url, max_videos, cleanup)
+            success = pipeline.run_pipeline()
+            
+            # Quay lại thư mục gốc
+            os.chdir(original_cwd)
+            
+            if success:
+                total_success += 1
+                print(f"\nTHANH CONG: Channel {i} hoan thanh")
+            else:
+                total_failed += 1
+                failed_channels.append((i, channel_url))
+                print(f"\nTHAT BAI: Channel {i} gap loi")
+                
+        except Exception as e:
+            total_failed += 1
+            failed_channels.append((i, channel_url))
+            print(f"\nLOI: Channel {i} - {e}")
+            
+            # Đảm bảo quay lại thư mục gốc nếu có lỗi
+            try:
+                os.chdir(original_cwd)
+            except:
+                pass
+        
+        # Thông báo tiến độ
+        print(f"\nTien do: {i}/{len(channels)} channels da xu ly")
+        print(f"Thanh cong: {total_success}, That bai: {total_failed}")
+        
+        # Nghỉ giữa các channel để tránh quá tải
+        if i < len(channels):
+            print("Nghi 10 giay truoc khi xu ly channel tiep theo...")
+            time.sleep(10)
+    
+    # Báo cáo cuối cùng
+    print(f"\n{'='*60}")
+    print("BAO CAO CUOI CUNG")
+    print(f"{'='*60}")
+    print(f"Tong so channels: {len(channels)}")
+    print(f"Thanh cong: {total_success}")
+    print(f"That bai: {total_failed}")
+    
+    if failed_channels:
+        print(f"\nCac channel that bai:")
+        for idx, url in failed_channels:
+            print(f"  {idx}. {url}")
+    
+    if total_success > 0:
+        print(f"\nDatasets da tao thanh cong duoc luu trong thu muc 'datasets/'")
+        print(f"Moi channel co thu muc rieng chua file .wav va .json")
+    
+    print(f"\nHoan thanh tat ca!")
+
+def main_interactive():
+    """Hàm main với input channel URL (phiên bản cũ)"""
     print("YouTube Channel to Dataset Pipeline")
     print("="*50)
     
@@ -292,6 +405,13 @@ def main():
         "2": "https://www.youtube.com/@KhoaiLangThang",     # Travel vlog
         "3": "https://www.youtube.com/@Spiderum",           # Education
         "4": "https://www.youtube.com/@betterversionvn",    # Self-improvement
+        "5": "https://www.youtube.com/@vtv24",
+        "6": "https://www.youtube.com/@duythanhish",
+        "7": "https://www.youtube.com/c/Ph%C3%AAPhim",
+        "8": "https://www.youtube.com/@VatLyChill",
+        "9": "https://www.youtube.com/@truy.lung.dau.vet.podcast",
+        "10": "https://www.youtube.com/@Vietcetera",
+        "11": "https://www.youtube.com/@thepodcastofthuan"
     }
     
     print("Vi du cac channel co the xu ly:")

@@ -1,0 +1,200 @@
+# Speech-to-Text Dataset - GitIgnore
+# Bảo vệ dữ liệu và kết quả phân tích không được upload lên GitHub
+
+# ================================
+# DATASET FOLDERS - Dữ liệu gốc
+# ================================
+crawl_data/datasets/
+crawl_data/audio/
+crawl_data/subtitles/
+crawl_data/raw_data/
+crawl_data/temp/
+crawl_data/downloads/
+
+# Specific dataset files
+*.wav
+*.mp3
+*.m4a
+*.flac
+*.aac
+*.ogg
+*.wma
+
+# JSON dataset files (chứa transcript)
+crawl_data/datasets/**/*.json
+crawl_data/**/dataset/*.json
+
+# Dataset summary files
+**/dataset_summary.json
+**/channel_info.json
+
+# ================================
+# EDA OUTPUTS - Kết quả phân tích
+# ================================
+eda/outputs/
+eda/results/
+eda/figures/
+eda/plots/
+
+# EDA specific files
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.pdf
+*.eps
+
+# CSV results
+eda/**/*.csv
+**/basic_statistics.csv
+**/topic_statistics.csv
+**/text_statistics.csv
+**/word_frequency.csv
+**/timing_statistics.csv
+**/audio_analysis_summary.csv
+**/whisper_readiness_stats.csv
+
+# Text reports
+eda/**/*.txt
+**/whisper_compatibility_report.txt
+**/whisper_readiness_report.txt
+**/00_MASTER_EDA_REPORT.txt
+
+# ================================
+# PYTHON CACHE & TEMP FILES
+# ================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ================================
+# JUPYTER NOTEBOOKS
+# ================================
+.ipynb_checkpoints/
+*.ipynb
+
+# ================================
+# VIRTUAL ENVIRONMENTS
+# ================================
+venv/
+env/
+ENV/
+dat301m/
+.venv/
+
+# ================================
+# IDE & EDITOR FILES
+# ================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ================================
+# LOGS & DEBUGGING
+# ================================
+*.log
+logs/
+debug/
+*.debug
+
+# ================================
+# TEMPORARY & BACKUP FILES
+# ================================
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+.cache/
+
+# ================================
+# MODEL FILES (if any)
+# ================================
+models/
+checkpoints/
+*.pt
+*.pth
+*.h5
+*.pkl
+*.pickle
+*.model
+
+# ================================
+# CONFIGURATION FILES (sensitive)
+# ================================
+config/secrets.py
+.env
+.env.local
+*.key
+api_keys.txt
+
+# ================================
+# LARGE DATA FILES
+# ================================
+*.zip
+*.tar.gz
+*.rar
+*.7z
+data/
+raw_data/
+processed_data/
+
+# ================================
+# SYSTEM FILES
+# ================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ================================
+# SPECIFIC TO YOUR PROJECT
+# ================================
+# YouTube download cache
+yt-dlp-cache/
+youtube-cache/
+
+# Selenium webdriver cache
+webdriver-cache/
+
+# Audio processing temp
+audio_temp/
+temp_audio/
+
+# Subtitle files
+*.srt
+*.vtt
+*.ass
+*.ssa
+
+# Keep important files (whitelist)
+!requirements.txt
+!README.md
+!*.py
+!.gitignore
+!LICENSE

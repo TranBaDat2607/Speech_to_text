@@ -1,9 +1,9 @@
 Metric,Value
-Total Topics,43.0
-Total Segments,2123.0
-Total Duration (hours),18.833105555555555
-Mean Duration (s),31.935553462081955
-Median Duration (s),31.180000000000064
-Min Duration (s),1.400000000000091
-Max Duration (s),226.1199999999999
-Std Duration (s),6.8442919531259
+Total Topics,10.0
+Total Segments,8441.0
+Total Duration (hours),70.35375555555557
+Mean Duration (s),30.02649911084766
+Median Duration (s),30.0
+Min Duration (s),18.74000000000001
+Max Duration (s),64.17999999999984
+Std Duration (s),0.816492794583775

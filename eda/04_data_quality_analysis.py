@@ -12,29 +12,64 @@ import numpy as np
 from pathlib import Path
 import re
 
-def load_all_segments(data_dir):
-    """Load all segments from all topic folders"""
+def find_dataset_folders(datasets_root):
+    """Find all dataset folders that contain JSON files"""
+    dataset_folders = []
+    datasets_path = Path(datasets_root)
+    
+    for channel_folder in datasets_path.iterdir():
+        if channel_folder.is_dir():
+            # Check if there's a dataset subfolder
+            dataset_subfolder = channel_folder / "dataset"
+            if dataset_subfolder.exists() and dataset_subfolder.is_dir():
+                # Check if it contains JSON files
+                json_files = list(dataset_subfolder.glob("*.json"))
+                if json_files:
+                    dataset_folders.append({
+                        'channel': channel_folder.name,
+                        'path': dataset_subfolder,
+                        'json_count': len(json_files)
+                    })
+    
+    return dataset_folders
+
+def load_all_segments(datasets_root):
+    """Load all segments from all dataset folders"""
     all_segments = []
     loading_errors = []
     
-    data_path = Path(data_dir)
+    # Find all dataset folders
+    dataset_folders = find_dataset_folders(datasets_root)
     
-    for topic_folder in data_path.iterdir():
-        if topic_folder.is_dir():
-            topic_name = topic_folder.name
-            
-            for json_file in topic_folder.glob("*.json"):
-                try:
-                    with open(json_file, 'r', encoding='utf-8') as f:
-                        segment = json.load(f)
-                        segment['topic'] = topic_name
-                        segment['file_path'] = str(json_file)
-                        all_segments.append(segment)
-                except Exception as e:
-                    loading_errors.append({
-                        'file': str(json_file),
-                        'error': str(e)
-                    })
+    if not dataset_folders:
+        print(f"No dataset folders found in {datasets_root}")
+        return all_segments, loading_errors
+    
+    print(f"Found {len(dataset_folders)} dataset folders")
+    
+    for dataset_info in dataset_folders:
+        channel_name = dataset_info['channel']
+        dataset_path = dataset_info['path']
+        
+        # Load all JSON files in dataset folder
+        for json_file in dataset_path.glob("*.json"):
+            try:
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    segment = json.load(f)
+                    # Add channel/topic information
+                    segment['topic'] = channel_name
+                    # Calculate duration if not present
+                    if 'duration' not in segment and 'start' in segment and 'end' in segment:
+                        segment['duration'] = segment['end'] - segment['start']
+                    # Add segment_id for analysis
+                    segment['segment_id'] = json_file.stem
+                    segment['file_path'] = str(json_file)
+                    all_segments.append(segment)
+            except Exception as e:
+                loading_errors.append({
+                    'file': str(json_file),
+                    'error': str(e)
+                })
     
     return all_segments, loading_errors
 
@@ -46,7 +81,7 @@ def check_data_completeness(segments):
     print("DATA COMPLETENESS ANALYSIS")
     print("="*60)
     
-    required_fields = ['segment_id', 'start_time', 'end_time', 'duration', 'text', 'audio_file']
+    required_fields = ['segment_id', 'start', 'end', 'duration', 'text', 'video_id']
     
     print(f"Total segments loaded: {len(segments)}")
     print(f"\nMISSING VALUES BY FIELD:")
@@ -70,17 +105,17 @@ def check_data_consistency(df):
     
     consistency_issues = []
     
-    # 1. Check if start_time <= end_time
-    if 'start_time' in df.columns and 'end_time' in df.columns:
-        invalid_time_order = df[df['start_time'] > df['end_time']]
+    # 1. Check if start <= end
+    if 'start' in df.columns and 'end' in df.columns:
+        invalid_time_order = df[df['start'] > df['end']]
         if len(invalid_time_order) > 0:
             issue = f"Invalid time order (start > end): {len(invalid_time_order)} segments"
             consistency_issues.append(issue)
             print(f"- {issue}")
     
-    # 2. Check if duration matches (end_time - start_time)
-    if all(col in df.columns for col in ['start_time', 'end_time', 'duration']):
-        df['calculated_duration'] = df['end_time'] - df['start_time']
+    # 2. Check if duration matches (end - start)
+    if all(col in df.columns for col in ['start', 'end', 'duration']):
+        df['calculated_duration'] = df['end'] - df['start']
         duration_mismatch = df[abs(df['duration'] - df['calculated_duration']) > 0.1]
         if len(duration_mismatch) > 0:
             issue = f"Duration mismatch: {len(duration_mismatch)} segments"
@@ -165,8 +200,11 @@ def check_text_quality(df):
     # 4. Text with unusual character patterns
     unusual_patterns = []
     
-    # Repeated characters (e.g., "aaaaaaa")
-    repeated_chars = df[df['text'].str.contains(r'(.)\1{5,}', na=False, regex=True)]
+    # Repeated characters (e.g., "aaaaaaa") - suppress warning
+    import warnings
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        repeated_chars = df[df['text'].str.contains(r'(.)\1{5,}', na=False, regex=True)]
     if len(repeated_chars) > 0:
         unusual_patterns.append(f"Repeated characters: {len(repeated_chars)} segments")
     
@@ -186,11 +224,12 @@ def check_text_quality(df):
             print(f"- {pattern}")
     
     # 5. Text quality metrics
-    df['word_count'] = df['text'].fillna('').str.split().str.len()
-    df['char_count'] = df['text'].fillna('').str.len()
+    df['text'] = df['text'].fillna('')  # Handle NaN values
+    df['word_count'] = df['text'].str.split().str.len()
+    df['char_count'] = df['text'].str.len()
     df['avg_word_length'] = df.apply(lambda row: 
-        sum(len(word) for word in row['text'].split()) / len(row['text'].split()) 
-        if row['text'] and len(row['text'].split()) > 0 else 0, axis=1)
+        sum(len(word) for word in str(row['text']).split()) / len(str(row['text']).split()) 
+        if str(row['text']).strip() and len(str(row['text']).split()) > 0 else 0, axis=1)
     
     print(f"\nTEXT QUALITY METRICS:")
     print(f"Mean words per segment: {df['word_count'].mean():.2f}")
@@ -199,56 +238,51 @@ def check_text_quality(df):
     
     return text_issues
 
-def check_audio_file_references(df):
-    """Check audio file references"""
-    print(f"\nAUDIO FILE REFERENCE ANALYSIS:")
+def check_video_id_references(df):
+    """Check video ID references"""
+    print(f"\nVIDEO ID REFERENCE ANALYSIS:")
     
-    audio_issues = []
+    video_issues = []
     
-    if 'audio_file' not in df.columns:
-        print("- Audio file field not found")
-        return audio_issues
+    if 'video_id' not in df.columns:
+        print("- Video ID field not found")
+        return video_issues
     
-    # 1. Missing audio file references
-    missing_audio_ref = df[df['audio_file'].isnull() | (df['audio_file'].str.len() == 0)]
-    if len(missing_audio_ref) > 0:
-        issue = f"Missing audio file reference: {len(missing_audio_ref)} segments"
-        audio_issues.append(issue)
+    # 1. Missing video ID references
+    missing_video_ref = df[df['video_id'].isnull() | (df['video_id'].str.len() == 0)]
+    if len(missing_video_ref) > 0:
+        issue = f"Missing video ID reference: {len(missing_video_ref)} segments"
+        video_issues.append(issue)
         print(f"- {issue}")
     
-    # 2. Check audio file naming consistency
-    if 'audio_file' in df.columns:
-        # Check if all audio files have .wav extension
-        non_wav_files = df[~df['audio_file'].str.endswith('.wav', na=False)]
-        if len(non_wav_files) > 0:
-            issue = f"Non-WAV audio files: {len(non_wav_files)} segments"
-            audio_issues.append(issue)
+    # 2. Check video ID format consistency (YouTube IDs are typically 11 characters)
+    if 'video_id' in df.columns:
+        invalid_length = df[df['video_id'].str.len() != 11]
+        if len(invalid_length) > 0:
+            issue = f"Invalid video ID length: {len(invalid_length)} segments"
+            video_issues.append(issue)
             print(f"- {issue}")
         
-        # Check naming pattern consistency
-        expected_pattern = r'^\d+\.wav$'
-        inconsistent_naming = df[~df['audio_file'].str.match(expected_pattern, na=False)]
-        if len(inconsistent_naming) > 0:
-            issue = f"Inconsistent audio file naming: {len(inconsistent_naming)} segments"
-            audio_issues.append(issue)
+        # Check for invalid characters in video IDs
+        invalid_chars = df[~df['video_id'].str.match(r'^[A-Za-z0-9_-]+$', na=False)]
+        if len(invalid_chars) > 0:
+            issue = f"Invalid characters in video ID: {len(invalid_chars)} segments"
+            video_issues.append(issue)
             print(f"- {issue}")
     
-    # 3. Check for duplicate audio file references within topics
-    duplicate_audio_refs = []
-    for topic in df['topic'].unique():
-        topic_data = df[df['topic'] == topic]
-        duplicates = topic_data[topic_data['audio_file'].duplicated()]
-        if len(duplicates) > 0:
-            duplicate_audio_refs.append(f"{topic}: {len(duplicates)} duplicates")
+    # 3. Check video ID distribution
+    video_id_counts = df['video_id'].value_counts()
+    print(f"- Total unique video IDs: {len(video_id_counts)}")
+    print(f"- Average segments per video: {video_id_counts.mean():.2f}")
     
-    if duplicate_audio_refs:
-        issue = f"Duplicate audio references in {len(duplicate_audio_refs)} topics"
-        audio_issues.append(issue)
+    # Videos with very few segments (might indicate incomplete processing)
+    few_segments = video_id_counts[video_id_counts < 3]
+    if len(few_segments) > 0:
+        issue = f"Videos with very few segments (< 3): {len(few_segments)} videos"
+        video_issues.append(issue)
         print(f"- {issue}")
-        for dup in duplicate_audio_refs[:5]:  # Show first 5
-            print(f"  {dup}")
     
-    return audio_issues
+    return video_issues
 
 def analyze_data_distribution(df):
     """Analyze data distribution across topics"""
@@ -344,19 +378,19 @@ def create_quality_visualizations(df, output_dir):
     plt.show()
 
 def save_quality_analysis_report(df, missing_data, consistency_issues, text_issues, 
-                               audio_issues, topic_stats, loading_errors, output_dir):
+                               video_issues, topic_stats, loading_errors, output_dir):
     """Save data quality analysis results"""
     
     # Quality summary report
     quality_summary = {
-        'Category': ['Data Loading', 'Missing Data', 'Consistency', 'Text Quality', 'Audio References'],
+        'Category': ['Data Loading', 'Missing Data', 'Consistency', 'Text Quality', 'Video References'],
         'Issues_Count': [len(loading_errors), sum(missing_data[field]['count'] for field in missing_data),
-                        len(consistency_issues), len(text_issues), len(audio_issues)],
+                        len(consistency_issues), len(text_issues), len(video_issues)],
         'Status': ['OK' if len(loading_errors) == 0 else 'ISSUES',
                   'OK' if sum(missing_data[field]['count'] for field in missing_data) == 0 else 'ISSUES',
                   'OK' if len(consistency_issues) == 0 else 'ISSUES',
                   'OK' if len(text_issues) == 0 else 'ISSUES',
-                  'OK' if len(audio_issues) == 0 else 'ISSUES']
+                  'OK' if len(video_issues) == 0 else 'ISSUES']
     }
     
     quality_summary_df = pd.DataFrame(quality_summary)
@@ -398,31 +432,36 @@ def save_quality_analysis_report(df, missing_data, consistency_issues, text_issu
         else:
             f.write("- No text quality issues\n")
         
-        f.write("\nAUDIO REFERENCE ISSUES:\n")
-        if audio_issues:
-            for issue in audio_issues:
+        f.write("\nVIDEO REFERENCE ISSUES:\n")
+        if video_issues:
+            for issue in video_issues:
                 f.write(f"- {issue}\n")
         else:
-            f.write("- No audio reference issues\n")
+            f.write("- No video reference issues\n")
     
     print(f"\nData quality analysis results saved to {output_dir}/")
 
 def main():
     # Configuration
-    data_dir = "c:/Users/Admin/Desktop/dat301m/crawl_data/output_segments_grouped"
-    output_dir = "c:/Users/Admin/Desktop/dat301m/eda/outputs"
+    datasets_root = "c:/Users/Admin/Desktop/dat301m/Speech_to_text/crawl_data/datasets"
+    output_dir = "c:/Users/Admin/Desktop/dat301m/Speech_to_text/eda/outputs"
     
     # Create output directory
     os.makedirs(output_dir, exist_ok=True)
     
-    print("Loading dataset and checking for loading errors...")
-    segments, loading_errors = load_all_segments(data_dir)
+    print("Scanning for datasets and checking for loading errors...")
+    segments, loading_errors = load_all_segments(datasets_root)
+    
+    if not segments:
+        print("No segments found! Please check the datasets directory.")
+        return
     
     if loading_errors:
         print(f"Found {len(loading_errors)} loading errors")
         for error in loading_errors[:5]:  # Show first 5 errors
             print(f"- {error['file']}: {error['error']}")
     
+    print(f"Total segments loaded: {len(segments)}")
     print("Checking data completeness...")
     df, missing_data = check_data_completeness(segments)
     
@@ -432,8 +471,8 @@ def main():
     print("Analyzing text quality...")
     text_issues = check_text_quality(df)
     
-    print("Checking audio file references...")
-    audio_issues = check_audio_file_references(df)
+    print("Checking video ID references...")
+    video_issues = check_video_id_references(df)
     
     print("Analyzing data distribution...")
     topic_stats = analyze_data_distribution(df)
@@ -443,13 +482,13 @@ def main():
     
     print("Saving quality analysis reports...")
     save_quality_analysis_report(df, missing_data, consistency_issues, text_issues, 
-                                audio_issues, topic_stats, loading_errors, output_dir)
+                                video_issues, topic_stats, loading_errors, output_dir)
     
     print("\nData quality analysis completed!")
     
     # Summary
     total_issues = (len(loading_errors) + len(consistency_issues) + 
-                   len(text_issues) + len(audio_issues))
+                   len(text_issues) + len(video_issues))
     
     if total_issues == 0:
         print("✓ No major data quality issues found!")

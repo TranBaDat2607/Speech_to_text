@@ -1,92 +1,82 @@
-COMPREHENSIVE EDA REPORT FOR VIETNAMESE SPEECH-TO-TEXT DATASET
-================================================================================
-Generated on: 2025-10-06 02:19:51
+SPEECH-TO-TEXT DATASET - MASTER EDA REPORT
+============================================================
+Generated on: 2025-10-07 04:18:13
 
-ANALYSIS COMPONENTS COMPLETED:
-----------------------------------------
-1. ✓ Basic Statistics Analysis (01_basic_statistics.py)
-   - Dataset overview and basic metrics
-   - Duration and segment distributions
-   - Topic-wise statistics
+OVERVIEW:
+--------------------
+This report contains comprehensive Exploratory Data Analysis (EDA) results
+for the Vietnamese Speech-to-Text dataset.
 
-2. ✓ Text Analysis (02_text_analysis.py)
-   - Word count and character analysis
+ANALYSES PERFORMED:
+--------------------
+1. Basic Statistics Analysis (01_basic_statistics.py)
+   - Dataset overview and segment counts
+   - Duration statistics by topic
+   - Data distribution visualizations
+
+2. Text Analysis (02_text_analysis.py)
+   - Word count and character statistics
    - Speaking rate analysis
-   - Vocabulary frequency and richness
+   - Vocabulary analysis and word frequency
+   - Text statistics by topic
 
-3. ✓ Audio Timing Analysis (03_audio_timing_analysis.py)
+3. Audio Timing Analysis (03_audio_timing_analysis.py)
    - Duration distribution analysis
    - Speaking rate vs duration correlation
-   - Audio file validation
+   - Timing anomalies detection
+   - Duration categories breakdown
 
-4. ✓ Data Quality Analysis (04_data_quality_analysis.py)
-   - Missing data detection
-   - Consistency checks
-   - Text and audio quality validation
+4. Data Quality Analysis (04_data_quality_analysis.py)
+   - Data completeness and consistency checks
+   - Text quality validation
+   - Video ID reference validation
+   - Missing data pattern analysis
 
-5. ✓ Vietnamese Language Analysis (05_vietnamese_language_analysis.py)
+5. Vietnamese Language Analysis (05_vietnamese_language_analysis.py)
    - Vietnamese character and tone mark analysis
-   - Phonetic pattern analysis
+   - Syllable pattern analysis
+   - Vietnamese-specific vocabulary analysis
    - Transcription quality assessment
 
-6. ✓ Topic and Domain Analysis (06_topic_domain_analysis.py)
+6. Topic Domain Analysis (06_topic_domain_analysis.py)
    - Topic similarity and clustering
-   - Domain classification
-   - Content complexity analysis
+   - Domain classification analysis
+   - Content complexity metrics
+   - Cross-topic vocabulary comparison
 
-OUTPUT FILES GENERATED:
-----------------------------------------
-CSV Reports:
-- basic_statistics.csv
-- topic_statistics.csv
-- text_statistics.csv
-- word_frequency.csv
-- timing_statistics.csv
-- data_quality_summary.csv
-- vietnamese_language_statistics.csv
-- topic_domain_classification.csv
-- topic_content_complexity.csv
+OUTPUT FILES:
+--------------------
+CSV Files:
+- basic_statistics.csv: Overall dataset statistics
+- topic_statistics.csv: Statistics by topic/channel
+- text_statistics.csv: Text analysis summary
+- word_frequency.csv: Most frequent words
+- timing_statistics.csv: Timing analysis summary
+- segment_text_analysis.csv: Detailed segment text analysis
+- segment_timing_analysis.csv: Detailed segment timing analysis
 
 Visualization Files:
-- duration_distribution.png
-- segments_per_topic.png
-- word_count_distribution.png
-- speaking_rate_distribution.png
-- vietnamese_chars_frequency.png
-- tone_mark_distribution.png
-- topic_similarity_heatmap.png
-- domain_distribution.png
-- And many more...
+- duration_distribution.png: Duration histogram
+- segments_per_topic.png: Segments count by topic
+- duration_by_topic.png: Duration distribution by topic
+- word_count_distribution.png: Word count histogram
+- speaking_rate_distribution.png: Speaking rate analysis
+- top_words_frequency.png: Most frequent words chart
+- wordcloud.png: Word cloud visualization
+- duration_analysis.png: Comprehensive duration analysis
+- speaking_rate_vs_duration.png: Correlation analysis
 
-KEY INSIGHTS FOR SPEECH-TO-TEXT MODEL TRAINING:
---------------------------------------------------
-1. DATASET CHARACTERISTICS:
-   - Check basic_statistics.csv for overall dataset metrics
-   - Review topic_statistics.csv for data distribution balance
+HOW TO INTERPRET RESULTS:
+--------------------
+1. Check basic_statistics.csv for overall dataset health
+2. Review topic_statistics.csv to understand data distribution
+3. Examine timing_anomalies.txt for potential data quality issues
+4. Use visualizations to understand data patterns
+5. Review word_frequency.csv for vocabulary insights
 
-2. TEXT PREPROCESSING REQUIREMENTS:
-   - Review vietnamese_language_statistics.csv for character handling
-   - Check tone_mark_distribution.png for Vietnamese-specific features
-
-3. AUDIO PROCESSING CONSIDERATIONS:
-   - Review timing_statistics.csv for segment duration patterns
-   - Check speaking_rate_distribution.png for speech rate variations
-
-4. DATA QUALITY ISSUES:
-   - Review data_quality_summary.csv for potential problems
-   - Check data_quality_issues.txt for detailed issue descriptions
-
-5. DOMAIN ADAPTATION:
-   - Review topic_domain_classification.csv for domain diversity
-   - Check topic_similarity_heatmap.png for content relationships
-
-RECOMMENDATIONS FOR MODEL TRAINING:
-----------------------------------------
-1. Use the duration analysis to set appropriate batch sizes
-2. Consider Vietnamese-specific tokenization based on character analysis
-3. Address any data quality issues identified before training
-4. Use topic diversity information for train/validation/test splits
-5. Consider speaking rate variations for data augmentation strategies
-
-For detailed analysis results, please review individual CSV and PNG files
-in the outputs directory.
+NEXT STEPS:
+--------------------
+1. Address any timing anomalies found
+2. Consider data balancing if topics are heavily skewed
+3. Use insights for model training strategy
+4. Consider text preprocessing based on vocabulary analysis

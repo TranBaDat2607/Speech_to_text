@@ -14,24 +14,59 @@ from collections import Counter
 import re
 from wordcloud import WordCloud
 
-def load_all_segments(data_dir):
-    """Load all segments from all topic folders"""
+def find_dataset_folders(datasets_root):
+    """Find all dataset folders that contain JSON files"""
+    dataset_folders = []
+    datasets_path = Path(datasets_root)
+    
+    for channel_folder in datasets_path.iterdir():
+        if channel_folder.is_dir():
+            # Check if there's a dataset subfolder
+            dataset_subfolder = channel_folder / "dataset"
+            if dataset_subfolder.exists() and dataset_subfolder.is_dir():
+                # Check if it contains JSON files
+                json_files = list(dataset_subfolder.glob("*.json"))
+                if json_files:
+                    dataset_folders.append({
+                        'channel': channel_folder.name,
+                        'path': dataset_subfolder,
+                        'json_count': len(json_files)
+                    })
+    
+    return dataset_folders
+
+def load_all_segments(datasets_root):
+    """Load all segments from all dataset folders"""
     all_segments = []
     
-    data_path = Path(data_dir)
+    # Find all dataset folders
+    dataset_folders = find_dataset_folders(datasets_root)
     
-    for topic_folder in data_path.iterdir():
-        if topic_folder.is_dir():
-            topic_name = topic_folder.name
-            
-            for json_file in topic_folder.glob("*.json"):
-                try:
-                    with open(json_file, 'r', encoding='utf-8') as f:
-                        segment = json.load(f)
-                        segment['topic'] = topic_name
-                        all_segments.append(segment)
-                except Exception as e:
-                    print(f"Error loading {json_file}: {e}")
+    if not dataset_folders:
+        print(f"No dataset folders found in {datasets_root}")
+        return all_segments
+    
+    print(f"Found {len(dataset_folders)} dataset folders")
+    
+    for dataset_info in dataset_folders:
+        channel_name = dataset_info['channel']
+        dataset_path = dataset_info['path']
+        
+        # Load all JSON files in dataset folder
+        for json_file in dataset_path.glob("*.json"):
+            try:
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    segment = json.load(f)
+                    # Add channel/topic information
+                    segment['topic'] = channel_name
+                    # Calculate duration if not present
+                    if 'duration' not in segment and 'start' in segment and 'end' in segment:
+                        segment['duration'] = segment['end'] - segment['start']
+                    # Add segment_id for analysis
+                    segment['segment_id'] = json_file.stem
+                    all_segments.append(segment)
+            except Exception as e:
+                print(f"Error loading {json_file}: {e}")
     
     return all_segments
 
@@ -52,11 +87,14 @@ def analyze_text_statistics(segments):
     """Analyze text-related statistics"""
     df = pd.DataFrame(segments)
     
-    # Text preprocessing
+    # Text preprocessing - handle NaN values
+    df['text'] = df['text'].fillna('')
     df['text_clean'] = df['text'].apply(preprocess_text)
+    
+    # Text quality metrics
     df['word_count'] = df['text_clean'].apply(lambda x: len(x.split()) if x else 0)
     df['char_count'] = df['text_clean'].apply(len)
-    df['sentence_count'] = df['text'].apply(lambda x: len(re.split(r'[.!?]+', x)) if x else 0)
+    df['sentence_count'] = df['text'].apply(lambda x: len(re.split(r'[.!?]+', str(x))) if x else 0)
     
     # Speaking rate (words per second)
     df['speaking_rate'] = df['word_count'] / df['duration']
@@ -255,15 +293,20 @@ def save_text_analysis_report(df, word_freq, topic_stats, output_dir):
 
 def main():
     # Configuration
-    data_dir = "c:/Users/Admin/Desktop/dat301m/crawl_data/output_segments_grouped"
-    output_dir = "c:/Users/Admin/Desktop/dat301m/eda/outputs"
+    datasets_root = "c:/Users/Admin/Desktop/dat301m/Speech_to_text/crawl_data/datasets"
+    output_dir = "c:/Users/Admin/Desktop/dat301m/Speech_to_text/eda/outputs"
     
     # Create output directory
     os.makedirs(output_dir, exist_ok=True)
     
-    print("Loading dataset...")
-    segments = load_all_segments(data_dir)
+    print("Scanning for datasets...")
+    segments = load_all_segments(datasets_root)
     
+    if not segments:
+        print("No segments found! Please check the datasets directory.")
+        return
+    
+    print(f"Total segments loaded: {len(segments)}")
     print("Analyzing text statistics...")
     df = analyze_text_statistics(segments)
     
