@@ -24,31 +24,8 @@ class YouTubeChannelCrawler:
             'playlistend': 25,  # Exactly 25 videos per channel
         }
         
-        # Vietnamese YouTube channels across diverse topics
-        self.vietnamese_channels = {
-            # Education & Knowledge
-            "Spiderum": "https://www.youtube.com/@Spiderum",
-            "Vietcetera": "https://www.youtube.com/@Vietcetera",
-            "Khoahoc.tv": "https://www.youtube.com/@KhoaHoc",
-            
-            # Technology
-            "FPT Shop": "https://www.youtube.com/@FPTShop_",
-            "Cellphones.com.vn": "https://www.youtube.com/@CellphoneSOfficial",
-            
-            # Travel & Culture
-            "Khoai Lang Thang": "https://www.youtube.com/@KhoaiLangThang",
-            "Quang Vinh Passport": "https://www.youtube.com/channel/UCEtFx9C7d3BDqbVRDHfwDEg",
-            
-            # News & Current Affairs
-            "VTV24": "https://www.youtube.com/@vtv24",
-            "VnExpress": "https://www.youtube.com/@vnexpress.official",
-            "Thanh Nien": "https://www.youtube.com/@thanhnientvnews",
-            
-            # Audiobooks & Book Reading
-            "Better Version VN": "https://www.youtube.com/@betterversionvn",
-            "Sach Noi VN": "https://www.youtube.com/@SachnoiVN82",
-            "Sach Noi Vietnam": "https://www.youtube.com/@sachnoivietnam15",
-        }
+        # Channel URLs sẽ được cung cấp từ bên ngoài
+        self.vietnamese_channels = {}
     
     def get_channel_videos(self, channel_url: str, channel_name: str) -> List[Dict]:
         """Get video URLs and metadata from a YouTube channel"""

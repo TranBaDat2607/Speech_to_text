@@ -1,0 +1,87 @@
+{
+  "_comment": "Example configuration file for YouTube Audio and Transcript Crawling Pipeline",
+  "_description": "Copy this file to config.json and modify according to your needs",
+  
+  "channels": [
+    "https://www.youtube.com/@example_channel1",
+    "https://www.youtube.com/@example_channel2",
+    "https://www.youtube.com/@example_channel3"
+  ],
+  
+  "crawl_settings": {
+    "_comment": "Video crawling configuration",
+    "max_videos_per_channel": 20,
+    "min_duration_seconds": 60,
+    "max_duration_seconds": 3600,
+    "video_selection_strategy": "longest",
+    "_video_selection_options": ["longest", "shortest", "first"],
+    "batch_multiplier": 3,
+    "_batch_multiplier_note": "Fetch N times more videos to ensure enough after filtering"
+  },
+  
+  "subtitle_settings": {
+    "_comment": "Subtitle download configuration",
+    "languages": ["vi", "en"],
+    "_language_options": ["vi", "en", "zh", "ja", "ko", "fr", "de", "es"],
+    "format": "srt",
+    "_format_options": ["srt", "vtt", "ass"]
+  },
+  
+  "audio_settings": {
+    "_comment": "Audio processing configuration",
+    "segment_duration_seconds": 30,
+    "_segment_duration_note": "Duration of each audio segment for training",
+    "audio_format": "wav",
+    "_audio_format_options": ["wav", "mp3", "flac"],
+    "sample_rate": 16000,
+    "_sample_rate_options": [8000, 16000, 22050, 44100, 48000]
+  },
+  
+  "pipeline_settings": {
+    "_comment": "Pipeline behavior configuration",
+    "cleanup_intermediate_files": true,
+    "_cleanup_note": "Delete audio/, audio_segments/, subtitles/ folders after completion",
+    "create_dataset_summary": true,
+    "_summary_note": "Generate dataset_summary.json with statistics",
+    "parallel_processing": false,
+    "_parallel_note": "Enable parallel processing (experimental)"
+  },
+  
+  "output_settings": {
+    "_comment": "Output directory and file organization",
+    "base_output_dir": "datasets",
+    "_base_dir_note": "Main directory to store all datasets",
+    "create_channel_folders": true,
+    "_channel_folders_note": "Create separate folder for each channel",
+    "save_metadata": true,
+    "_metadata_note": "Save detailed metadata files"
+  },
+  
+  "_usage_examples": {
+    "_small_test": {
+      "max_videos_per_channel": 5,
+      "min_duration_seconds": 30,
+      "max_duration_seconds": 600,
+      "description": "Quick test with short videos"
+    },
+    "_production": {
+      "max_videos_per_channel": 50,
+      "min_duration_seconds": 300,
+      "max_duration_seconds": 1800,
+      "description": "Production dataset with medium-length videos"
+    },
+    "_long_form": {
+      "max_videos_per_channel": 20,
+      "min_duration_seconds": 1800,
+      "max_duration_seconds": 7200,
+      "description": "Long-form content like podcasts, lectures"
+    }
+  },
+  
+  "_tips": {
+    "performance": "Use batch_multiplier=5 for channels with many short videos",
+    "quality": "Set min_duration_seconds=300 for better transcript quality",
+    "storage": "Enable cleanup_intermediate_files=true to save disk space",
+    "multilingual": "Add multiple languages to subtitle_settings.languages for better coverage"
+  }
+}
