@@ -43,7 +43,6 @@ eda/plots/
 *.svg
 *.pdf
 *.eps
-*.npy
 
 # CSV results
 eda/**/*.csv
@@ -91,6 +90,14 @@ MANIFEST
 # ================================
 .ipynb_checkpoints/
 *.ipynb
+
+# ================================
+# PREPROCESSING OUTPUTS
+# ================================
+preprocessing_data/processed_dataset/
+preprocessing_data/**/*.npy
+preprocessing_data/**/*_processed.json
+preprocessing_data/**/processing_summary.json
 
 # ================================
 # VIRTUAL ENVIRONMENTS
