@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_041.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_041_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "đồng số đó còn dưới sự thật vì tất cả sự thành công lạ lùng của ông đều nhờ tâm tính ông viên kính của ông mà chính nụ cười quyến rũ của ông lại là khả năng khả ái nhất em một buổi tối tôi được tiếp morrisville ràng cha của thế giới thú thực là tôi thất vọng Tôi không ngờ ông ủng thủ làm liền như vậy khác hẳn giới trí tôi tưởng tượng nhưng bỗng nhiên ông ta Mỉm Cười rõ ràng đó là một tia nắng xuyên qua mây mù không có nụ cười đó morrisville có này còn đóng bàn ghế ở Paris như ông thân Dạ",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_119.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_119_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "crazy người dịch Nguyễn Hiến Lê Làm sao khi được thiện cảm những ai đã gặp tổng thống salvador El đều ngạc nhiên và sự biết nhiều hiểu rộng của ông bất kỳ một người chăn bò hay là một cựu binh một nhà chính trị hay một nhà ngoại giao lại thăm ông đã biết cách hỏi chuyền người đó bí quyết 30 dạng gì I hear user phải tiếp một người khác thì chả buổi tối hôm trước ông nghiên cứu vấn đề mà ông biết khách ưa nói tới hơn hết Cũng như thích hãy những người dẫn đạo",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

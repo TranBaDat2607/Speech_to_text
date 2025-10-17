@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_086.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_086_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "cách giữ gìn khu rừng nhỏ của tôi trong bữa thiệt đó có 12 ông khách nữa mà tô như không biết quay hết tội phạm hết thảy những điều thường thức về xã Giao để nghe trong mấy giờ đồng hồ nhà thực vật học của tôi tới nửa đêm tôi xin phép ra về sau này có người cho hay rằng tôi Vừa ra khỏi phòng nhà thông thái đó quay lại Địa Ông chủ nhà hàng tôi thế này thấy khác và cho rằng câu chuyện tôi rất hứng thú và tôi là một người ăn nói có duyên tôi mà nói chuyện có duyên như nhưng không đó tôi có thoát ra nữa lời nào đâu",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

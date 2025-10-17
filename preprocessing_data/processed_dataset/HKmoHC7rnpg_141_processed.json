@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_141.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_141_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "đồng nghiệp cực lực tán thành cùng viết lời chào cùng bạn thích thể chúng ta ai cũng muốn như vậy dạy chúng ta hãy Tuân lời Thánh Kinh muốn nhận của người ta cái gì thì cho người ta sẽ đó ta cần phải xử sự như vậy khi nào bằng cách nào ở đâu xin đáp bất kỳ lúc nào và bất kỳ ở đâu ạ cho tới một sợi thần kinh tôi hỏi một thầy ký môn tiếp khách chỉ cho tôi phòng làm việc của bạn Tôi ôm Henry Civil",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

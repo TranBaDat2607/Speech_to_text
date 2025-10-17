@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_049.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_049_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "thể sẽ tốn kém Nhưng đó là điều cần phải làm chiến lược này không chỉ giới hạn trong lĩnh vực tiếp thị sản phẩm nó còn có thể được sử dụng cho việc tiếp thị thông tin và ý tưởng 46 vật dụng nào có thể thuyết phục mọi người phản ánh giá trị của họ chiếc gương chiếc gương trên tường cái gì là vật thuyết phục con người nhất thực ra Anh tính là bạn đấy không ai có thể nhìn ngờ rằng mục đích ban đầu của chiếc gương là để soi xem bề ngoài của chúng ta chồng như thế nào nhưng những chiếc",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

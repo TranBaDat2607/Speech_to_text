@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_059.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_059_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "để bác bỏ những câu nói nghe có vẻ như sai nhưng khi mọi người mệt mỏi họ có xu hướng ở trong trạng thái ngốc nghếch cao độ vì năng lượng và động lực nhận thức bị giảm đi kết quả theo những phát hiện của upas là quá trình hiểu đầy đủ thông điệp bị cắt giảm trước khi giai đoạn bác bỏ có cơ hội xảy ra khiến mọi người rời vào xu hướng tin tưởng những lập luận yếu ớt hay sự dối trá thẳng thương ví dụ một nhà quản lý thu hút các nhà đấu thầu cho ở phân phối lớn sẽ có xu hướng không đặt câu hỏi đối với câu nói của nhà phân",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

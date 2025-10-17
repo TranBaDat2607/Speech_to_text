@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_047.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_047_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "suy nghĩ kỹ lưỡng tôi nhận thấy họ không sai họ hiểu dụng cụ nấu ăn salad Masters và cách sử dụng nó vấn đề ở đây là do tôi tôi đã không tìm ra Lý do họ quan tâm đến một dòng các dụng cụ nhà bếp mới dễ hơn nữa tôi lại chưa dùng đúng ngôn ngữ của họ những lợi ích chức năng và cảm cốc mà các dụng cụ nhà bếp tuyệt vời này mang lại cho người dùng Tôi đã không làm rõ hoặc truyền đạt được những gì họ thực sự sẽ có được khi sở hữu bộ dụng cụ này tôi đã tập trung vào những gì tôi muốn bán hàng không phải dựa trên sự",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

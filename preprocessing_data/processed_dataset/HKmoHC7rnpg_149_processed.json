@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_149.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_149_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "tới một triệu người Ấn Độ khiến bạn tới nỗi không chịu mót tới thức ăn mà Bống Nhơn nhớt của bạn đã Phước Hoa gì sợ lại về nhé bạn tự cho là hơn những thổ dân miền bắc cực nhiều lần như bạn được hoàn toàn tự do nghĩa như vậy nhưng sự thật thổ dân đó khiến bạn vô cùng bạn muốn biết lòng khinh đó tôi bực nào thì ở trong Bọn họ có kẻ khốn nạn nào đừng đột biến nỗi không làm nổi mụt gì chia hết thì họ gọi là đồ da trắng đó lời chửi thậm tệ nhất",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

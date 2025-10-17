@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_144.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_144_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "Vàng hay là một đại sứ của Mỹ ở Pháp mới cần thi hành chiếc thứ đó bạn có thể dùng thuộc đó mỗi ngày chẳng hạn bạn rồi món khoai chiên mà chị bồi đưa lên món khoai ngàn bạn chỉ cần nói ngọt ngào Tôi ân hận vì làm phiền gì nhưng tôi thích món khoai chiên hơi thì chị đó như vậy trả lời ngay không sao Thưa ông để tôi đổi thầu ong gì chị ấy cảm động khi thấy được bạn kính trọng những câu nhân ngắn như xin lỗi đã làm phiền ông có lòng tốt ông là mơ",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

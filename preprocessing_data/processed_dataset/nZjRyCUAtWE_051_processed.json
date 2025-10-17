@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_051.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_051_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "Why have you two been able to win the championship in the crowd? They have broken many women's hearts. They married the most beautiful and most beautiful silver stars. The world admires the love of the tea and the noble ladies have Millions of Silver. I asked. How did a female journalist of an American weekly discuss? They said that for the public, the Navana brothers' private life is one of the most difficult things to understand from ancient times to the present. But one head sings loudly and understands the male psychology. They think that the charm",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\FFK4A6_qrlI_047.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\FFK4A6_qrlI_047_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "kêu gọi muốn có tính chất ổn cũng đòi hỏi phải có sự chuẩn khi Đôi khi sự chuẩn bị đó đòi hỏi chúng ta không chỉ cần nhắc cách đưa ra thông điệp mà còn phải quan tâm đến những thông điệp và phản ứng trước đó của người nhận như một câu ngạn ngữ đã nói cách tốt nhất để cưỡi ngựa là theo hướng con ngựa đó Đang phi trước hết bạn phải tự điều chỉnh bản thân theo hướng di truyền của chú ngựa đó sau đó mới có thể dần dần khéo léo điều khiển nó theo hướng đi của bạn nếu cơ ép xuống đưa Vi theo hướng mình mong muốn thì nó sẽ hết bạn đi ngay lập tức",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_013.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_013_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "nhật thông tin và luôn bên cạnh người khác Thứ hai bạn sẽ làm sáng tỏ việc Bạn biết nguồn gốc của sự cố đó và như vậy sẽ có biện pháp kiểm soát trong tương lai 32 bằng cách nào những điểm tương đồng có thể tạo nên sự khác biệt một trong các ứng dụng của nhiễm phát hiện về tâm lý xã hội và sự tương đồng này là lượng khách hàng tiềm năng có thể sẽ tỏ thái độ dễ tiếp nhận ý của những nhân viên bán hàng có một số điểm tương đồng với họ hơn chẳng hạn như sự tương đồng trong tiền gọi tín ngưỡng quê quán trường học",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

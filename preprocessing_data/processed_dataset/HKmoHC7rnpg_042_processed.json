@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_042.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_042_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "không có nụ cười đó morrisville có này còn đóng bàn ghế ở Paris như ông thân Dạ anh em Ông mỉm cười với ai tức như nói cái gì đó tôi muốn ông được gặp ông tôi đưa vẻ lắm tôi sung sướng lắm lễ cố nhiên nụ cười đó phải từ đáy lòng phát ra mới quyến rũ quỹ đạo được người còn thấy nụ cười nhếch mép nở vệ môi như do một bộ máy phát ra không lừa được ai hết chỉ làm cho người ta ghét thôi ông chỉ huy nhân viên một cửa hàng lớn ở",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

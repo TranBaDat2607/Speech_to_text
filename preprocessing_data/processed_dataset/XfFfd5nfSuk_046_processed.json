@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_046.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_046_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "kẹp thịt quái quỷ hoa sự nghiệp kinh loại nhỏ của riêng mình tôi đã làm việc chăm chỉ và học về các sản phẩm tôi thậm chí đã học biểu diễn các dụng cụ nhà bếp bằng cách nấu những bữa ăn nhưng ở nhà nhưng sau 12 cuộc tôi biết tôi tự hỏi tại sao mọi người không bỏ tiền ra mua các dụng cụ nấu ăn tôi nghĩ mọi người không mua hàng của tôi bởi họ không hiểu được sản phẩm điều gì sai với họ sau khi suy nghĩ kỹ lưỡng tôi nhận thấy họ không sai họ hiểu dụng cụ nấu ăn salad Masters",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

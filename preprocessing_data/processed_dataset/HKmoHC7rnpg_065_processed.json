@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_065.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_065_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "đó đều ngạc nhiên nhận được của ông một bức thư đề bạn bạn thân mến bạn thân mến già ký tên sim gì tục Mỹ Chỉ có bản thân mới kêu tên nhau còn sờ giao thì gọi họ đến chú thích phim family hiểu rằng hàng trung nhân đều thấy tên mình em ái hơn thích thảy những tên khác nhớ được tình đó khi nó được một cách dễ dàng chú thích tên những người Mỹ thường khó đọc khó viết và chú thích tức là khi người đó một cách kín đáo và khôn khéo còn nếu quên",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

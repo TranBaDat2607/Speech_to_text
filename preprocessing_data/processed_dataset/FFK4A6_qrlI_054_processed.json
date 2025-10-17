@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\FFK4A6_qrlI_054.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\FFK4A6_qrlI_054_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "nỗ lực để cập nhật quá trình đấu giá của mình người cố gắng cân bằng thời gian và sức lực đã đổ vào quá trình đấu thầu những người tham gia này sẽ giữ vững cam kết trời đấy cùng để trở thành người thắng cuộc Bằng cách tiếp tục tham gia và nâng cao mắc bảo thầu của mình hơn nữa 22 Làm thế nào để phô trương mà không bị quy kết là tự làm C chuyện gì Ừ nếu việc nhiều người khác càng gợi về bạn là không thực tế liệu còn cách tinh tế nào khác mô tả khả năng của bạn mà không cần phải hét lên cho mọi người biết trên",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

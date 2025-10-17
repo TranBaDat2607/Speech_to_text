@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_106.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_106_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "học cậu phải kiếm tiền bằng cách lau cửa kính một tiệm bánh mì ra lượng những cục than dụng mà các xe chở than để rất trên đường Tên của cậu lại với box suốt thiếu thầy cậu đi học cả thấy có 65 về mà sâu thành một trong những nhà xuất bản tạp chí lớn nhất ở châu Mỹ chuyện đời của cậu ấy dài lắm nhưng sợ vậy Có kết quả đó là gì cậu thi hành đúng các quy tắc dạy trong chương này cầu thôi học từ hồi 13 tuổi phải làm bù cho một công ty nó nhưng vẫn quyết chí",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

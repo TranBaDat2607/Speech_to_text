@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_069.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_069_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "trích lẫn nhau đua nhau hạ giá thành thử đều không lời nhưng kenichi nhớ bài học con thỏ Một hôm gặp hôm anh ông Chào chào ôm cumin Ông có tin rằng hai đứa mình đều Điên hết không ông kia hỏi này tôi muốn nói chi kenichi bàn đạp sướng chapman hợp 2 công ty lại là một dùng những lời chung của sự liên kết đó Lê Thúy Nga nhưng chưa tin hẳn sau cùng ông hỏi công ty mới đó sẽ đặt tên chi cái gì tức khắc trả lời thì đặt là công",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

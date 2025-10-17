@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_052.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_052_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "But one head sings loudly and understands the male psychology. They think that the charm that no woman can match of those brothers is the sister. Their Eternal Art is the most absolute, especially in the era of flamboyant youth, and that art has almost become extinct. Even Queen Victoria of England, the commander of the chicken, the prime minister, confessed that he often used that science during his reign. Sometimes he used that science without any reserve, like a bricklayer who",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

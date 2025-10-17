@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_107.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_107_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "cầu thôi học từ hồi 13 tuổi phải làm bù cho một công ty nó nhưng vẫn quyết chí học học một mình cậu nhìn ăn bữa trưa và để dành tiền đi xe điện cho tới khi mua được một cuốn từ điển tả công nghiệp các danh nhân nước Mỹ gia cầu nhảy ra một ít mấy sau khi đọc tiểu sử các danh nhân hiện đại cầu viết thư cho nhiều gì yêu cầu có thêm những chi tiết thuộc hồi thời thơ ấu mà từ điển không gì Chết đi cầu tỏa ra biết nghe cho nên được các danh nhân đó kể chuyện mình cho cậu",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

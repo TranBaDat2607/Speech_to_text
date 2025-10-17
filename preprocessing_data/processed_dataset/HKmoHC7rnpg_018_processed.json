@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_018.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_018_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "chị đó dân ông một miếng bánh mì bột bắp ông vừa đi về phòng giấy vừa ăn gặp người làm giường nào người phu nào ông cũng chơi tên mà chào như hồi ông còn làm tổng thống một chú nằm cung dài đường trương nước mắt nói rằng ngày hôm đó là ngày sung sướng nhất của chú từ hai năm nay già đổi nghề đó lấy tấm giấy 100 chú cũng không nổi ông Steps to you alice giám đốc đại học đường Harvard trong gần nửa thế kỷ cũng nhờ đức độ tha thiết là toàn giúp người mà được kính mến nhất trong các trường",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_048.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_048_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "ít nhất là không có những dấu hiệu mua bán nào trợ giúp để hồi tưởng lại những điều mong đợi đó là lý do tại sao bất cứ chiến dịch quảng cáo lớn nào cũng cần được các hình ảnh quan trọng các đặc điểm khẩu hiệu và hình ảnh trình chiếu sản phẩm sắp tới và bao bì sản phẩm để khách hàng nhìn thấy khi quyết định mua nó mặc dầu Việc thay đổi hình ảnh và bao bì phù hợp với những đặc điểm quan trọng và chiến dịch truyền thông ban đầu có thể sẽ tốn kém Nhưng đó là điều cần phải làm chiến lược này không chỉ giới hạn",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

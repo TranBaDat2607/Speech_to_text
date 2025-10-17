@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_023.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_023_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "mang tính thuyết phục hơn ví dụ trong một cuộc nghiên cứu do nhà khoa học ahs nitschke tiến hành những người mua buôn thịt bò đã đặt hàng gấp đôi khi họ được thông báo sẽ càng hiếm thịt bò tại Australia do điều kiện thời tiết tại đó đây là minh chứng rõ ràng cho ảnh hưởng của sự khan hiếm đối với mặt hàng này và khi những người mua hàng này biết rằng thông tin đến từ bí mật mà không phổ biến cho phần dân cư còn lại tất cả các thông tin về sự khan hiếm là thật Họ tăng lượng đơn hàng lên tới Sáu trăm",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_034.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_034_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "đọc hoặc dễ phát âm tổng chiều đó dường như có giá trị hơn dẫn tới sự tăng giá của cổ phiếu đó Đang tiếc là những loại thông điệp này xuất hiện quá thường xuyên trong đời sống hàng ngày bất kể trong giao tiếp kinh doanh tư vấn chăm sóc sức khỏe hay bàn luận của sinh viên ví dụ một cuộc thăm dò ý kiến tại Trường đại học stanford cho thấy 86,4 phần trăm sinh viên được điều tra thừa nhận rằng mình đã dùng ngôn ngữ phức tạp trong các bài luận để cố gắng khiến họ có vẻ như thông minh hơn hạt nhân hơn là kết quả thu được từ một",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_017.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_017_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "n't have succeeded in attacking the enemy this time if we had Mi's timidity then we would have acted Y Nhung we quit our job and left it there and then it's useless to talk about it for the body to go Even though we have harmed a little bit But if you go, it will cut back we will be born with resentment and lose heart our army will go out who knows He hasn't been anything before he has experienced that harsh words are not beneficial at all Mr. sol-gel recounted that when he was",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_053.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_053_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "sau đó là một số đôi mắt mới và cử như vậy Kết quả cho thấy những người uống cà phê và trà đã trả nhiều hơn 2,5 lần cho đồ uống của mình khi dấu hiệu đi kèm là bức tranh một đôi mắt so với những người nhìn thấy bức tranh là những bông hoa Tóm lại bất kể là đôi mắt của bạn hay của người khác sẽ chẳng về hại gì khi có một đôi mắt bao quát mọi thứ AK47 tâm trạng u buồn sẽ khiến cục thường thiết của bạn trở nên tồi tệ những người tìm kiếm sự ảnh hưởng đến",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

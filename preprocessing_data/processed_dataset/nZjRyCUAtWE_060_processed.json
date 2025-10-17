@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_060.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_060_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "I don't lose fruit on the hook to receive them but hook on it an insect or a grasshopper and then bring it back and forth in front of the fish's mouth good it doesn't want it why don't we use that tactic to kill people when people ask the prime minister lal why he has held power for so long while others were overthrown and abandoned together answer I always try to find bait that suits the fish's taste note see appendix 1 and note why always say the letter that",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

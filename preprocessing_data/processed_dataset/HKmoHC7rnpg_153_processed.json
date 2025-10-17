@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_153.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_153_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "rất lâu sau khi bắt đầu theo lớp dạng của tôi ông với trời đi xe hơi về quê bà để thăm họ hàng bà mất đi thăm những người khác cho nên một mình Ông hậu chuyện một bà cô bên nhà vợ ông quyết thực hành nghe những lý thuyết đã học được và kiếm trung bình ông xem có cái gì có thể chân thành khen được không Ông hỏi bà cô cô nhà qua cấp A890 1,95 đó coi nhà này trông nhớ lại nữa cháu sinh trưởng nhà đẹp quá Rồng kiểu rất khéo",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

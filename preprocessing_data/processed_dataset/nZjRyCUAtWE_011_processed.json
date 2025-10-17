@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_011.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_011_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "always returns to the same place will be criticized we will certainly find every reason to defend itself chicken come back to accuse us what so Mr. aharon can YouTube a president negative person of in the war to the north he abolished slavery in America very note  left behind a reputation as the most talented leader of the masses in human history. In his youth, he enthusiastically criticized anyone, even to the point of killing people's favorite worshipers. He then",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

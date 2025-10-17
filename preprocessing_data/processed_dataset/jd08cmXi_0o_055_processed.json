@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_055.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_055_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "có thể đưa ra cho vụ làm ăn của chúng ta những quyết định kiểu này thường dẫn đến những điều đáng tiếc và ít khi xây dựng được những mối quan hệ lâu dài trong thực tế bằng việc trì hoãn những cuộc thương lượng với người vừa trải qua Cảm xúc tiêu cực bạn sẽ củng cố mối quan hệ của mình khiến bản thân trở nên đáng khâm phục vụ chu đáo và thông thái những phẩm chất quý báu mà bất cứ ai cũng mong Ừ để trở nên thuyết phục hơn số 48 làm thế nào Cảm Xúc Có thể làm thay đổi sự thuyết phục",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

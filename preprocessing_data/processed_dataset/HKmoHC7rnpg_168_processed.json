@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_168.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_168_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "nghèo khổ qua ông hồi nhỏ bà mẹ quá nấu cơm cho khách trò còn ông thì làm thư ký sau khi ước cho một Sợ bảo hiểm để kiếm mỗi ngày 5 cách cảnh nghèo khổ ám ảnh ông này ngày đêm làm ông lau xài lắm dài nhất quyết kiếm sao cho đủ số tiền để bà cụ khỏi cảnh rất giỏi đó Thấy ông Adam sinh chăm chú nghe ông hăng hái tại những đêm thí nghiệm các tấm kính chụp hình sau khi đạo đức giả cả ngày ở vùng giấy Chị chụp mắt được một chút trong khi đợi Chắc chất hóa học ngắm thành sự có lần luôn 27 giờ đồng hồ",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

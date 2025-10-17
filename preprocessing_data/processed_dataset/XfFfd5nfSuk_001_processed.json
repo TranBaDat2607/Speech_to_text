@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_001.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_001_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "Hi xin chào các bạn tác phẩm bạn đang nghe được trình bày bởi giọng đọc Thu Thảo các bạn đã lắng nghe kênh YouTube sách nói Việt Nam đừng quên bấm đăng ký để ủng hộ kênh các bạn nhé sức mạnh của việc đặt câu hỏi tại sao Chris weidman 272 Trang khổ 13x 20,5 cm Đôi nét về Tác giả WeChat wheelman là một diễn giả tác giả và là nhà tư vấn chiến lược kinh doanh",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

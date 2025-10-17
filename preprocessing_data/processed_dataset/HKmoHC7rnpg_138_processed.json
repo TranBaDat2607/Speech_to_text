@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_138.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_138_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "dục đó nằm cho người khác loài nhật trong mấy chục thế kỷ các chức năng tìm kiếm các định luật chi phối sự giao thiệp giữa người với người và tất cả những sự tìm tòi đó đều đưa đến mỗi một quy tắc không mới mẻ gì Một quy tắc đã có từ hồi những loại mới có sử 3000 năm trước souris đã dạy quy tắc đó cho dân 34 thờ Thuận lửa 24 thế kỷ trước Khổng Tử đã giảm tới nó lão từ cũng đã đem ra vậy Học Trò YouTube lão tử không thể có học trò chị",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

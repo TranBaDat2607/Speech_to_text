@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_043.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_043_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "ngày dễ dàng hơn giải quyết một vấn đề tạo ra một cá tính riêng Trải nghiệm cảm giác tình hãy hoặc bất kỳ thứ gì khác mà họ muốn làm chẳng hạn bạn sẽ tập trung toàn bộ vào việc giúp họ thực hiện điều đó Tôi gọi đó là bán hàng dựa trên lợi thế huyền thoại bán hàng Zig ziglar cũng nói như vậy các mọi người có được những gì họ muốn và bạn sẽ có được những gì bạn muốn do kagi cũng nói điều này một cách sâu sắc trong cuộc sách Đắc Nhân Tâm chẳng hạn hàng nghìn nhân viên bán",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

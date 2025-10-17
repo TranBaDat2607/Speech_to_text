@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_177.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_177_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "sách lại và ngay từ bây giờ người đầu tiên nào lại gần bạn cũng đem thí nghiệm giờ họ thuộc Khanh đó bạn sẽ thấy thật là thần hiệu 6 cách gây thiện cảm một thành thật Chú ý tới người khác hay giữ nụ cười trên môi 3 a nhớ rằng người ta cho cái tên của người ta là một âm thanh êm đẹp nhất quan trọng nhất trong các âm thanh 4 biết nghe người khác nói chuyện khuyến",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

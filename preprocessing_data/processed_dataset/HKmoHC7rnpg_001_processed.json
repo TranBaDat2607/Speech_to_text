@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_001.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_001_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "ở phần 2 6 cách gây thiện cảm chương 1 để cho tới đâu cũng được tiếp đón niềm nở ẩm thực tình bạn cũng chẳng cần đọc sách này mới biết cách Đắc nhân tâm bạn chỉ cần áp dụng những phương pháp thu phục cảm tình của một con vật mà chả Hoàn Cầu không ai thương mến Lát nữa ra đường bạn sẽ gặp nó khi còn xa bạn trường 10 Bước nó đã bắt đầu ra chạy rồi nếu ngừng lại mà rút ra nó thì nó chồm",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

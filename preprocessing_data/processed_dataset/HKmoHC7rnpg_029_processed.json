@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_029.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_029_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "chỗ chị xin kể ra hai thôi ông Sounds làm việc tại một ngân hàng được lạnh trên phái điều tra kính xem một hãng kia có đánh được ngân hàng tín nhiệm không anh không bằng lại thăm ông giám đốc một công ty kỹ nghệ lớn để sinh ông giúp cho ít tài liệu về hãng nào ông kia trả lời một cách mơ hồ rụng ra như người không muốn bị liên lụy cuộc gặp gỡ đó vừa ít ông qantas thất vọng không biết làm sao bộ nhông xích nhớ khi sắc vô phòng giấy này chỉ ngày đó có nghe một cô thư ký",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

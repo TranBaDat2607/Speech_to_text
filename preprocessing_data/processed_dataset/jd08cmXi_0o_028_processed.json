@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_028.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_028_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "mô tả Lý do họ thích hợp với công ty của bạn cuộc nghiên cứu do Rio Rio và các cộng sự tiến hành đã gợi ý rằng quá trình này sẽ củng cố cam kết của khách hàng với công ty của bạn bởi việc này nhắc nhở họ về mối quan hệ liên tục lâu dài hợp lý có lợi chứ không phải là một thói quen đơn giản nói cách khác hãy khiến mọi người nói gì với bạn giống như Dota và những người bạn đồng hành của cô họ cũng sẽ hát vang lời ca ngợi bạn đấy 39 Khi nào yêu cầu đưa ra nhiều lý do để giải thích lại là một sai lầm Nếu bạn",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

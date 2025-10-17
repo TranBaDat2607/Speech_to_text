@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_015.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_015_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "ông viết một cuốn sách nói về đời tư của ông trong đó có câu chuyện lý thú này một hôm nhà tôi hỏi tổng thống và loài chim Dada mà nó chưa từng thấy bao giờ ngày Tạ Thị Mỹ loài chim đó cho nó em một mét sau có người kêu điện thoại chú thích hai địa chồng đó ở nhà dưới ông reo ở nhà trên giữa có sân hết chứ thích nhà tôi chạy lại trả lời thì ra ngài Tổng thống kêu nó cho nó hay rằng hiện có một con chim Dada đầu trong sân cỏ và nếu nấu bún coi thì nó ra sẽ thấy",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

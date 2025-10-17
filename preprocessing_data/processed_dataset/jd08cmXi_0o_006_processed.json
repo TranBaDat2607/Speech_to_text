@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_006.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_006_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "Chúng tôi sẽ cố gắng nhiều hơn nữa 29 những khuyết điểm nào giải phóng rào cản cho con người hãy chắc chắn rằng đằng sau buổi thảo luận về những hạn chế là những đặc tính vượt trội liên quan dung hòa hạn chế đó khi bạn được cho quả chanh hãy cố gắng làm ra một cốc nước chanh chứ đừng tạo ra nước cáo 30 Khi nào Việc thừa nhận sai lầm là thích hợp các nhà nghiên cứu nhận ra rằng khi các công ty giải thích thất bại trong báo cáo hàng năm của mình những công ty cho rằng Anh nói là nguyên nhân từ bên trong",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

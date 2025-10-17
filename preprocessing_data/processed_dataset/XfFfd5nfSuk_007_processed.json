@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_007.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_007_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "diện cho công ty của bạn từ việc xây dựng đội ngố phát triển sản anh đến kinh doanh hay giữ chân khách hàng cam kết giá trị độc nhất là gì Ngày nay rất dễ dàng để doanh nghiệp có mặt trên thị trường Nhưng làm sao để được khách hàng nhận biết và lựa chọn lại là một câu hỏi là giải cách trẻ hoạt động kinh doanh thuộc lĩnh vực nào trong nước hay quốc tế để trở nên nổi bật thật sự là một việc rất khó khăn ngay cả khi kinh doanh những sản phẩm độc nhất bạn cũng cần có sự khác biệt Nếu không Bạn có thể",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

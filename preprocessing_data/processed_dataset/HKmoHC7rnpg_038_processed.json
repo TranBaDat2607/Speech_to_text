@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_038.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_038_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "quả đó thật là một kỳ tích đối với tôi Tôi không mời mà được người mua chỉ trong 2 giờ đồng hồ cô chú ý quan tâm tới công việc của ông mà được kết quả nhiều hơn là luôn 25 gắng sức chỉ tìm cách làm cho mấy để ý đến tôi và than của tôi - nghĩ đó không mới mẻ gì từ ngày xưa 100 năm trước thiên chúa giáng sinh một thi sẽ La Mã Papa stylish đã nghiệm rằng chúng ta chỉ chú trọng tới người nào chứ chồng tới ta dạy muốn dây được tình thân của người",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

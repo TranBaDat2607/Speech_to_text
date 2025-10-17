@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_044.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_044_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "he praised his servants in front of them he gathered absent he needed to find like praise them after he died he also thought of this sentence to make others like on his tombstone This is the eternal resting place of a person who knows how to employ people smarter than him chocolate millionaire also has no other secret when a member of the company He invested capital note we do business I have not liked a disastrous way in South America made the company lose 1 million US dollars",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_117.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_117_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "của một người đàn bà muốn được người chú ý tới trước hết phải biết chú ý tới người bạn nên đặt những câu vấn mà ai cũng sẽ mê đáp Tất nhiên những câu hỏi về đời tư hay đời công của họ Những thành công của họ nên nhớ rằng người nói chuyện với ta quan tâm tới những thể dục những vấn đề của họ Ừ thì chị quan tâm đến ta đến nỗi thắc mắc của ta một phần thôi bệnh răng dài giờ người đó hơn là cảnh đói kém làm chết cho triệu dân Trung",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

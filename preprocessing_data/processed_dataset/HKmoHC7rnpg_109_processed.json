@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_109.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_109_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "lúc đó cậu mới 14 tuổi rưỡi là nhà dùng bữa già nói chuyện nhờ kiểu kích thích những người đó tả lại Những thành công của họ một dưỡng à mà bất cứ danh nhân hay thường nhân ai cũng như nói tới mà không chán xin cậu bé xuất thân hèn hạ đó không bao lâu được giao thiệp với một số lớn danh nhân nước Mỹ và được nhiều nghị quyết đại như cách quý sự giao thiệt đó Ừ chúc cho cậu một đức tính quý báu một hoài bão và một kỳ vọng cao xa xoay chuyển hẳn cả cuộc đời cậu Dạ tôi nhắc lại được dậy chỉ nhờ",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

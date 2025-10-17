@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_059.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_059_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "work Dac  Human Heart Author delkin is translator Nguyen Hien Le Truong Ba please follow the suggestion in people the idea from wanting to do the job that we ourselves suggest to go they give me then just fruit but don't understand anything Another secret and constantly deceive fruit like me but like the same thing when fishing I don't think of typing the word like but only think of what you like I don't lose fruit on the hook to receive them but hook on it an insect",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_055.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_055_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "dịch vụ khách hàng tuyệt vời của họ là lý do quan trọng để khách hàng kinh hoàng với họ Tuy nhiên tùy quan điểm của khách hàng dịch vụ khách hàng tốt là những gì họ mong đợi nhận được khi mua hàng ở bất cứ lĩnh vực hay tổ chức chuyên nghiệp nào đây không phải là ngoại lệ nhưng là các quy tắc vì vậy nó không phải là lý do thực sự khiến họ quyết định chọn một sản phẩm hoặc dịch vụ cụ thể nào cho dù đó là một chiếc ôtô một cái máy tính mới hay một thứ gì đó bình thường như khoai tây chiên ở một",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

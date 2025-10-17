@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_121.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_121_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "after 3 occasionally but read to ask yourself how and when to practice the set of rules four translations below as main idea year every month shrink save her once 6 system when opportunity comes then must practice immediately you learn use this as a compass to solve daily difficulties 7 give a close friend a certain amount of money every time he cheats you by going against those principles like that to make learning turn into a fun game 8 review your",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

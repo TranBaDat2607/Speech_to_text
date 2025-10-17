@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_161.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_161_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "ông trưởng tòa vừa lòng lắm chắc quà sĩ đi Coi bầy chó và những giải thưởng chúng đã chiếm được nói chuyện rất lâu và dòng giống cái con chó đó và sau cùng Hỏi ông của em trai nhỏ không thưa tôi có một cháu trai chắc nó thích có một con chó nhỏ nó chỉ nữa chắc nó sẽ mê được để tôi cho cháu một con Ừ rồi ông trưởng tòa chỉ cho quạt sĩ cách nuôi chó lại cẩn thận đánh máy lên giấy sợ ông này không nhớ thành thử ông",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

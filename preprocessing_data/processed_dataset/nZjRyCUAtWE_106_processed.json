@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_106.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_106_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "chapter 48 advice to help you read this book more is at least one want to read this book to get many benefits need to have the essential virtue section more important not sure that you all rules without it no matter how good the lesson is it is not useful but with it you don't need those lessons to do the things that scholars often teach what is the magical condition is very simple must have a passionate desire want to learn more want to learn more and a",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

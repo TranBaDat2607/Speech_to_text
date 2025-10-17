@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_021.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_021_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "ảnh ta tự nhiên một ngày kia cô quyết định sẽ học theo lời khuyên của Franklin Mặc dù giám đốc của cô không phải kiểu người chỉ biết đến công việc Anh ấy là người đàn ông hết lòng vì gia đình một tấm gương điển hình mà cô thực sự ngưỡng mộ sau khi chú ý đặc điểm này sân dân cô quý mến anh hơn một ngày nọ cô chân thành nói với anh răng cô ngưỡng mộ những tình cảm mà anh dành cho Tôi rất ngạc nhiên ngày hôm sau giám đốc vào phòng cô cung cấp một số thông tin rất có ích đối với cô một hành động mà cô",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

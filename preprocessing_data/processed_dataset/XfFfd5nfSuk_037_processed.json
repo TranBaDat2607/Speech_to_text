@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_037.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_037_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "hiện diện khác biệt trên thị trường khiến khách hàng liên tục tìm hiểu và mua sản phẩm của bạn bước 4 tạo nên sự khác biệt Bây giờ bạn đã thiết lập được cam kết giá trị độc nhất và rèn toàn bộ tổ chức của mình gắn kết trong một nền văn hóa có thể thực hiện cam kết đó mọi lúc các bước tiếp theo là tiến vào thị trường Đồng thời thúc đẩy nó đến các khách hàng cũ hiện tại và tiềm năng của bạn nguyên tắc đầu tiên tôi muốn bạn cần phép ở đây là quá trình sử dụng trí tò mò thay vì sự thuyết phục để tạo ra sự",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

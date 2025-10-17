@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_050.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_050_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "gương là để soi xem bề ngoài của chúng ta chồng như thế nào nhưng những chiếc gương lại có vai trò như những chiếc cửa sổ mà nhìn vào đó chúng ta thấy mình trồng ra sao và có thể quan trọng hơn chúng ta muốn như thế nào tính cách con người chúng ta kết quả là tự nhìn vào gương sẽ khiến chúng ta hành sự theo các cách được xã hội mong đợi hơn nếu đặt trước gương vào một vị trí cụ thể mà không thực tiễn có hai khả năng có thể tạo ra hiệu ứng của những trận lương trước tiên nhà tâm lý học xã hội sdn và",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

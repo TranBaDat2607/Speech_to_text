@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_170.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_170_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "sau bữa ăn ông ít Minh rất khách đi xem ghế ghế xấu chị đánh giá một đồng một chiếc nhưng ông eastman là người đã kiếm được cả trăm triệu bạc Dinh Hằng Khuê những chiếc ghế đó lắm vì chính tay ông đã sửa nó Rốt cục trái comment ghế chín vàng bị kiêm đó ai được lãnh chắc bạn đã hiểu ra từ đó hai người thành cặp tri kỷ cho tới khi ông ít mà ăn mất Cháy ảo thuật của lời Trang đó có nên dùng trong gia đình không Tôi tưởng không có nơi nào người ta cần dùng nó mà",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

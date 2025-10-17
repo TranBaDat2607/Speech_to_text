@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\FFK4A6_qrlI_033.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\FFK4A6_qrlI_033_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "giúp đỡ người khác và do người ta cảm thấy có trách nhiệm giúp đỡ lại à Dạ không mất mát gì khi bạn viết một lá thương hay email gửi đến Giám đốc của trung tâm đó bạn có thể sẽ tránh không lạc vào một ván rồi chiến thuật mà có thể là một cuộc đấu khẩu với Trung tâm Hàng không đó video này có thể khiến bạn thất vọng này tức tối đấy khi bạn còn giữ đúng lời hứa chiến lược này còn hữu hiệu và mang tính đạo đức cao 10 vượt dụng văn phòng nào có thể giúp nâng Tầm ảnh hưởng của bạn khi yêu cầu",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

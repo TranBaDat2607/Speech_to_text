@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_057.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_057_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "tổng kết có rất nhiều thứ bạn và đội ngũ được tích hợp cam kết của bạn có thể làm để nâng cao từng tiếp xúc điểm và chuyển giao các trải nghiệm thăng hoa cho khách hàng chẳng hạn nhiên nếu đang điều hành một cửa hiệu làm tóc tập trung vào cắt tóc trẻ em liệu bạn có thể tổ chức mừng sinh nhật cho những đứa trẻ hay tổ chức những bữa tiệc tình Nhật hàng tháng không lễ 3 missiles bestrun2 rước lễ lần đầu trong Công giáo thì sao nếu sở hữu hai điều hành công ty sữa ống nước của Dương Minh liệu những",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

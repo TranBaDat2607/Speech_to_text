@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_018.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_018_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "chúng tôi phục vụ họ tốt hơn hành động viết ra một câu trả lời rất thích sang câu hỏi tại sao tôi cần phải soạn bạn sau đó tự hỏi bản thân liệu rằng câu trả lời của bạn có chiếm được sự chú ý của khách hàng tiềm năng bằng cách diễn tả điều họ thực sự mong muốn không Nó có tạo ra sự hiện diện khác biệt của bạn trong thị trường không Đặc biệt đối thủ cạnh tranh của bạn có cùng câu trả lời với bạn không có phần nào trong câu trả lời nói về bạn và công ty của bạn quan điểm của bạn học vì nó hoàn",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_024.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_024_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "Lan để khỏi nhức đầu cả triệu người đầu tiên sống hoặc phân thay ông gì mà Trung đám lửa giận bùng bùng của cả nhân loại đó là có một đứa nhỏ dưới trông một bức thư giản dị và chân thành chứa chan tình quý mến và ngưỡng một đứa nhỏ nói ai nghĩ sao mặc ai riêng với nó hoàng đế Quy Nhơn bao giờ cũng là chúa nó hoàng đế của nó hoàng đế chạm động gì bức thư đó lắm nên mời nó qua Hà Lan tha mong đứa nhỏ đi có má nó theo kích cục là một đám cưới đứa",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

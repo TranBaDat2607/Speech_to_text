@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_032.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_032_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "khác công ty máy điều hòa miền Nam trụ sở tại Florida là một ví dụ tuyệt vời cam kết giá trị độc nhất của họ được tuyên bố rõ ràng chúng tôi đúng hạn hoặc bạn không phải trả một ô ô một lời cam kết mạnh mẽ đối với những người đã lãng phí cả ngày để chờ đợi nhân viên dịch vụ nó rất thu hút ở những phần điều nữa tôi gọi và hỏi một người phụ nữ trẻ để xem cách thức mà còn gì này đảm bảo đúng hẹn cô ấy nói với tôi rằng họ lên lịch cho các cuộc hẹn đủ dài để đảm bảo thời gian đi lại và thời gian",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_064.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_064_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "hiệu quả của caffein khi người tham gia đọc lên các thông điệp chứa được những lập luận yếu kém kết quả cho thấy trong những hoàn cảnh này caffein có sức mạnh thuyết phục rất nhỏ những phát hiện trên hàm ý cách bạn đang định diễn thuyết trước người khác như thế nào gồm cả những khách hàng tương lai hay bạn bè đồng nghiệp [âm nhạc]",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

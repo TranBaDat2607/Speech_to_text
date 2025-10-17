@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_054.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_054_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "như trạng bụi trong nước biển lần lần tụ mà trở nên san hô bạn hãy in sâu giả hình dung nhân vật có tài năng trung tính và hữu ích mà bạn muốn trở nên Rồi mỗi giờ trôi qua tưởng tượng sẽ lần thay đổi bạn cho tới khi thành hẳn nhân vật đó Mảnh Lực của tư tưởng tối cao Bạn hãy nuôi lấy một tâm trạng quân tử trang đảm trường chính và vui vẻ gì Tư tưởng đẹp thì hành vi tốt đẹp đã ham muốn rất phải thành công ra lời",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

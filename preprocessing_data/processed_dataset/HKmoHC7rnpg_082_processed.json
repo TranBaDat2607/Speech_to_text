@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_082.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_082_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "nhiều hi sinh nhỏ muốn gây thiện cảm xinh bạn để ý tới quy tắc thứ ba này phải nhớ rằng tên một người đối với người đó là một âm thanh quan trọng và em tay hơn thích thảy những âm thanh khác tác phẩm Đắc Nhân Tâm Tác giả their careers người dịch Nguyễn Hiến Lê bạn muốn thành một người nói chuyện có duyên không dễ lắm mới dồi sau 1 thìa rượu chủ nhà mời tôi đánh bài Tôi không biết chơi mà bà ngồi bên cạnh tôi cũng vậy Chúng tôi nói chuyện với nhau bà ấy",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

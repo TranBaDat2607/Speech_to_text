@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_126.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_126_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "tôi nhiều hơn số Tôi muốn nữa tôi chị xin phí tổn cho một hướng đạo sinh mà ông Chịu phí tổn cho tới năm người và trả cho tôi nữa ông lại còn cho tôi một tờ tín dụng để tới Châu Âu Lãng một ngàn Mỹ Kim ông lại khuyên tôi nên ở châu Âu 7 tuần lễ ông còn đưa cho tôi nhiều bức thư giới thiệu tôi với các nhà đại lý của ông khi chúng tôi tới Paris lúc ấy ông có mặt tại đó ông tiếp đón chúng tôi ra tự lái xe đưa chúng tôi đi coi Châu Thành nữa từng hồi đó ông đã kiếm hiệp cho nhiều hướng đạo sinh của chúng tôi mà cha mẹ",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

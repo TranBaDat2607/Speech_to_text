@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_102.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_102_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "tôi cảm ơn ông đã lại tận đây để cho tôi hay những điều đó như vậy ông đã giúp tôi được một dịp lớn lắm vì nếu phòng kế toán của chúng tôi đã làm cho bức bình thì chắc có nhiều khách hàng dễ dãi cũng bớt mình nữa giờ điều đó Chúng tôi tất nhiên là muốn tránh sinh non tin tôi ông nóng lòng lại phương trình với tôi một thì Tôi nóng lòng muốn biết những nỗi bất bình của ông tới hai kia ông Tài Chắc là tuyệt nhiên không ngờ tôi trả lời như vậy ông giấc mơ kể lại tôi tưởng Ông ấy hơi cụt hứng vì ông ta từ xa lại cú Tí nào để xài tôi cho hả",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

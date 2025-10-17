@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_111.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_111_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "biết người đó hình như lại là chả nàng tím thấy nhất không phải chỉ các danh nhân mới thích được người ta nghe mình nói đâu và Phương chuyện đó thường nhân cũng như họ một dân sự đã nói nhiều người mời bác sĩ tới chị để kể lại tâm sự thôi trong những ngày đen tối nhất của cuộc nam bắc chiến tranh Vincom viết thư các bạn cụ ở dưới North tới Washington để bàn về vấn đề ông bạn tới bạch óc già Linh cô nói với ông trong mấy tiếng đồng",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

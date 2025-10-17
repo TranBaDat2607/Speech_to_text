@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_035.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_035_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "lời chị bảo rồi dạng dãy đầu đề của bạn cãi trong khi nghe và kết luận trông chỉ có ông là giúp tôi được ngoài ông ra khó có người chỉ được cho tôi những điều tôi cần biết à ở trong cuộc tranh luận đó và được ông tôi sẽ mang ơn ông lắm kết quả như vậy theo lời ông Natri tôi chị xin ông ấy tiếp tôi một phút thôi mẫu ấy cũng chỉ bằng lòng tiết tôi 1 phút giây mai sau khi nghe tôi nó rồi ông mời tôi ngồi chả nói chuyện cho tôi đúng 1:47 ông Cho gọi một người chỉ huy khác để viết một cuốn",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

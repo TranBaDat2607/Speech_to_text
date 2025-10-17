@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_074.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_074_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "tượng tô chua là những ai sẽ dị chúng ta quên tên người phần nhiều là gì chúng ta không chịu mất công mất thì giờ chép lại lặp lại cho nó in vào trong đầu óc chúng ta chúng ta tự bào chữa rằng như vậy quá lâu mà công việc ta thì bà bụng quá nhưng chắc không có ai bận gì bằng tổng thống francois dillinger vậy mà ông có khách nhớ được cả tên những người thợ máy ông đã gặp hãng Razer đóng một chiếc xe hơi riêng cho tổng thống Andrew rau rồi cho kỹ sư cho buap Champion dưới một người thợ máy",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

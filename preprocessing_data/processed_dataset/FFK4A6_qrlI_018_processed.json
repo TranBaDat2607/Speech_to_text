@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\FFK4A6_qrlI_018.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\FFK4A6_qrlI_018_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "10 phần trăm điều này có ý nghĩa gì với bạn không Giả sử bạn đang làm việc trong một công ty bày bán rất nhiều phiên bản khác nhau của cùng một loại sản phẩm Mặc dù ngay từ đầu điều này dường như đi ngược lại với trực giác của bạn song cũng đáng để bạn xem xét việc cắt giảm số lượng những chọn lượng công ty đưa ra để giống lên hồi trống thu hút sự chú ý vào những mặt hàng bạn đừng ra nó có thể đặc biệt đúng với những khách hàng chưa quyết định được mình nên mua loại mặt hàng nào tất nhiên có thể có ở các từ",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

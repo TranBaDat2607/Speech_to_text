@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_052.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_052_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "giòn giã một người coi sóc chúng dạng cho tôi khi một em đó hiểu rằng mình sẽ tàn tật suốt đời thì mới đầu như rụng rời rồi bình tĩnh lại trong lòng Giới Định Mệnh rồi cảm thấy sung sướng hơn những đứa trẻ mạnh tôi kính phục những em nhỏ đó chắc em đã cho tôi một bài học mà tôi sẽ ghi nhớ suốt đời xin các bạn đọc dài nhớ tiến hành gì đọc suông không có kết quả những lời khuyên chí lý sau này của giáo sư Air bubble ở nhà ra bạn những đầu lên đưa cầm ra",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

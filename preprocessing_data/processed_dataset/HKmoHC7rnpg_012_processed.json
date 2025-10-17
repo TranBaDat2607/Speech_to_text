@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_012.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_012_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "đi lang thang ăn xin hết ngày này đến nhà khác dài nhờ ngóng những quảng cáo hai bên đường xe lửa mà biết đọc về nhà ảo thuật thiếu gì người biết nhiều hơn ông nhưng ông có hai đức tính mà người khác không có thứ nhất thấu trợ tâm lý loài người và khi lên sân khấu cùng có sức quyến rũ và gây hứng mỗi cử chỉ của ông mỗi lần ông chuyển giọng nói Mũi Né Còn mày là cả một công trình luyện tập mà thích thầy cùng trình đó chỉ có mục đích làm cho khán giả say mê và thấy thì giờ trống Hoa thiếu nhi ông Thành thật Chú ý tới khán",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

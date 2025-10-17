@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_157.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_157_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "hồi đó cô chưa đi nó lần nào hết cháu sang giờ cô Út thẩm mỹ cũng muốn cho cháu chiếc xe đấy Tôi ngạc nhiên đáp Thưa cô cô thương cháu quá cô đồng đã quá Cháu cảm động lắm nhưng thật tình cháu không thể nào nhận được cháu là cháu rửa xa với lại cô còn nhiều cháu ruột cô để cho các anh ấy ra các anh ấy sẽ mừng lắm các bạn lân cháu ruột phải cái thứ cháu nó chỉ mong già này chết để chuyến xe hơi của già không Khi nào cô để xem thách khác này về đây chúng ở đâu vậy",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

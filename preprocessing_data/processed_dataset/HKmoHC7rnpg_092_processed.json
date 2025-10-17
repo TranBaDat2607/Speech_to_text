@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_092.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_092_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "ông đem bộ đồ lại tiệm Phan Anh với người làm công đã bán bộ đồ đó cho ông cũng không phải để phàn nàn nữa mà để giảng dạy cho người bán hàng nghe như người này chưa nghe đã nhắc là ngay tôi đã bán chạy ngàn bộ đó trước mà chứ Hè của AK Ok gì hết lời thì như vậy nhưng giọng còn tệ hơn nữa giọng hung hăng nhưng muốn bảo chú nói dối Chúa ơi tôi đi guốc trong bụng chúng rồi nghe thấy chúng tôi cãi Còn Nhau Một người bán hàng khác chạy lại trên giàu",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

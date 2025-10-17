@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_118.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_118_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "bệnh răng dài giờ người đó hơn là cảnh đói kém làm chết cho triệu dân Trung Quốc một cái ngọt tại cổ người đó làm cho người đó lo lắng hơn bốn chục ngàn động đất ở châu Phi lần sau có nói chuyện với ai xin bạn nhớ tới điều đó Vậy muốn cho người mến bạn theo quy tắc thứ tư sau này biết chăm chú nghe và khuyến khích người khác nổi tiếng họ tác phẩm Đắc Nhân Tâm Tác giả they're crazy người dịch Nguyễn Hiến Lê Làm sao khi",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

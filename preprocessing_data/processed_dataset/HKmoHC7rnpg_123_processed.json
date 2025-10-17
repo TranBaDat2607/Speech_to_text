@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_123.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_123_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "hội hướng nào cùng viết một hôm hai tinh có một đoàn hướng đạo sắp qua châu Âu họp đại hội các hướng đạo sinh toàn cầu Tôi muốn cho một hướng đạo sinh của tôi giữa cuộc đó tôi bằng lại thăm ông hội Chữ một xí nghiệp Giao hàng lớn nhất ở Mỹ sinh ông cấp cho nó phí tốn Du lịch trước khi tới thăm ông tôi tình cờ hay rằng ông mới kín một tấm chi phiếu một triệu Mỹ Kim ạ sau khi quỷ bỏ đi gì không cần xài tới ông đem đóng khung lại giữ làm kỷ niệm một giờ hiếm có gặp mật ong tôi liền xin ông cho co giật",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

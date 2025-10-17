@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_115.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_115_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "you or making a simple customer satisfied, please think a little bit, you have won the emotional prize. first don't let it roll around, it's usually not harmful there, please remember this Or if you have time, open it up and read the marked passages again, apply the rules in it, you will see the results of the letter 7 You set a rule to kill your family or friends that the system meets you breaking a certain rule when you have to pay a fine, you",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

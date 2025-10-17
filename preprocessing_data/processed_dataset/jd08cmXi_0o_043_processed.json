@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_043.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_043_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "về thuyết phục vậy có những ẩn ý gì dành cho các nhà kinh doanh có trả lời là đừng e ngại mà lặng tránh sử dụng những cái tên Mơ hôn cho các đặc tính cụ thể của sản phẩm như sự tiếp cận này không chỉ có tác dụng cho các sản phẩm và dịch vụ Hãy lấy ví dụ bạn đang tìm cách kêu gọi sự giúp đỡ từ đồng nghiệp để hỗ trợ một dự án hay một chương trình đào tạo ở vòng lịch sử dụng tiêu đề 2 cái tên cho dự án bất ngờ hoặc thậm chí là cái tên mơ hồ bạn có thể thúc đẩy cảm giác thu hút và lôi",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

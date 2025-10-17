@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_078.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_078_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "không phải thốt ra như cái máy mà trái lại có một dòng yêu mến thật thà ít ngày sau ông chapman nhận được tấm hình dưới chữ ký của tổng thống rời biếu và mấy lời cảm ơn một lần nữa thật không hiểu được ông kiếm đâu đủ thì giờ để làm công việc gì Chẳng tình đó Pantene gel biết rằng một trong những cách chắc chắn dễ dàng và công hiệu nhất để làm cho một người vui lòng là nhớ tên hò giấy gia tỏ cho họ thấy rằng họ quan",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

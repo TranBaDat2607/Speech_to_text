@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_003.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_003_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "khi tư vấn cho các nhà kinh doanh huấn luyện những nhân viên kinh doanh hoặc Ừ để tìm ra cái gì có giá trị và không có giá trị cho tổ chức và giúp bất kỳ công trình nào đạt được mục tiêu của họ đặt câu hỏi tại sao cũng là một cách tốt để bắt đầu của sách này bắt đầu với tựa đề của chúng ta cuốn sách này nhằm giúp bạn và tổ chức của bạn đạt được điểm thực sự vượt trội trong thị trường cạnh tranh người khác khuya mình nội dung phần 1 xác định cam kết giá trị độc nhất của bạn Tại sao câu hỏi tại sao",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

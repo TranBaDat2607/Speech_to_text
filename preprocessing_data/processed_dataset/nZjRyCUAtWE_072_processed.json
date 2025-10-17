@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_072.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_072_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "Now we're going to the comedy first If you increase the number again you wo n't get a penny my sister can't afford to pay You intend to go somewhere else to hypothesize the solution and lose this word I'll give a speech there will be many rich and famous educated upper class listeners to Russia it 's really a very good advertisement for you you just spend 5000 dollars advertising in the newspaper is not sure to attract such a simple number to the hotel That's also late right Now say I just killed those 2 harmful things",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

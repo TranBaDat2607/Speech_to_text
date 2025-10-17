@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_012.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_012_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "anyone, even to the point of killing people's favorite worshipers. He then brought them to a dead end for everyone to read and laugh at. That was Shiki, so from then on, not only did he never drink or rest for anyone, but he was also tolerant and easygoing with everyone. His motto was, \" Don't line up people if you don't want people to review you.\" During the war between the North and the South, one time, the Southern Army ran to a river at night. It was a storm, but the water rose so high that it",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

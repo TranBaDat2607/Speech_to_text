@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_058.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_058_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "xuân cho trẻ buồn rầu ra là Thuốc màu nhiệm nhất của tạo hóa để chữ lo âu bảy nụ cười không thể mua được không thể sinh như khất thực được không mượn được mà cũng không thể ăn cắp được gì ta khư khư giữ nó thì nó chẳng có giá trị gì Nhưng nếu ta dùng nó một cách phung phí thì giá trị nó vô cùng tám cho nên khi bạn gặp một người mệt nhọc không còn sức Tôi cười với bạn được thì bạn hãy mỉm cười với người đó đi vì người nào không còn lấy nụ cười để tặng chữ khác người đó cần nhận một nụ cười",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

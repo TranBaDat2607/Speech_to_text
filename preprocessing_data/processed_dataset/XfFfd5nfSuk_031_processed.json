@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_031.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_031_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "một mặt tạo ra chỉ vọng về biểu hiện xuất sắc thì vọng này rất thực tế do đó nó phải được Đáp ứng mọi lúc mọi nơi trước khi bạn thực hiện cam kết giá trị độc nhất của mình trên thị trường toàn bộ đội ngũ của bạn phải đồng lòng và cam kết thực hiện nó như vậy Họ sẽ tập trung vào mọi thứ cần thiết để chúng mình lời cam kết của bạn là thận ngược lại điều này sẽ giúp bạn thiết lập được sự hiện diện khác biệt vững chắc trên thị trường và đẩy bạn vượt lên trên các đối thủ khác công ty máy điều hòa miền Nam trụ sở tại Florida là một ví dụ tuyệt vời",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

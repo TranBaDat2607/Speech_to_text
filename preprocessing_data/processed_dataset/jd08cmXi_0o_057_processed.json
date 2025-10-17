@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_057.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_057_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "cảm xúc nó tạo ra là gì cụ thể họ lập luận rằng cảm xúc khiến con người trở nên ít nhạy cảm với sự khác biệt của số lượng họ có xu hướng Chú ý tới sự xuất hiện hai biến mất của một sự việc hơn trong Thuật ngữ kinh doanh điều này nghĩa là mọi người có xu hướng Chú ý tới sự có mặt hay không của đơn chào hàng có cảm xúc chi phối hơn là số lượng cụ thể liên quan làm thế nào ngăn cản những yếu tố này ảnh hưởng tới chúng ta kết những cuộc thí nghiệm đề xuất rằng trong ý tới các con số trước cục thảo luận sẽ giúp",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

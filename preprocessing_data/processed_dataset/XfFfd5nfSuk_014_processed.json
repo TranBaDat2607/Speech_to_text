@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_014.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_014_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "tập trung để mang đến điều đó cho khách hàng không khách hàng có nhận thấy công ty của bạn khác biệt so với các nhà cung cấp khác không khách hàng xác định và phản ứng như thế nào với cam kết giá trị độc nhất của bạn nhiều CIO nhân viên bán hàng và nhân viên tiếp thị cùng đưa ra giả thuyết rằng tất cả khách hàng đều thực sự muốn giá rẻ hoặc được trả giá nhưng từ kết quả phỏng vấn chuyên sâu với những người mua hàng ở tất cả các ngành giả thiết này rõ ràng không đúng ở",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

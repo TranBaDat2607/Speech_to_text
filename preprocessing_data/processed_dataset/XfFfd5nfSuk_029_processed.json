@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_029.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_029_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "trên thị trường bằng cách đẩy mạnh đoàn kết của mình và giành được sự quan tâm của những khách hàng tiềm năng nhưng chắc khi bắt đầu quảng bá vẫn còn nhiều việc phải làm để đảm bảo bạn không bao giờ phá vỡ cam kết giá trị độc nhất của mình hành động khi hàng tốt nhất của bạn là ai người thường xuyên đại diện công ty để tiếp xúc trực tiếp với khách hàng trong công ty bạn là ai Nếu bạn phải kể tên khoảng thứ ba đến bốn người trong nhóm sáng tạo cam kết giá trị độc nhất của công ty thì bạn sẽ kể tên những ai",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

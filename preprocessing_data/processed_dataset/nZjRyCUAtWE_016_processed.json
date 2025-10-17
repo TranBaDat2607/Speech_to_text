@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_016.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_016_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "But that letter was a letter of gentle reproach. You killed him but didn't send it. After he died, people found it in his papers. Maybe he thought to himself, please wait a moment, don't be hasty. It's easy to give orders while sitting peacefully in this White House, but if we were present at the battlefield. If  like you've been in a coma for weeks now we've seen the flow heard the groans of wounded or dying soldiers then maybe we would n't have succeeded in attacking the enemy this time if we had Mi's timidity then",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

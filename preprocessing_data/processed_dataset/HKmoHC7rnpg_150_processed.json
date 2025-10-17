@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_150.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_150_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "không làm nổi mụt gì chia hết thì họ gọi là đồ da trắng đó lời chửi thậm tệ nhất của họ dân tộc nào cũng tự cho mình hơn các dân tộc khác do đó mà có lòng Ái Quốc và chiến tranh chúng ta can đảm nhận kĩ Chân lý này mỗi người mà chúng ta gặp đều coi có một chỗ nào Hương ta nếu bạn muốn được là người đó hãy khéo léo tỏ cho họ thấy rằng là thành thật nhận sự quan trọng của họ trong địa vị của họ xin bạn nhớ lời này của Emma sinh Mỗi người đều có chỗ hơn tôi cho nên ở cơ hạ",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

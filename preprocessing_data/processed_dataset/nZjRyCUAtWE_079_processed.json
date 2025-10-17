@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_079.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_079_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "whatever you want father pay is stupid like that but do it like advertising but destroy the advertising of the country now our company radio has opened the way  for that new mountain of advertising and our radio programs from then until now Give us a higher position than other companies is to limit you the strongest motor oil then what does that have to do with me you are not smart anymore You just show off your immense success like that makes me feel inferior my sister you know",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

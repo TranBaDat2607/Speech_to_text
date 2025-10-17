@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_120.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_120_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "subject of unparalleled value and the aspect of overvaluing something. You will find that your ability to please and entice others will blossom brilliantly like a peach blossom. The hypothesis is that in short, if you want to read books, you will get the most benefits. must have a strong sense of humor hire to learn and practice the rules that govern human interaction or read each chapter twice the age of the new leg after 3 occasionally but read to ask yourself how and when to practice the set of rules",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

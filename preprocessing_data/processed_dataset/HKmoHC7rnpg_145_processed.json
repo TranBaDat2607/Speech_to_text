@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_145.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_145_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "những câu nhân ngắn như xin lỗi đã làm phiền ông có lòng tốt ông là mơ và sâu cùng không quên hay chữ cảm ơn là một thứ dầu làm trơn tru bộ máy sinh hoạt hàng ngày của ta mà lại là dấu hiệu của một sự giáo dục tốt nữa xin bạn nghe chuyện nhà viết tiểu thuyết full tren ông thương ông làm thợ rèn Yahoo nhỏ ông học ít lắm sau khi qua đời ông là một nhà văn giàu nhất thế giới truyền đời của ông già ông thích thơ của dân TP Lacetti lắm ông diễn thuyết ca",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

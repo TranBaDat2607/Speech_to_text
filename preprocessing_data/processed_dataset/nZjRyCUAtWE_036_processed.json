@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_036.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_036_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "the mountains covered in snow all year round in that region, the poet with Tango only prayed that people would name the capital of France after him, now Hao Anh Serbia, I have been shrimped by the whole of England, but still buy something in advance to add prestige to the family, some people pretend to be hurt in people's eyes, deeply, I pamper myself to see myself as important, like a girl who likes to hope to find a husband, the road is too healthy, disabled, last year in bed, forced to long, deeply, for 10 years, wandering down to the coal to get rice and water, the mother is extremely",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

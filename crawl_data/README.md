@@ -1,249 +1,52 @@
-# YouTube Audio And Transcript Crawling Pipeline
+# YouTube Audio Dataset Crawler
 
-English below
+Pipeline tự động để crawl audio và transcript từ YouTube channels, tạo dataset cho ML speech-to-text training.
 
-Pipeline để tải video YouTube và chuyển đổi thành file audio .wav cho training model speech-to-text.
+## Tính năng chính
+
+- Multi-channel crawling: Crawl nhiều YouTube channels cùng lúc
+- Auto subtitle download: Tự động tải subtitle tiếng Việt/tiếng Anh 
+- Audio segmentation: Chia audio thành segments 30 giây chuẩn
+- Dataset generation: Tạo dataset structured cho ML training
+- Smart cleanup: Dọn dẹp file trung gian tự động
+- JSON configuration: Cấu hình linh hoạt qua file JSON
 
 ## Yêu cầu hệ thống
 
-### 1. FFmpeg
+### Python Dependencies
 ```bash
-winget install FFmpeg
+pip install yt-dlp pydub requests beautifulsoup4 pathlib
 ```
 
-### 2. Python packages
+### External Dependencies  
+- FFmpeg: Bắt buộc cho audio processing
+  - Windows: Tải từ https://ffmpeg.org/download.html
+  - macOS: `brew install ffmpeg`
+  - Ubuntu/Debian: `sudo apt install ffmpeg`
+
+## Hướng dẫn sử dụng
+
+### Method 1: Configuration File (Khuyến nghị)
+
+#### Bước 1: Tạo config file
 ```bash
-pip install -r ../requirements.txt
+cp config.json.example config.json
 ```
 
-## Cách sử dụng
-
-### Phương pháp 1: Sử dụng file cấu hình JSON (Khuyến nghị)
-
-#### Bước 1: Cấu hình
-Chỉnh sửa file `config.json` để tùy chỉnh các tham số:
-
+#### Bước 2: Chỉnh sửa config.json
 ```json
 {
   "channels": [
-    "https://www.youtube.com/@abc"
+    "https://www.youtube.com/@sachnoivietnam15",
+    "https://www.youtube.com/@KhoaiLangThang"
   ],
   "crawl_settings": {
-    "max_videos_per_channel": 20,
-    "min_duration_seconds": 60,
-    "max_duration_seconds": 3600,
-    "video_selection_strategy": "longest",
-    "batch_multiplier": 3
-  },
-  "subtitle_settings": {
-    "languages": ["vi", "en"],
-    "format": "srt"
-  },
-  "audio_settings": {
-    "segment_duration_seconds": 30,
-    "audio_format": "wav",
-    "sample_rate": 16000
-  },
-  "pipeline_settings": {
-    "cleanup_intermediate_files": true,
-    "create_dataset_summary": true
-  },
-  "output_settings": {
-    "base_output_dir": "datasets",
-    "create_channel_folders": true,
-    "save_metadata": true
-  }
-}
-```
-
-#### Bước 2: Chạy pipeline
-```bash
-python channel_to_dataset_pipeline.py
-```
-
-### Phương pháp 2: Chế độ tương tác
-```bash
-python channel_to_dataset_pipeline.py
-# Sau đó gọi main_interactive() thay vì main()
-```
-
-### Phương pháp 3: Từ file URLs có sẵn (Cách cũ)
-```bash
-# Bước 1: Tải subtitle
-python download_subtitles_ytdlp.py
-
-# Bước 2: Xử lý audio
-python youtube_audio_processor.py
-
-# Bước 3: Tạo dataset labels
-python create_dataset_labels.py
-```
-
-## Tham số cấu hình quan trọng
-
-### Crawl Settings
-- **channels**: Danh sách URL các channel YouTube
-- **max_videos_per_channel**: Số video tối đa mỗi channel (mặc định: 20)
-- **min_duration_seconds**: Thời lượng video tối thiểu (mặc định: 60s)
-- **max_duration_seconds**: Thời lượng video tối đa (mặc định: 3600s)
-- **video_selection_strategy**: Chiến lược chọn video
-  - `"longest"`: Ưu tiên video dài nhất
-  - `"shortest"`: Ưu tiên video ngắn nhất  
-  - `"first"`: Lấy theo thứ tự (mặc định)
-- **batch_multiplier**: Hệ số nhân để lấy nhiều video hơn rồi lọc (mặc định: 3)
-
-### Audio Settings
-- **segment_duration_seconds**: Độ dài mỗi audio segment (mặc định: 30s)
-- **audio_format**: Format audio output (mặc định: "wav")
-- **sample_rate**: Tần số lấy mẫu (mặc định: 16000 Hz)
-
-### Pipeline Settings
-- **cleanup_intermediate_files**: Xóa file trung gian sau khi hoàn thành (mặc định: true)
-- **create_channel_folders**: Tạo thư mục riêng cho mỗi channel (mặc định: true)
-
-## Input
-- **config.json**: File cấu hình chính (phương pháp 1)
-- **Channel URL**: Link YouTube channel (phương pháp 2)
-- `youtube_video_urls.txt`: File chứa danh sách URL YouTube (phương pháp 3)
-
-## Output
-- `subtitles/`: Thư mục chứa file .srt subtitle
-- `audio/`: Thư mục chứa file audio gốc
-- `audio_segments/`: Thư mục chứa file .wav 30 giây
-- `dataset/`: Thư mục chứa dataset cuối cùng (file .wav + .json)
-- `processing_metadata.json`: File metadata xử lý audio
-- `dataset_summary.json`: File tổng kết dataset
-
-## Cấu trúc file
-
-### Audio segments
-- Format: .wav
-- Thời lượng: 30 giây
-- Chất lượng: 192kbps
-- Tên file: `{video_id}_segment_{số}.wav`
-
-### Dataset labels (JSON)
-```json
-{
-  "start": 0,
-  "end": 30,
-  "video_id": "ALysMspFXxE",
-  "text": "xin chào các bạn tác phẩm bạn đang nghe"
-}
-```
-
-### Dataset summary
-```json
-{
-  "total_videos": 3,
-  "total_labels": 15,
-  "videos": {...},
-  "created_at": "2025-01-01T10:00:00"
-}
-```
-
-## Ví dụ sử dụng
-
-### 1. Crawl dataset từ nhiều channel với cấu hình tùy chỉnh
-```bash
-# Chỉnh sửa config.json với channels và tham số mong muốn
-python channel_to_dataset_pipeline.py
-```
-
-### 2. Test với một channel đơn lẻ
-```python
-from channel_to_dataset_pipeline import ChannelToDatasetPipeline
-from config_manager import ConfigManager
-
-config = ConfigManager()
-pipeline = ChannelToDatasetPipeline("https://www.youtube.com/@abc", config)
-pipeline.run_pipeline()
-```
-
-### 3. Kiểm tra cấu hình hiện tại
-```bash
-python config_manager.py
-```
-
-## Lưu ý quan trọng
-
-### Về hiệu suất
-- **batch_multiplier = 3**: Lấy gấp 3 lần video để đảm bảo đủ sau khi lọc
-- **video_selection_strategy = "longest"**: Ưu tiên video dài để có nhiều dữ liệu hơn
-- Quá trình crawl có thể mất 10-30 phút tùy số lượng channel
-
-### Về chất lượng dữ liệu
-- Chỉ lấy video có subtitle tiếng Việt/tiếng Anh
-- Loại bỏ video private, premium, subscriber-only
-- Lọc video theo thời lượng để đảm bảo chất lượng
-
-### Về dung lượng
-- Mỗi video ~10-50MB tùy độ dài
-- Dataset cuối cùng ~100-500MB cho 20 video/channel
-- Bật `cleanup_intermediate_files` để tiết kiệm dung lượng
-
-## Xử lý lỗi thường gặp
-
-### 1. "Không crawl được video nào"
-- Kiểm tra URL channel có đúng không
-- Thử giảm `min_duration_seconds` trong config
-- Kiểm tra kết nối internet
-
-### 2. "Video không khả dụng"
-- Video có thể bị private/deleted
-- Tăng `batch_multiplier` để crawl nhiều video hơn
-- Thử channel khác có nhiều video công khai
-
-### 3. "Không tải được subtitle"
-- Video có thể không có subtitle
-- Thử thêm ngôn ngữ khác vào `subtitle_settings.languages`
-- Kiểm tra video có auto-generated captions không
-
-## Cần kết nối internet và file .wav sẵn sàng cho training model
-
----
-
-# English Documentation
-
-# YouTube Audio And Transcript Crawling Pipeline
-
-Pipeline to download YouTube videos and convert them to .wav audio files for speech-to-text model training.
-
-## System Requirements
-
-### 1. FFmpeg
-```bash
-winget install FFmpeg
-```
-
-### 2. Python packages
-```bash
-pip install -r ../requirements.txt
-```
-
-## Usage
-
-### Method 1: Using JSON Configuration File (Recommended)
-
-#### Step 1: Configuration
-Edit the `config.json` file to customize parameters:
-
-```json
-{
-  "channels": [
-    "https://www.youtube.com/@abc"
-  ],
-  "crawl_settings": {
-    "max_videos_per_channel": 10,
+    "max_videos_per_channel": 5,
     "min_duration_seconds": 1800,
     "max_duration_seconds": 7200,
     "video_selection_strategy": "longest",
     "batch_multiplier": 3
   },
-  "subtitle_settings": {
-    "languages": ["vi"],
-    "format": "srt"
-  },
   "audio_settings": {
     "segment_duration_seconds": 30,
     "audio_format": "wav",
@@ -252,156 +55,80 @@ Edit the `config.json` file to customize parameters:
   "pipeline_settings": {
     "cleanup_intermediate_files": true,
     "create_dataset_summary": true
-  },
-  "output_settings": {
-    "base_output_dir": "datasets",
-    "create_channel_folders": true,
-    "save_metadata": true
   }
 }
 ```
 
-#### Step 2: Run Pipeline
+#### Bước 3: Chạy pipeline
 ```bash
 python channel_to_dataset_pipeline.py
 ```
 
-### Method 2: Interactive Mode
+### Method 2: Interactive Single Channel
 ```bash
 python channel_to_dataset_pipeline.py
-# Then call main_interactive() instead of main()
+# Script sẽ hỏi channel URL và settings
 ```
 
-### Method 3: From Existing URLs File (Legacy)
-```bash
-# Step 1: Download subtitles
-python download_subtitles_ytdlp.py
+### Method 3: Bulk URL Processing
 
-# Step 2: Process audio
+#### Bước 1: Tạo video URL list
+```bash
+python run_url_crawler.py
+# Tạo file youtube_video_urls.txt
+```
+
+#### Bước 2: Process URLs
+```bash
 python youtube_audio_processor.py
-
-# Step 3: Create dataset labels
-python create_dataset_labels.py
 ```
 
-## Important Configuration Parameters
+## Cấu hình chi tiết
 
 ### Crawl Settings
-- **channels**: List of YouTube channel URLs
-- **max_videos_per_channel**: Maximum videos per channel (default: 20)
-- **min_duration_seconds**: Minimum video duration (default: 60s)
-- **max_duration_seconds**: Maximum video duration (default: 3600s)
-- **video_selection_strategy**: Video selection strategy
-  - `"longest"`: Prioritize longest videos
-  - `"shortest"`: Prioritize shortest videos
-  - `"first"`: Take in order (default)
-- **batch_multiplier**: Multiplier to fetch more videos then filter (default: 3)
+- max_videos_per_channel: Số video tối đa/channel (default: 20)
+- min_duration_seconds: Thời lượng tối thiểu (default: 1800s = 30 phút)  
+- max_duration_seconds: Thời lượng tối đa (default: 7200s = 2 tiếng)
+- video_selection_strategy: Chiến lược chọn video
+  - "longest": Ưu tiên video dài nhất
+  - "shortest": Ưu tiên video ngắn nhất
+  - "first": Lấy theo thứ tự upload
+- batch_multiplier: Hệ số nhân để lọc (default: 3)
 
-### Audio Settings
-- **segment_duration_seconds**: Duration of each audio segment (default: 30s)
-- **audio_format**: Audio output format (default: "wav")
-- **sample_rate**: Sample rate (default: 16000 Hz)
+### Audio Settings  
+- segment_duration_seconds: Độ dài segment (default: 30s)
+- audio_format: Format output (default: "wav")
+- sample_rate: Tần số lấy mẫu (default: 16000 Hz)
 
 ### Pipeline Settings
-- **cleanup_intermediate_files**: Delete intermediate files after completion (default: true)
-- **create_channel_folders**: Create separate folder for each channel (default: true)
+- cleanup_intermediate_files: Xóa file tạm (default: true)
+- create_dataset_summary: Tạo file tổng kết (default: true)
+- parallel_processing: Xử lý song song (experimental)
 
-## Input
-- **config.json**: Main configuration file (method 1)
-- **Channel URL**: YouTube channel link (method 2)
-- `youtube_video_urls.txt`: File containing YouTube URL list (method 3)
+## Cấu trúc Input/Output
 
-## Output
-- `subtitles/`: Folder containing .srt subtitle files
-- `audio/`: Folder containing original audio files
-- `audio_segments/`: Folder containing 30-second .wav files
-- `dataset/`: Folder containing final dataset (.wav + .json files)
-- `processing_metadata.json`: Audio processing metadata file
-- `dataset_summary.json`: Dataset summary file
+### Input Files
+- config.json: File cấu hình chính
+- Channel URLs: Link YouTube channels
+- youtube_video_urls.txt: Danh sách video URLs (optional)
 
-## File Structure
-
-### Audio segments
-- Format: .wav
-- Duration: 30 seconds
-- Quality: 192kbps
-- Filename: `{video_id}_segment_{number}.wav`
-
-### Dataset labels (JSON)
-```json
-{
-  "start": 0,
-  "end": 30,
-  "video_id": "ALysMspFXxE",
-  "text": "hello everyone welcome to this video"
-}
+### Output Structure
+```
+datasets/
+└── {channel_name}/
+    ├── dataset/               # Dataset cuối cùng
+    │   ├── {video_id}_001.wav    # Audio segments (30s)
+    │   ├── {video_id}_001.json   # Transcript labels
+    │   ├── {video_id}_002.wav
+    │   ├── {video_id}_002.json
+    │   └── dataset_summary.json  # Metadata tổng kết
+    ├── subtitles/             # Temporary files
+    ├── audio/                 # Temporary files  
+    └── audio_segments/        # Temporary files
 ```
 
-### Dataset summary
-```json
-{
-  "total_videos": 3,
-  "total_labels": 15,
-  "videos": {...},
-  "created_at": "2025-01-01T10:00:00"
-}
-```
-
-## Usage Examples
-
-### 1. Crawl dataset from multiple channels with custom configuration
-```bash
-# Edit config.json with desired channels and parameters
-python channel_to_dataset_pipeline.py
-```
-
-### 2. Test with a single channel
-```python
-from channel_to_dataset_pipeline import ChannelToDatasetPipeline
-from config_manager import ConfigManager
-
-config = ConfigManager()
-pipeline = ChannelToDatasetPipeline("https://www.youtube.com/@abc", config)
-pipeline.run_pipeline()
-```
-
-### 3. Check current configuration
-```bash
-python config_manager.py
-```
-
-## Important Notes
-
-### Performance
-- **batch_multiplier = 3**: Fetch 3x videos to ensure enough after filtering
-- **video_selection_strategy = "longest"**: Prioritize long videos for more data
-- Crawling process may take 10-30 minutes depending on number of channels
-
-### Data Quality
-- Only fetch videos with Vietnamese/English subtitles
-- Filter out private, premium, subscriber-only videos
-- Filter videos by duration to ensure quality
-
-### Storage
-- Each video ~10-50MB depending on length
-- Final dataset ~100-500MB for 20 videos/channel
-- Enable `cleanup_intermediate_files` to save storage
-
-## Common Error Handling
-
-### 1. "Could not crawl any videos"
-- Check if channel URL is correct
-- Try reducing `min_duration_seconds` in config
-- Check internet connection
-
-### 2. "Video not available"
-- Videos might be private/deleted
-- Increase `batch_multiplier` to crawl more videos
-- Try other channels with more public videos
-
-### 3. "Could not download subtitles"
-- Videos might not have subtitles
-- Try adding other languages to `subtitle_settings.languages`
-- Check if videos have auto-generated captions
-
-## Requires internet connection and .wav files ready for model training
+### Intermediate Files (Tự động xóa nếu cleanup=true)
+- `subtitles/`: File .srt subtitle gốc
+- `audio/`: File audio gốc từ YouTube
+- `audio_segments/`: File .wav đã chia segments
+- `processing_metadata.json`: Metadata xử lý audio

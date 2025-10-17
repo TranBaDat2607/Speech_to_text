@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_036.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_036_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "khách hàng làm trọng tâm trong mọi khía cạnh của doanh nghiệp không Tất cả những mối tương tác trong tổ chức của bạn có được cá nhân hóa và Nhân văn hóa bằng mọi cách không bạn giải quyết những vấn đề cần chú ý dựa chèn những danh sách kiểm tra ở trên như thế nào Em làm thế nào để bạn a giao tiếp b giáo dục C chào quyền D bồi thường đội ngũ của bạn để họ có thể sống với cam kết giá trị độc nhất của bạn mỗi ngày và thực sự đảm bảo sự hiện diện khác biệt trên thị trường khiến khách hàng liên tục tìm hiểu và",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\FFK4A6_qrlI_022.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\FFK4A6_qrlI_022_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "nhân khác khi làm như vậy bạn không chỉ tạo ra giá trị cho đến sắc của mình mà có thể còn tăng sự cuốn hút đối với các thành viên sau này phát hiện này không chỉ có thể được áp dụng trong công việc kinh doanh và các giao dịch dịch vụ công chúng còn có thể áp dụng trong cả sinh hoạt gia đình có lẽ bạn có thể sử dụng những kết quả của nghiên cứu này vào việc thuyết phục con mình rằng để người khác không làm giảm giá trị ý kiến của họ họ nên dừng việc đưa ra những lời khuyên miễn phí 7 sản phẩm mới với em vừa trôi có thể",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

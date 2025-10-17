@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_062.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_062_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "ta uống một sản phẩm Gần giống như nước cam cũng giống một đứa trẻ tinh nghịch đủ thứ nước trong bình của chúng vào cốc rượu tại câu lạc bộ của trường các nhà nghiên cứu đã pha một thứ gì đó vào cốc nước cam trước khi đưa cho một nửa người tham gia uống thử thiên nhiên thay vì biến nước cam thành một cốc rượu họ đã cho vào thứ đồ uống này một chút cà phê tin với nội thất chỉ bạn có thể tìm thấy trong hai cốc cà phí hơi sau khi uống công nước hoa quả đó tất cả những người tham gia đã đọc một loạt các thông điệp với những lập luận hay một vấn đề về",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

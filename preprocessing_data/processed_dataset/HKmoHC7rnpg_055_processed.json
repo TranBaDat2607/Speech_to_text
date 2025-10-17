@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_055.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_055_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "thì hành vi tốt đẹp đã ham muốn rất phải thành công ra lời cầu nguyện nào chân thành cũng được chuẩn hứa lý tưởng của ấp trong lòng sẽ cấu tạo nên những hành vi hợp với Lý Tưởng bạn hãy Có gì nếu trong một cái kén có một con bướm chưa nở thì trong tâm mỗi người cũng có một điểm phật chỉ Đợi dịp phát huy người Trung Hoa thật khôn ngoan câu Phương ngôn này của họ phải được dán trong nắng của chúng ta đòi người nào không biết mỉm cười đừng nên mở tiệm giờ khi bàn tới điều kiện mở",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

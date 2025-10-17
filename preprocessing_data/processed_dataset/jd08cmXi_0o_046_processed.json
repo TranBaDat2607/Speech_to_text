@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_046.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_046_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "rất lớn trong việc sửa chữa trí nhớ size của khách hàng cũng như những sự lựa chọn sản phẩm của họ dựa trên trí nhớ đó và đó chính xác là việc công ty Awards đã làm và đạt được thành công rực rỡ Tóm lại quảng cáo này ám chỉ điều gì Các công ty luôn cố gắng quảng bá thương hiệu của mình thông qua các chiến dịch truyền thông đại chúng nhấn mạnh yếu tố then chốt trong thương hiệu Ví dụ như tính lâu bền chất lượng Hãy tính kinh tế thông qua một đặc tính là hình ảnh thu nhỏ của nó họ cho rằng người xem sẽ nhớ",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

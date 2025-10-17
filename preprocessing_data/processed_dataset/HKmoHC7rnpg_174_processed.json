@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_174.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_174_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "bếp nước phải khéo léo đừng khen bất ngờ quá cho bà hội nhi Nhưng chiều nay hay chiều mai ông nên mua ít môn về biếu bà Đừng nói suông phải gì đó nên làm rồi để đó phải làm ngay đi và xin ông nhớ kèm thêm một nụ cười với dài lời âu yếm Nếu người chồng nào cũng đối đại giết vợ chắc đó thì đâu có chiều vụ như vậy như vậy Bạn có muốn biết làm sao cho một người đàn bà mê bạn không Cái đó mới tài không phải bí quyết của tôi đâu mà của bà",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_046.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_046_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "tuần lẽ mỉm cười và ngay Sáng hôm sau khi rửa mặt nó trong gương tôi tự nhủ phải bỏ cái bộ mặt đường mà đó đi và quyết chí miệng cười khi ngồi bàn ăn sáng tôi hớn hở chào nhà tôi cho tôi ngạc nhiên vô cùng tôi giữ luôn như vậy trong hai tháng này ra tìm thấy được nhiều hạnh phúc trong gia đình hơn trả một năm vừa qua bây giờ gặp người bồi coi thằng máy người giữ cửa người bạn chế xe gặp ai Tôi cũng chào hoặc mỉm cười tôi không chỉ trích ai chia tay hết tôi khuyến khích dài khi người tôi không nói",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_078.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_078_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "I don't care what my new wife wants me to worry about but the bank won't let me stay at my house see another happiness later then eat all my roses yesterday the stock price went down I will call this morning she went over they didn't invite me to the party the doctor said I have arteriosclerosis neuropathy I don't come here then read the wrong letter from a person from then only it comes his plan whatever you want father pay is stupid like that but do it like advertising but",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_047.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_047_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "thông qua một đặc tính là hình ảnh thu nhỏ của nó họ cho rằng người xem sẽ nhớ lại sự liên hệ giữa sản phẩm của họ với Yếu tố đã được khoảng báo trong quảng cáo là một sự giả định hợp lý chứng tỏ sản phẩm đã được tạo ra một cách hoàn hảo Họ cũng cho rằng người xem sẽ nhớ lại sự kiện hiện nay khi sẵn sàng mua sản phẩm và suy nghĩ này thật ngây thơ trí nhớ của khách hàng - i7 hàng nghìn các mối liên hệ trong đời sống hiện đại không tuân thủ riêng bất cứ nhiệm vụ nào ít nhất là không có những dấu hiệu mua bán nào trợ giúp để hồi tưởng lại những",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

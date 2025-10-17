@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_007.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_007_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "cáo hàng năm của mình những công ty cho rằng Anh nói là nguyên nhân từ bên trong có thể kiểm soát được sẽ có giá cổ phần và năm tới cao hơn so với những công ty quy kết cho các yếu tố bên ngoài và không kiểm soát được rồi vậy Nếu nhận trách nhiệm về những sai lầm của mình và thừa nhận lỗi sai không chỉ là một việc làm đúng đắn cho bạn mà còn cho cả con thì bạn đi Tại sao những hành vi kiểu này lại hiếm gặp đến vậy thông thường phản ứng cho những sai lầm phải trả giá đắt hay là mất thành danh bất kể đó là lỗi của",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

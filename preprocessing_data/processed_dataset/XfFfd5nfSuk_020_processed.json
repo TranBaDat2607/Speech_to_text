@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_020.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_020_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "tôi nhận thấy rằng việc khách hàng giúp đỡ trong việc xác định cam kết giá trị độc nhất rất quan trọng để có được một cam kết giá trị đòi hỏi phải tìm hiểu sâu sắc hơn mọi mức độ mà phần lớn chúng ta đã thực hiện từ trước đến giờ con nữa đây không phải là thứ Bạn có thể có được từ công ty quảng cáo các bộ phận nghiên cứu thị trường thậm chí bộ phận Tiếp thị Vâng có nhiều cách sử dụng chuyên môn trong việc chuẩn bị cho nghiên cứu này như tìm hiểu từ sách báo và lập câu hỏi phỏng vấn",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

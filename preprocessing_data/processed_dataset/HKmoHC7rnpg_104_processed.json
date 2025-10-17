@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_104.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_104_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "thiệu mấy dài nhà bán hàng khác giữa mấy không muốn mua giúp tôi nữa Hồi trước Mỗi lần ông ấy cho tỉnh Tôi thường mời ông ấy dùng bữa trưa với tôi lần này tôi cũng mời ông ông Tà bất đắc dĩ nhìn lầy nhưng tới chiều khi cùng với tôi trở lại phòng giấy của tôi không đặt mua cho tôi một số hàng lớn nhất từ trước tới giờ ông về nhà bình tĩnh hơn và muốn tỏ ra công bằng với chúng tôi cũng như chúng tôi đã công bằng với ông ông lục giấy tờ cơm ra kiếm thấy toàn để thức là ra gửi trả chúng tôi 15 Mỹ Kim giới dài lời xin",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

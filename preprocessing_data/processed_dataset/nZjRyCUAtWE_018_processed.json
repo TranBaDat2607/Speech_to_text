@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_018.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_018_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "harsh words are not beneficial at all Mr. sol-gel recounted that when he was President every time he met someone he was embarrassed he often leaned back in his chair looked up at the picture of wrinkle hanging on the wall and wondered how to handle it How will I handle it How will we handle it Next time if you want to use someone please help take the 5 USD bill out of your pocket and group the wrinkle god on it and wonder what day will we Vincom handle it And if you want to change someone please",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

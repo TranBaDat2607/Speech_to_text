@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\FFK4A6_qrlI_045.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\FFK4A6_qrlI_045_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "như rất nhiều các cách tiếp cận khác được miêu tả trong cuốn sách này ở những cam kết chủ động cũng có thể hữu ích tạo ra sự hài lòng trong cuộc sống của chúng ta một hành động nhỏ nhưng có ý nghĩa tâm lý rất lớn như bảo đảm một cam kết chủ động do còn trẻ hàng xóm bạn bè đối tác hay thậm chí là chính chúng ta viết ra sẽ tạo ra sự khác biệt giữa khả năng gây ảnh hưởng tới người khác thật hiệu quả và khiến mọi người hoàn thành 18 Làm thế nào bạn có thể đấu tranh với tính nhất quán bằng tính kiên định Giờ",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

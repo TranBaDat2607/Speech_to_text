@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_024.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_024_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "thông tin về sự khan hiếm là thật Họ tăng lượng đơn hàng lên tới Sáu trăm phần trăm những phát hiện này đưa ra một cái nhìn thấu đáo và các ứng dụng hiện yêu cầu của bạn trở nên thuyết phục và nhiều người chấp nhận những yêu cầu ấy hơn nếu bạn truyền thông tin mật cho ai đó không chỉ ra tính độc quyền của nó bạn có thể sẽ mất đi cơ hội tuyệt vời sở hữu một kỹ thuật gây ảnh hưởng hiệu quả và đạo đức 37 bạn học được gì từ sự thất bại cần ghi nhớ rằng có thể bạn sẽ không bị ảnh hưởng bởi chiến lược này ví dụ một số",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

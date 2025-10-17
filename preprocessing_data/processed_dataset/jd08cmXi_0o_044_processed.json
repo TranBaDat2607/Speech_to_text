@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_044.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_044_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "hoặc thậm chí là cái tên mơ hồ bạn có thể thúc đẩy cảm giác thu hút và lôi cuốn đối với dự án đó chúng ta cũng có thể áp dụng bài học của cuộc nghiên cứu này ở nhà ví dụ khi lỗi trẻ đang cân nhắc xem chung thích ra ngoài ăn tối với bạn hay ăn ở nhà việc đưa ra tên gọi cho các món ăn ví dụ như là kênh nhạt thay vì cái tên Thông thường gà có thể thuyết phục chúng ở nhà tất nhiên khi chúng ta thích một buổi tối yên ả ở nhà một mình đưa ra món bông cải xanh và cài Lucian sẽ luôn là một sáng kiến tuyệt vời",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

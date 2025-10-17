@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_076.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_076_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "I want to repeat the secret to success is knowing how to put yourself in the other person's position and consider based on the other person's position, based on your position. - how simple and transparent. Everyone should know it right away, but out of 100 people, maybe 90 people don't know it, out of 99. In case you want to have one.  for example, tomorrow I work You just look at the letters you receive and you will see the lack of salary At that time This is a literal dead letter,",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

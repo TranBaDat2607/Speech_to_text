@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_034.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_034_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "poor people who had And will never see Yuri's face satisfied it by killing people, robbing banks, being hunted by police, hiding in a rice field camp and asking for help from a few people in the camp. Going out is like this, it caught itself The title of enemy number 1 of the masses Many speakers in the world also have the habit of showing off that they are important George Washington forced everyone to Son Tung Ong is the president of the United States, far away Dad demanded a lemon to burn the Atlantic and vice, but India Insulin, the queen of our country refused to read",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

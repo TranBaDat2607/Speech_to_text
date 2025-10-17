@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_015.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_015_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "cập đến những điểm đó trong khi bàn luận trước khi đưa ra bất cứ một yêu cầu 2 bài diễn thuyết nào 33 Khi nào Tên của bạn thể hiện điều bạn đang và dự định sẽ làm với những công ty đặt tên cho sản phẩm mới nhằm đến thị trường rộng lớn nghiên cứu này mang đến cho họ một gợi ý rằng họ nên tránh những cái tên bắt đầu bằng những chữ cái không thường rụng Như ex2 IQ Nhưng nếu bạn đang thiết kế một chương trình Hãy nhớ rằng xu hướng tự nhiên của con người bị lôi cuốn bởi",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

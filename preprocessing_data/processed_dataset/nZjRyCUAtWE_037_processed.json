@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_037.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_037_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "long, deeply, for 10 years, wandering down to the coal to get rice and water, the mother is extremely beautiful, died in a few weeks, miss, depressed One Day Suddenly standing like that, putting on makeup and walking like before, the brain anatomy kit when snails, half of crazy people are normal, our kid, a banana scientist easily noticed that most of those people just want to find in imagination the truth  satisfaction of vanity that is too crazy in real life how mediocre they are from The world we torture so much,",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

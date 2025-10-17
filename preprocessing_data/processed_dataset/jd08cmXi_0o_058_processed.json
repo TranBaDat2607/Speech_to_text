@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_058.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_058_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "cuộc thí nghiệm đề xuất rằng trong ý tới các con số trước cục thảo luận sẽ giúp hồi phục khả năng phân biệt sự khác nhau giữa chúng của bạn loại bỏ những cảm xúc có thể Trái quất sự chú ý của mình bạn sẽ có khả năng thương thuyết vụ làm ăn dựa trên những thông tin thực tế thích hợp và đưa ra được quyết định tốt nhất 49 điều gì khiến mọi người tìm vào mọi thứ họ độc khi là vấn đề quan trọng con người thường có đủ nhận thức và động lực để bác bỏ những câu nói nghe có vẻ như sai nhưng khi mọi người mệt mỏi họ có xu",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

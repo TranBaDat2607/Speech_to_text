@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_039.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_039_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "tới người nào chứ chồng tới ta dạy muốn dây được tình thân của người khác các bạn phải theo quy tắc thứ nhất sau đây Thành Thực chú trọng tới mọi người I những tác phẩm Đắc Nhân Tâm Tác giả des contes người dịch Nguyễn Hiến Lê một cách dễ dàng để gây Mỹ cảm lúc sơ kiến có nhiều bà muốn gây Mỹ chạm tiêu cả một gia tài để đắp vào thân những nhung cùng ngốc đeo giờ mình những dạng cùng Ngọc",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

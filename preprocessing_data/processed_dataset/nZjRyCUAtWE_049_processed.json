@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_049.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_049_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "have They like fish to nourish their health but forget to give them the words of praise it gives to the child long gone like wonderful melodies I know you readers will say what are you The theory that honey kills flies we sing for people to be spiritual is so noble but sir smart people are not white bridges do not post words intending to sing use old and good words on the outside of the lips only fool the receivers it must fail out of love love it failed but it is not",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_116.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_116_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "số trong những cái đó là được mọi người coi là Giới Thượng Lưu chỗ nào chị nói nhà mình thì chị nghĩ tới mình thôi Và chỗ nào chị nghĩ tới mình thôi nhất định là một kẻ thiếu giáo dục ông nicholas Malay pl hội trưởng trường Đại học Columbia nói như vậy dù kẻ đó học hành tới vực nào nữa thì cũng vẫn là thiếu giáo dục giày Nếu bạn muốn người ta coi là nói chuyện có duyên thì bạn phải biết cách nghe nên nghe lời khuyên tại tỉnh này của một người đàn bà muốn được người chú ý tới trước hết phải",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_003.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_003_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "người đã đưa ra phản bác đó bằng cách khuyến khách những người a tiếp tục chúng ta rằng chúng ta đang đi sai hướng chúng ta sẽ tự đặt mình vào vị trí có thể hiểu về những ý kiến phản biện chân thực hơn là những trái ý giả tạo cho phép Chúng ta đưa ra những quyết định tối ưu mà tạo ra những thông điệp có tín hiệu quả nhất 27 khi nào cách làm đúng lại trở nên không phù hợp các giáo viên huấn luyện viên thể thao và hầu như bất cứ ai trực tiếp tham gia việc đào tạo cho người khác bao gồm cả",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

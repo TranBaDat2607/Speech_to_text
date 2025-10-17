@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_151.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_151_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "xin bạn nhớ lời này của Emma sinh Mỗi người đều có chỗ hơn tôi cho nên ở cơ hạ Tôi học họ được điều đau lòng là nhiều khi những kẻ không có chút chi đám Từ Kiều hết lại Khoan rầm rộ để trên lớp những thiếu sót của họ hoặc vàng tới Nội chứng tài gây mất người khác như Shakespeare đã nói mọi người đây Ôi người đời kiêu căng khoác được chút ủy quyền người đó liền diện trước quả công những hài kịch lối lăn cháy nổ chất gì thiên thần phải xa lạ",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

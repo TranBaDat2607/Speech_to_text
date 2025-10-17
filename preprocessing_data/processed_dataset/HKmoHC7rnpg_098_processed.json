@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_098.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_098_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "điện thoại không chịu trả tiền cho rằng công ty tính lộn kêu này trên mặt báo 57 fan đầu đơn kiện ở tòa già tại Ủy ban các công sở sau cùng muốn cho yên chuyền công ty phái một sứ giả khuôn lạnh nhất lại thăm con ếch là đó sứ giả bình tĩnh nghe ông tướng vào đó để mặc trông tung những lời cay đắng ra cho hả lòng và chị gật đầu tán thành Dạ một vật nghe ông ta tung ra trong 3 giờ đồng hồ rồi già lần sau trở lại nghe ông ta tiếp tục",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

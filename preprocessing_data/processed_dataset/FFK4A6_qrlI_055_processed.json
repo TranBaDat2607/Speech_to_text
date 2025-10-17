@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\FFK4A6_qrlI_055.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\FFK4A6_qrlI_055_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "khác mô tả khả năng của bạn mà không cần phải hét lên cho mọi người biết trên thực tế là có lấy ví dụ từ việc một trong số chúng tôi được một nhóm y tá nhờ giúp đỡ vì họ nản lòng bởi sự bất hợp tác của các bệnh nhân trong việc rèn luyện thể lực để cải thiện sức khỏe bất kể những y tá này nỗ lực thế nào để các bệnh nhân hiểu về tính cấp thiết của các bài tập thể dục thì những bệnh nhân đó vẫn không để tâm đến điều đập ngay vào mắt khi chúng tôi xem qua phòng tập là không có bất cứ một thành tích tập luyện",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

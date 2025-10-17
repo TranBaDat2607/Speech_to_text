@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_017.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_017_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "tôi tiến hành cuộc phỏng vấn đầu tiên cái tôi nhận ra ngay lúc đó là 10 Nghe có vẻ vô thưởng vô phạt này mở ra cho tôi một cánh cửa tìm hiểu sâu hơn về lý do khách hàng ở lại với tôi những câu trả lời của họ luôn thành thật và khó để phát biểu một cách hệ thống họ đã có một cơ hội chưa từng có trước đây để nói cho tôi biết suy nghĩ thực sự của họ về tôi và điều công ty tôi thực sự giúp họ có được nó còn tạo ra những câu hỏi khác để chúng tôi phục vụ họ tốt hơn hành động viết ra một câu trả lời rất",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

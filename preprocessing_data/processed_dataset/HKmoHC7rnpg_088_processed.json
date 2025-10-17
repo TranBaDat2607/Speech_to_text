@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_088.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_088_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "người họ một thi sĩ Bảo say mê nghe lời của một người tức là tôn kính hò mà rất thích người không cảm động trước sự tôn kính đó có mấy tôi không nhận chỉ say mê nghe mà thôi còn tỏ ra mấy một tấm lòng quý mến và ngưỡng mộ chân thành nữa tôi nói với ông rằng ông đã chỉ bảo cho tôi rất nhiều và tôi nghe ông nói mà mê đó là sự thật Tóm lại nói rằng nếu được lang thang trong một cánh đồng với ông thì thuốc vô cùng cái đó cũng là sự thật nữa",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

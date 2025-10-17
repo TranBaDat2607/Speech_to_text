@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_073.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_073_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "also late right Now say I just killed those 2 harmful things my husband took out the paper in the phase and said to carefully consider the pros and cons then let me know how to find out the next day I received 1 box or that the money wanted If it should have increased by 300 percent then it should only be increased by 50 percent please note that I don't have to ask for a discount throughout the story I just say what he's interested in I just look for and express in us how to achieve that desire only if I  according to the natural emotion in my",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

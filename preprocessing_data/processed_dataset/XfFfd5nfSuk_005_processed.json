@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_005.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_005_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "hay để bắt đầu của sách này bắt đầu với ngàn đề của chúng ta hãy bắt đầu khi đó Tại sao Cuốn sách này lại có thể giúp bạn giải quyết được những vấn đề kinh doanh và tạo ra đột phá trong thị trường đầu tiên tôi muốn làm rõ ràng sự bất phá không chỉ là vươn lên và dẫn đầu quả thật như vậy cái chúng ta muốn đạt được là bảo xa toàn bộ nhóm đối thủ phía sau Mục tiêu của tôi là nâng cao hiệu quả kinh doanh và khẳng định sự hiện diện của bạn để sản phẩm và dịch vụ của bạn trở thành sự lựa chọn tốt nhất và cũng",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

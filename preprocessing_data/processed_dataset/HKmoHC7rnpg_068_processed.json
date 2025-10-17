@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_068.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_068_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "thì ta sẽ lấy tên mỗi đứa đặt cho tên một con thỏ con kết quả thần diệu không bao giờ quên chuyện đó hết nhiều năm sau ông lại dùng thuộc đó ông lấy tên hội trưởng một công ty xe lửa Đã Đặt Tên Cho Một sự lớn của ông mà công ty xe lửa đó thành khách hàng mua đường dài của ông khi swordsman và canxi trên nhau độc quyền chế tạo những cho xe lửa có giường ngủ cho công ty hỏa xa nọ hai bên chỉ trích lẫn nhau đua nhau hạ giá thành thử đều không lời nhưng kenichi nhớ bài học",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

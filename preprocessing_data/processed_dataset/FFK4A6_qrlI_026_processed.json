@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\FFK4A6_qrlI_026.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\FFK4A6_qrlI_026_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "tàng nếu bệnh nhân đó không giảm cân Nhưng nếu sau đó đưa ra cho họ những bức hành động rõ ràng cụ thể bệnh nhân có thể làm theo có thể là một kế hoạch ăn kiêng cụ thể hay một quy trình tập luyện thể dục chẳng hạn nếu đơn thuần chỉ ra người cầu mắc bệnh tim mạch hay đái tháo đường khi bệnh nhân không giảm cân bạn sẽ chỉ tiêm vào đầu họ nỗi sợ hãi Vào phủ nhận thực tại mà thôi Đối với nhân viên phục vụ + đông nếu chỉ thêu dệt lên những bức tranh kinh hoàng với ảnh hưởng của những nhà nghỉ rất nhiều hút thuốc",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

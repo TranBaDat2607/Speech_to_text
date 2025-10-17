@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_034.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_034_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "tổng kết để khác biệt trên thị trường cam kết giá trị độc nhất của bạn phải được tích hợp đầy đủ vào mọi mặt trong tổ chức của bạn đúng vậy một chút thay đổi sẽ là cần thiết để đảm bảo bạn luôn có được một văn hóa đặt Kombat là trọng tâm khi tiếp tục đọc và nghiên cứu cuối tuần này các bạn sẽ không ngừng khám phá ra cách sống cùng cam kết của mình mỗi ngày và đảm bảo đáp ứng mong đợi của cam kết giá trị độc nhất Chào bạn đã ra bạn sẽ phát triển một văn hóa đặt cam kết làm trọng tâm mà toàn bộ thành viên",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

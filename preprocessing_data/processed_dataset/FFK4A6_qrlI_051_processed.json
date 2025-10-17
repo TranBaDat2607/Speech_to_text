@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\FFK4A6_qrlI_051.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\FFK4A6_qrlI_051_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "nhà khoa học nghiên cứu hành vi islands và các cộng sự của bà cho rằng khi giá niêm yết ban đầu cao khách hàng tiềm năng có xu hướng nghĩ sản phẩm đó đáng đồng tiền bát gạo hơn là khi dán niêm yết thấp Tuy nhiên họ cũng nghiêm túc đặt câu hỏi liệu được tăng giá trị song hành cùng với giá bán cao có thực sự dẫn đến mất xác cuối cùng cao như ý muốn của người bán hay không thay vào đó nhóm Nghiên cứu cho rằng nên ít giá thấp hơn có thể dẫn tới thỏa thuận cuối cùng cao hơn với 3 lí do sau thứ nhất đi giá niêm",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

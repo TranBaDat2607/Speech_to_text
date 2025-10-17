@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_008.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_008_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "cho những sai lầm phải trả giá đắt hay là mất thành danh bất kể đó là lỗi của ai của tổ chức hay cá nhân người ta được cố tìm cách đổ lỗi cho người ngoài hay các yếu tố bên ngoài nhằm đánh lạc hướng sự chú ý đến nguyên nhân thực sự của vấn đề Nếu sử dụng cách tiếp cận này chúng ta đã vô tình tạo nên 2 rắc rối lớn hơn cho bản thân thứ nhất như các nhà nghiên cứu đã gợi ý chiến thuật này dường như không mang lại hiệu quả nên nó chẳng làm gì để chứng minh cho người khác rằng chúng ta đã kiểm soát được vấn đề và có",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

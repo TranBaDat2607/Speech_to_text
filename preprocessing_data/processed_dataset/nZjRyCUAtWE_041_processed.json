@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_041.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_041_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "people crave most compliments and encouragement secret always here I will copy it correctly sir and hope that those golden words are engraved on bronze plates hung in every home every school every shop every office II science knowing that sentence is a thousand times more beneficial than knowing chemical formulas notes the words and signs to indicate chemical substances all like or the average annual rainfall in qua tamara notes a small country in Central America under the weekly government all like not SWAT said",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

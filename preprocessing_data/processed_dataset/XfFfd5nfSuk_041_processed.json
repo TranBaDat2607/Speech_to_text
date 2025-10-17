@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_041.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_041_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "trung vào sản phẩm hành động bạn có toàn tâm toàn ý Củng cố sự hiện diện và vị trí khác biệt của bạn bằng cách sử dụng bất kỳ lại công cụ và phương tiện quảng cáo nào có được không Liệu những thông điệp quảng cáo của bạn có hướng đến khách hàng không Bạn có thể hiện điều đó một cách mạnh mẽ và rõ ràng không Khi nào bạn nên kiểm tra xem và nghe lại mỗi khổ giao tiếp với khách hàng hiện tại để đảm bảo nó thực sự chứ đừng cam kết giá trị độc nhất và vị trí khác biệt của bạn một cách riêng biệt nhằm giúp bạn bất phá trong thị trường",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

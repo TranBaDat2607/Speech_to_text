@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_165.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_165_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "việc trong một phòng như phòng này thật là một cái thú hãng tôi cũng có làm những dáng góc tường Nhưng tôi chưa thấy phần làm việc nào lót dáng đẹp bằng phòng này ông ít minh Ông làm tôi nhớ lại một điều mà tôi cơ hồ quên mất phải phòng này đẹp thật hồi Mới đầu tôi thích nó lắm nhưng bây giờ tôi quen rồi với lại bận em có khi hàng tuần Không để ý tới những chàng hoàng đó Adam xinh đi thẳng lại những tấm tránh lấy tay sờ thứ này bằng cây sồi mọc bên",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

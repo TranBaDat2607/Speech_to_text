@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_048.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_048_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "này tôi đã tập trung vào những gì tôi muốn bán hàng không phải dựa trên sự hiểu biết về Lý do họ muốn mua hàng anh cứ thật sự thấu hiểu về bán hàng dựa trên lợi thế Tôi đã bắt đầu hỏi khách hàng những gì họ thực sự mong muốn đối với một bộ dụng cụ nhà bếp kết quả là tôi ngừng nói chuyện về các dụng cụ nhà bếp hoặc các bữa ăn Tôi nấu Tôi cũng ngừng cố gắng thuyết phục họ mua dụng cụ nấu ăn snackmaster mặc dù Trước đó tôi đã không ngừng nói về đêm quy trình sản xuất tối ưu của những cái nồi hoặc nói",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_093.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_093_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "nghe thấy chúng tôi cãi Còn Nhau Một người bán hàng khác chạy lại trên giàu bộ đồ màu đen nào Lúc mới đầu cũng hơi thôi ra như vậy không thể tránh được nhất là những bộ đồ giá đó tại nước nhuộm như vậy tôi giận sôi lên ông cụ Trần nói người bán hàng thứ nhất có ý cho tôi dối trá Người thứ nhiều muốn chê tôi đã mua đồ xấu cả tiền tôi ngộ duyên muối liền bộ đồ và Anh tên người chủ gian hàng tới nơi đây thật Thảo gà làm cho một khách hàng đường thịnh nộ của ra hài lòng ông ta làm ra sao trước hết ông",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

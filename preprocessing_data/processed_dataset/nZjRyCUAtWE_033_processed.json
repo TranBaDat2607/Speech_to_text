@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_033.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_033_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "all They were like heroes who saw their pictures on the newspaper next to pictures of world celebrities They were sad that The one under the palace was waiting for them They wanted to know the character of a person He only needed to consider what means that person used to satisfy when the intestines of the Rockefellers satisfied it by holding a position in Beijing, China, a state-of-the- art hospital to take care of millions of poor people who had And will never see Yuri's face satisfied it by",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

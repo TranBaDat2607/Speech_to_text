@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_071.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_071_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "for how? Then I met a slit when the paper was cut in two, one side left alone to harm in the office. Once I turned on this typewriter, the atmosphere would be tempting. Yes, I discussed it more so you can rent it to Vu's bones or nervously. It would be very profitable because then the rental price would be much higher, right? Mr. If  I occupied that room for 3 weeks It's definitely a loss for you this number Now we're going to the comedy first If you increase the number again you wo",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

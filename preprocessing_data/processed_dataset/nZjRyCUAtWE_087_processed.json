@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_087.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_087_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "the letter is afraid as follows Mr and Me Linh dear we are honored Nhung care for 14 years now of course we bring to you a lot and try our best to send goods to you quickly but we have that difficult then the goods when I attend your staff until the end of the afternoon working hours like November 10th then now Why because a large number of other customers also deliver goods to us at that time so too much Work not rub and your car has to wait your goods have to send children That is very",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

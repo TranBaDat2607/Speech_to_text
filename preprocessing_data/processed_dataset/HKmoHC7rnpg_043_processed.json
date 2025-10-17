@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_043.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_043_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "cho người ta ghét thôi ông chỉ huy nhân viên một cửa hàng lớn ở nước nói rằng ông ước muốn một cô bán hàng học lực siêu đẳng mà nụ cười có duyên Hương là một cô cử nhân gian chương mà mặt mày lạnh như băng thì tại sao ta thương loài chó tại chúng tung tăng vui mừng đó nước ta làm cho tao vui lòng khi thấy chúng nếu không thấy hứng thú khi làm việc thì không thể làm nên việc đó đã từng có người bắt tay vào việc làm dưới một lòng quan hệ vô biên ra như vậy mà thành công nhưng lâu dần qua nhà lòng",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

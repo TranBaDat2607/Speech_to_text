@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_027.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_027_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "want, we insist on getting what we want is a health and strong invasion 2 times 3 to the 4th power of the year's land money harm future generations 6 in Japan desire seven children we get  everything is full 8 to be considered important by others free famous German scientist and neurotic said that the two basic human sports are sex and the crossroads Nguyen brilliant easy demonic sports",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

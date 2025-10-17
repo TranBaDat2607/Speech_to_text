@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_023.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_023_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "good at psychology and using people as he was when he was young. That's why he was appointed as the US ambassador to France. The secret of his success was that he never criticized anyone and only honestly praised his virtues. He only liked to observe people's deaths. Any madman knows that, but to understand and forgive people, one must have a noble soul and strong self-control. It is true that if you want to increase someone's generosity, you only need to look at how that person treats",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

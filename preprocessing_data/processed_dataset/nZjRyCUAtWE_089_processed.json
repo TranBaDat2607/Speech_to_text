@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_089.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_089_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "your study abroad to what time  anyway we are very happy to receive and send it quickly As long as you two get married we know that you are very busy Please do not waste your time replying usually respectfully sign GP II at home street vendor wandering around the streets tired disappointed salary Why ask her think about them what they are looking for they do not understand that you are the same and I am the same we do not want to buy means spending money but she wants to solve our own problems",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

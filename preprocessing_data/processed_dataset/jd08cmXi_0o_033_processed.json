@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_033.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_033_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "cho hai nhà khoa học xã hội Adam enter và Daniel openfire mọi người có xu hướng bị ảnh hưởng lớn bởi những từ ngữ và tiếng gọi dễ phát âm những từ ngữ hoặc tên gọi có độ trôi chảy cao hơn là những từ khó phát âm Họ tranh luận rằng mọi người Cảm thấy chủ động đối với những tên công ty và biểu tượng cổ phiếu dễ độc và dễ phát âm hơn những loại hóa đọc kết quả của sự lễ hội này là tên và biểu tượng cổ phiếu của công ty đó càng sẽ đọc hoặc dễ phát âm tổng chiều đó dường như có giá trị hơn dẫn tới sự tăng giá",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

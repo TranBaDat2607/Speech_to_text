@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_014.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_014_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "vừa nhủ thầm Tôi yêu khán giả của tôi Tôi yêu khán giả của tôi bạn trò là lũ vịt là vô lý Hư cái đó là quyền của bạn nhưng chính đó là nguyên nhân sự thành công của một trong những nhà ảo thuật danh tiếng nhất từ xưa đến nay tổng thống karzai thu được nhân tâm một cách lạ lùng cũng nhờ bí quyết đó cho đến người ở của ông cũng sùng bái ông nữa người da đen làm bồi phòng cho ông viết một cuốn sách nói về đời tư của ông trong đó có câu chuyện lý thú này",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

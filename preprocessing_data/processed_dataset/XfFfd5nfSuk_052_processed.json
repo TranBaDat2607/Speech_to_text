@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_052.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_052_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "thức đã được chứng minh và quan điểm đúng đắn của khách hàng để đồng nhất và tối ưu hóa cam kết giá trị đ anh cũng như sự hiện diện khác biệt của bạn trên thương trường hàng đầu lộ rằng chu kỳ bán hàng của bạn còn ngắn hơn và tỉ lệ bán hàng thành công của bạn có cao nhân Nếu bạn biết nhiều hơn về điều Khách hàng muốn và sử dụng trong quá trình bán hàng dựa trên lợi thế để chuyển tải đó không hàng tiềm năng của bạn có thường nói tôi không biết hoặc Tôi không chắc không có phải",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

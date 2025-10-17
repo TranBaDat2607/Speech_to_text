@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_121.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_121_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "thôi tám tuổi tôi về nghỉ hè ở nhà cô tôi một buổi tối một ông khách là chơi sau khi chào hỏi của tôi ông hết sức chú ý thấy tôi hồi đó tôi mê chơi tàu lắm giọng nói về tàu một cách làm cho tôi thích đặc biệt khi ông giờ rồi tôi nhiệt liệt khang ông đánh phục là giường nào ông ấy yêu ai giày biết rõ nó lắm Nhưng cô tôi bảo mí làm luật sư ở nước và chẳng bao giờ để ý tới tao hết tôi la lên Thế thì tại sao ông chỉ nói chuyện",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

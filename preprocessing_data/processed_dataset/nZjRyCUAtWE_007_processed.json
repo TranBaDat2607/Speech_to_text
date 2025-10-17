@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_007.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_007_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "like that then the people we meet every day on the street including you and me we have so Mr. John Wanamaker a big businessman once confessed 30 years ago I understood that Hello is nothing He understood that lesson early I had to struggle for 1/3 of a century ago then saw the dawn of this truth no matter how serious a person's fault is, 99 times out of 100 people still claim to be innocent",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

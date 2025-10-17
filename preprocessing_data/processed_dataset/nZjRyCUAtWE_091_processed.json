@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_091.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_091_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "one day I met a person who used to work as a sign for a rental company I asked him if he could tell me where my house is built with brick walls placed with two hollow bricks He said he did not know and advised me to ask the whole team of architects  That's it, but I don't know. Why do I have to ask you? Then the next morning I received a letter from you answering my question, certainly not to advise me again to ask the old architect's rhythm. My sister is an insurance agent in Europe and",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

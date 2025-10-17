@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_006.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_006_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "he was the benefactor of the world. The pretty prison director always kills prisoners who believe that they also have a sympathetic mood, no different from your life. Also  theory teaches why they are forced and the iron shelf or capture the flag and declare that skipping the week they are really unfair if that robber and the whole gang of street bastards Lying in jail from claiming innocence like that then the people we meet every day on the street including you and",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

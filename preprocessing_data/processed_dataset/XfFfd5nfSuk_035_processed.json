@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\XfFfd5nfSuk_035.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\XfFfd5nfSuk_035_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "sẽ phát triển một văn hóa đặt cam kết làm trọng tâm mà toàn bộ thành viên trong công ty sẽ làm việc hướng về mục đích đó thay vì xe nó như một áp lực điều này sẽ khiến doanh nghiệp của bạn trở nên khác biệt và tạo ra một giá trị vượt trên cả sự tưởng tượng của bạn hành động bạn có đảm bảo thực hiện cam kết của mình mọi lúc và củng cố nó phù hợp Thông qua văn hóa của mình không Bạn có quyết định phát triển cách thức lấy khách hàng làm trọng tâm trong mọi khía cạnh của doanh nghiệp không Tất cả những",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

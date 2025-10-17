@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_089.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_089_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "thang trong một cánh đồng với ông thì thuốc vô cùng cái đó cũng là sự thật nữa tôi nói em muốn được tái ngộ ông già thật tình tôi bây giờ rất muốn được gặp ông lần nữa đó chỉ như vậy mà ông khen tôi là nói chuyện khéo sự thật tôi chỉ là một thính giả Kiều mẫu và biết cổ vũ Ông nói thôi làm sao cho khách hàng có thiện cảm với ta vui vẻ cho ta tình ta anh ta theo giáo sư xin wa Alice thì không khó Trì hết trước hết ta phải đặc biệt chăm chú nghe họ không có chi làm đẹp lòng họ",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

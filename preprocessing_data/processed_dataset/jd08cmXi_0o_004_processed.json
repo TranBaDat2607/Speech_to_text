@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_004.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_004_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "và hầu như bất cứ ai trực tiếp tham gia việc đào tạo cho người khác bao gồm cả các bậc phụ huynh đều có thể hưởng lợi từ chiến lược như vậy Ví dụ khi dạy con em không lại gần những người lạ mặt cha mẹ nên mô tả những cảnh tượng khi một người xa lạ lừa bắt một trẻ nhỏ bằng cách tập trung vào cách đứa trẻ trong ví dụ đã làm để tránh già người lạ trong một tình huống cụ thể con bạn sẽ được chàng bị tốt hơn khi phải đối mặt với những tình huống tương tự trong tương lai 28",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

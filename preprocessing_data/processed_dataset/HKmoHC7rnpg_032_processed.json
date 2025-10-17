@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\HKmoHC7rnpg_032.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\HKmoHC7rnpg_032_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "Vinh tấm hình hiệu Cậu Chó rồi không đợi tôi hỏi nha chỉ quan trọng đó bỏ một giờ đồng hồ nữ cho tôi biết hết thảy những tài liệu mà tôi muốn có không có điều gì ông biết mà không cho tôi hai rồi lại trơn những người giúp việc để hỏi thêm nữa lại gọi điện thoại trước mặt tôi đã hỏi thăm những nơi ông quen biết ông đưa tôi một chồng báo cáo từ từ có đủ những con số một sự thành công chưa từng thấy ra đây là một chứng cớ khác ông kinh Nestle mời một xí nghiệp lớn có rất nhiều chi nhánh mù than cho hãng mà ông thay mặt",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

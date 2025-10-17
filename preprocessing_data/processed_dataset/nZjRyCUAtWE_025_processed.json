@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_025.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_025_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "work How to Win Friends and Influence People Author delkin is translator Nguyen Hien Le chapter 2 an important secret in the way of behaving want to entice someone to do something according to your will just how to do it make the color range Start for the will to do that Please remember sister paper please remember that there is no second way You can point a gun at the stomach of a passerby and force that person to buy a watch to go out for you you can also force an employee to",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\jd08cmXi_0o_040.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\jd08cmXi_0o_040_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "tắm hàng đầu lên tới 500 phần trăm chỉ đơn giản bằng cách A thành thật nói với các khách hàng tiềm năng rằng rất nhiều người mua sản phẩm này nói lại với chúng tôi rằng sở hữu nó giống như có thêm một căn phòng hứa cho ngôi nhà của họ và tiếp theo bê đề nghị họ đánh giá xem sẽ mất bao nhiêu tiền để xây thêm một phòng nữa bên cạnh ngôi nhà của họ sau đó 7000 đô la cho khía cạnh thẩm mỹ dường như rẻ hơn nếu so sánh với việc xây dựng thêm vì nó sẽ mất ít nhất là gấp đôi số tiền đó",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\FFK4A6_qrlI_021.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\FFK4A6_qrlI_021_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "cứu khoa học đã chỉ ra trong những trường hợp nhất định tự quá đa dạng em có nhiều gia vị có thể làm hỏng món ăn và kết quả là làm hỏng những nỗ lực thuyết phục của bạn 6 Khi nào hàng tặng kèm lại trở thành lực cạn Nếu bạn là một thành viên trong hội đồng nhà trường và đang xúc tiến thành lập một câu lạc bộ sinh hoạt miễn phí sau giờ học bạn nên chỉ cho các bậc phụ huynh biết họ sẽ tốn kém bao nhiêu Nếu cho con mình tham gia câu lạc bộ tư nhân khác khi làm như vậy bạn không chỉ tạo ra giá trị cho đến sắc của mình mà",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

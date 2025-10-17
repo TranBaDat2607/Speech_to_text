@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_055.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_055_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "under an ancient bronze statue depicting General Azir people are different this sentence but revived former general often said we Prove the enemy formula we but very should that fear those friends our family ah 300 I do not I do not advise you I am brighter than I want to show you a way of life new birth you allow me to repeat I want to show you a new way of life Mr. Hoang poured to sleep soundly guests in the Royal Office of the day 6 proverbs in which there is this one what he taught  let me",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

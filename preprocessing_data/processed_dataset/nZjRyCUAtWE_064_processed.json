@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\nZjRyCUAtWE_064.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\nZjRyCUAtWE_064_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "Amazon sister Cong B put her finger into the thin duck like a mother breastfeeding her baby and the duck  obediently follow your finger and enter the cage right from the birth record any of our top lines because it's all we give a charity 500d like there is substance is completely not so no no so we give like that to get a reputation of kindness to satisfy a wish is one thing but from beautiful and return and to Blessings later when the Bible said that still father",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "original_audio_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\crawl_data\\datasets\\sachnoivietnam15\\dataset\\FFK4A6_qrlI_025.wav",
+  "mel_spectrogram_file": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset\\FFK4A6_qrlI_025_mel.npy",
+  "mel_shape": [
+    80,
+    3000
+  ],
+  "transcript": "tính thỏa hiệp của khách hàng cũng đặt bạn anh cũng phải cần nhắc Chính Mình cám sự sợ hãi có tính thuyết phục hai sẽ làm bạn bị tiền liệt các chuyên gia chăm sóc sức khỏe và những ai làm việc trong lĩnh vực dịch vụ cộng đồng cũng nên đặc biệt nhận thức gió nhưng ứng dụng từ cuộc nghiên cứu một thầy thuốc một ít á muốn thuyết phục một bệnh nhân béo phì giảm cân và luyện tập thể dục nhiều hơn nên tập trung vào những nguy hiểm tiềm tàng nếu bệnh nhân đó không giảm cân Nhưng nếu sau đó đưa ra cho họ những bức",
+  "duration": 30.0,
+  "sample_rate": 16000,
+  "n_mels": 80,
+  "n_frames": 3000
+}

@@ -1,0 +1,17 @@
+{
+  "total_files": 490,
+  "processed_files": 490,
+  "failed_files": 0,
+  "output_directory": "C:\\Users\\Admin\\Desktop\\dat301m\\Speech_to_text\\preprocessing_data\\processed_dataset",
+  "mel_spectrogram_shape": [
+    80,
+    3000
+  ],
+  "audio_config": {
+    "sample_rate": 16000,
+    "n_fft": 400,
+    "hop_length": 160,
+    "n_mels": 80,
+    "chunk_length": 30
+  }
+}
