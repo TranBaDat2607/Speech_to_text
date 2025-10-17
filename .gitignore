@@ -94,6 +94,7 @@ MANIFEST
 # ================================
 # VIRTUAL ENVIRONMENTS
 # ================================
+model/tf_gpu/
 venv/
 env/
 ENV/
