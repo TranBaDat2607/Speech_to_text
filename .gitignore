@@ -43,6 +43,7 @@ eda/plots/
 *.svg
 *.pdf
 *.eps
+*.npy
 
 # CSV results
 eda/**/*.csv
