@@ -24,7 +24,7 @@ class MultiHeadAttention(tf.keras.layers.Layer):
         self.n_state = n_state
         self.n_head = n_head
         self.head_dim = n_state // n_head
-        self.scale = self.head_dim ** -0.25  # OpenAI uses -0.25, not -0.5
+        self.scale = self.head_dim ** -0.25
         
         # Query, Key, Value projections matching OpenAI exactly
         self.query = tf.keras.layers.Dense(n_state, use_bias=True, name="query")
