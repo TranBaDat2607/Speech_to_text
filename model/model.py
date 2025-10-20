@@ -467,7 +467,7 @@ if __name__ == "__main__":
     print(f"   Model size: tiny")
     print(f"   Multilingual: {whisper.is_multilingual}")
     print(f"   Languages: {whisper.num_languages}")
-    print(f"   Parameters: ~39M")
+    print(f"   Parameters: ~37.2M")
     
     # Build models with concrete shapes for summary
     print("\n5. Model Architecture Summary:")
