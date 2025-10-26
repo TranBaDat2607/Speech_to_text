@@ -23,7 +23,8 @@ class WhisperTrainer:
                  model_name: str = "tiny",
                  learning_rate: float = 1e-4,
                  language: str = "vi",
-                 device: str = "CPU"):
+                 device: str = "CPU",
+                 pretrained_weights_path: str = None):
         """
         Initialize trainer
         
@@ -32,17 +33,21 @@ class WhisperTrainer:
             learning_rate: Learning rate for optimizer
             language: Language code for tokenizer
             device: Device to use ("CPU" or "GPU")
+            pretrained_weights_path: Path to pretrained weights file (.weights.h5)
         """
         self.model_name = model_name
         self.learning_rate = learning_rate
         self.language = language
         self.device = device
+        self.pretrained_weights_path = pretrained_weights_path
         
         print(f"Initializing WhisperTrainer:")
         print(f"  Model: {model_name}")
         print(f"  Learning rate: {learning_rate}")
         print(f"  Language: {language}")
         print(f"  Device: {device}")
+        if pretrained_weights_path:
+            print(f"  Pretrained weights: {pretrained_weights_path}")
         
         # Force CPU usage if specified
         if device == "CPU":
@@ -51,6 +56,10 @@ class WhisperTrainer:
         
         # Initialize model
         self.model = create_whisper_model(model_name)
+        
+        # Load pretrained weights if provided
+        if pretrained_weights_path:
+            self._load_pretrained_weights(pretrained_weights_path)
         
         # Initialize text processor
         self.text_processor = WhisperTextProcessor(
@@ -78,6 +87,26 @@ class WhisperTrainer:
         self.train_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(name='train_accuracy')
         
         print("Trainer initialized successfully!")
+    
+    def _load_pretrained_weights(self, weights_path: str):
+        """
+        Load pretrained weights from file
+        
+        Args:
+            weights_path: Path to .weights.h5 file
+        """
+        print(f"\nLoading pretrained weights from {weights_path}...")
+        
+        if not os.path.exists(weights_path):
+            raise FileNotFoundError(f"Pretrained weights file not found: {weights_path}")
+        
+        dummy_mel = tf.random.normal([1, 80, 3000])
+        dummy_tokens = tf.constant([[50258, 50259, 50359]], dtype=tf.int32)
+        _ = self.model(dummy_mel, dummy_tokens, training=False)
+        
+        self.model.load_weights(weights_path)
+        print("Pretrained weights loaded successfully!")
+        print("Model is ready for fine-tuning.")
     
     def compute_loss(self, 
                      logits: tf.Tensor, 
@@ -296,13 +325,14 @@ def main():
     # Configuration
     CONFIG = {
         'dataset_dir': r"c:\Users\Admin\Desktop\dat301m\Speech_to_text\preprocessing_data\processed_dataset",
-        'model_name': 'tiny',  # Start with tiny model for testing
+        'model_name': 'tiny',
         'epochs': 2,
         'batch_size': 2,
         'max_samples': 10,
         'learning_rate': 1e-4,
         'language': 'vi',
-        'device': 'CPU'  # Use CPU as requested
+        'device': 'CPU',
+        'pretrained_weights_path': r"c:\Users\Admin\Desktop\dat301m\Speech_to_text\model\pretrained_weights\whisper_tiny_tf.weights.h5"
     }
     
     print("Whisper Training Configuration:")
@@ -314,7 +344,8 @@ def main():
         model_name=CONFIG['model_name'],
         learning_rate=CONFIG['learning_rate'],
         language=CONFIG['language'],
-        device=CONFIG['device']
+        device=CONFIG['device'],
+        pretrained_weights_path=CONFIG['pretrained_weights_path']
     )
     
     # Test model output first
