@@ -1,0 +1,153 @@
+# Knowledge Distillation Configuration
+# Whisper Large (Teacher) -> Whisper Small (Student)
+
+project:
+  name: "whisper_small_vietnamese_distillation"
+  description: "Knowledge distillation from Large to Small for Vietnamese ASR"
+  language: "vi"
+  
+paths:
+  # Dataset paths - THAY ĐỔI THEO PATHS CỦA BẠN
+  phowhisper_audio: "path/to/phowhisper/audio/"
+  phowhisper_transcripts: "path/to/phowhisper/transcripts/"
+  
+  # Hoặc dùng preprocessed dataset của bạn
+  preprocessed_dataset: "../preprocessing_data/processed_dataset/"
+  
+  # Teacher logits storage (sẽ lưu soft labels từ teacher)
+  teacher_logits_dir: "./data/teacher_logits/"
+  
+  # Pretrained weights paths
+  teacher_weights: "../model/pretrained_weights/whisper_large_tf.weights.h5"
+  student_weights: "../model/pretrained_weights/whisper_small_tf.weights.h5"
+  
+  # Output paths
+  checkpoints_dir: "./checkpoints/"
+  logs_dir: "./logs/"
+  final_model_dir: "./final_model/"
+
+teacher:
+  model_name: "large"
+  temperature: 3.0
+  batch_size: 8
+  use_pytorch: true  # PyTorch nhanh hơn cho inference
+  save_logits_format: "npy"  # hoặc "h5" cho dataset lớn
+  
+student:
+  model_name: "small"
+  pretrained: true
+  load_from_openai: true
+  freeze_encoder_initially: false  # Set true để train decoder trước
+
+distillation:
+  # Loss weights (tổng = 1.0)
+  soft_loss_weight: 0.7    # KL divergence với teacher
+  hard_loss_weight: 0.3    # Cross entropy với ground truth
+  feature_loss_weight: 0.0  # Intermediate layer matching (optional)
+  
+  # Temperature cho distillation
+  temperature: 3.0
+  
+  # Training hyperparameters
+  epochs: 20  # Tăng epochs vì ít data hơn (100h vs 1000h)
+  batch_size: 2  # Real batch size trên GPU
+  gradient_accumulation_steps: 4
+  effective_batch_size: 8  # batch_size × accumulation_steps
+  
+  # Optimizer configuration
+  optimizer: "adamw"
+  learning_rate: 5.0e-5
+  weight_decay: 0.01
+  beta_1: 0.9
+  beta_2: 0.98
+  epsilon: 1.0e-6
+  
+  # Learning rate schedule
+  lr_schedule: "cosine"
+  warmup_steps: 200  # Giảm vì dataset nhỏ hơn (100h)
+  min_learning_rate: 1.0e-6
+  
+  # Mixed precision training (QUAN TRỌNG cho 8GB VRAM)
+  mixed_precision: true
+  policy: "mixed_float16"
+  
+  # Gradient clipping
+  max_gradient_norm: 1.0
+  
+  # Checkpointing
+  save_every_n_steps: 500  # Save thường xuyên hơn với dataset nhỏ
+  keep_last_n_checkpoints: 5
+  save_best_only: true
+  
+  # Validation & Evaluation
+  eval_every_n_steps: 250  # Eval thường xuyên hơn
+  eval_samples: 100  # Số samples để eval nhanh
+  
+  # Early stopping
+  early_stopping_patience: 6
+  early_stopping_metric: "wer"
+  early_stopping_mode: "min"
+
+hardware:
+  device: "GPU"
+  gpu_id: 0
+  gpu_memory_limit: 8192  # MB
+  allow_growth: true
+  
+  # Data loading
+  num_workers: 4
+  prefetch_size: 2
+  pin_memory: true
+
+data:
+  # Dataset filtering - QUAN TRỌNG
+  use_full_dataset: false  # Set true để dùng toàn bộ 1000h
+  max_hours: 100           # Giới hạn 100 giờ dữ liệu
+  max_samples: null        # Hoặc giới hạn theo số samples (null = theo max_hours)
+  train_split: 0.95        # 95% train, 5% validation
+  random_seed: 42          # Để reproducible
+  
+  # Audio processing
+  sample_rate: 16000
+  n_mels: 80
+  n_fft: 400
+  hop_length: 160
+  max_audio_length: 30.0  # seconds
+  
+  # Text processing
+  max_text_length: 448
+  language: "vi"
+  task: "transcribe"
+  
+  # Data augmentation
+  use_augmentation: true
+  spec_augment: true
+  time_masking: true
+  freq_masking: true
+
+logging:
+  # Console logging
+  log_level: "INFO"
+  log_every_n_steps: 10
+  
+  # TensorBoard
+  use_tensorboard: true
+  tensorboard_dir: "./logs/tensorboard/"
+  
+  # Weights & Biases (optional)
+  use_wandb: false
+  wandb_project: "whisper-distillation"
+  wandb_entity: null
+
+# Advanced options
+advanced:
+  # Activation checkpointing để tiết kiệm VRAM
+  use_gradient_checkpointing: false  # Enable nếu OOM
+  
+  # Progressive unfreezing
+  progressive_unfreezing: false
+  unfreeze_schedule: [0, 3, 6]  # Epochs để unfreeze layers
+  
+  # Temperature annealing
+  temperature_annealing: false
+  temperature_schedule: [3.0, 2.0, 1.0]  # Giảm dần qua epochs

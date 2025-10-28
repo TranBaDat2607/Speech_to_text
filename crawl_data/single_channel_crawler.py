@@ -16,9 +16,25 @@ class SingleChannelCrawler:
         self.ydl_opts = {
             'quiet': True,
             'no_warnings': True,
-            'extract_flat': False,  # Lấy thông tin chi tiết để kiểm tra video
-            'playlistend': None,  # Lấy tất cả video
+            'extract_flat': 'in_playlist',
+            'playlistend': None,
         }
+    
+    def normalize_channel_url(self, channel_url: str) -> str:
+        """Chuẩn hóa URL channel để crawl được videos"""
+        channel_url = channel_url.strip()
+        
+        # Nếu là @handle hoặc /c/, thêm /videos để lấy danh sách video
+        if '/@' in channel_url or '/c/' in channel_url:
+            if not channel_url.endswith('/videos'):
+                channel_url = channel_url.rstrip('/') + '/videos'
+        
+        # Nếu là /channel/, cũng thêm /videos
+        elif '/channel/' in channel_url:
+            if not channel_url.endswith('/videos'):
+                channel_url = channel_url.rstrip('/') + '/videos'
+        
+        return channel_url
     
     def extract_channel_info(self, channel_url: str) -> Dict:
         """Trích xuất thông tin channel"""
@@ -59,7 +75,12 @@ class SingleChannelCrawler:
                                      selection_strategy: str = 'first', batch_multiplier: int = 3) -> List[Dict]:
         """Lấy video hợp lệ từ channel với số lượng mục tiêu"""
         try:
-            print(f"Crawling channel: {channel_url}")
+            original_url = channel_url
+            channel_url = self.normalize_channel_url(channel_url)
+            
+            print(f"Crawling channel: {original_url}")
+            if channel_url != original_url:
+                print(f"Normalized to: {channel_url}")
             print(f"Target: {target_count} valid videos")
             print(f"Duration: {min_duration}s - {max_duration}s")
             print(f"Strategy: {selection_strategy}")
@@ -69,9 +90,9 @@ class SingleChannelCrawler:
             
             opts = self.ydl_opts.copy()
             opts['playlistend'] = batch_size
+            opts['extract_flat'] = 'in_playlist'
             
             with yt_dlp.YoutubeDL(opts) as ydl:
-                # Lấy thông tin channel và video
                 channel_info = ydl.extract_info(channel_url, download=False)
                 
                 if not channel_info:
@@ -93,56 +114,63 @@ class SingleChannelCrawler:
                         
                     processed += 1
                     
-                    if not entry or 'id' not in entry:
+                    if not entry:
                         continue
                     
-                    video_id = entry['id']
-                    video_url = f"https://www.youtube.com/watch?v={video_id}"
+                    video_id = entry.get('id') or entry.get('url')
+                    if not video_id:
+                        continue
                     
-                    # Kiểm tra video có hợp lệ không
+                    if video_id.startswith('UC'):
+                        continue
+                    
+                    video_url = f"https://www.youtube.com/watch?v={video_id}"
                     print(f"Checking video {processed}: {video_id}")
                     
                     try:
-                        # Lấy thông tin chi tiết video
-                        video_info = ydl.extract_info(video_url, download=False)
-                        
-                        if not video_info:
-                            print(f"  -> Could not get video info {video_id}")
-                            continue
-                            
-                        duration = video_info.get('duration', 0)
-                        title = video_info.get('title', 'Unknown')
-                        
-                        # Kiểm tra video có thời lượng hợp lệ
-                        if duration < min_duration:
-                            print(f"  -> Video too short ({duration}s < {min_duration}s): {title[:50]}")
-                            continue
-                            
-                        if duration > max_duration:
-                            print(f"  -> Video too long ({duration}s > {max_duration}s): {title[:50]}")
-                            continue
-                            
-                        # Kiểm tra video không bị private/deleted
-                        if video_info.get('availability') in ['private', 'premium_only', 'subscriber_only']:
-                            print(f"  -> Video not available: {title[:50]}")
-                            continue
-                        
-                        video_data = {
-                            'video_id': video_id,
-                            'url': video_url,
-                            'title': title,
-                            'duration': duration,
-                            'channel': channel_name,
-                            'channel_url': channel_url,
-                            'index': len(valid_videos) + 1
+                        video_opts = {
+                            'quiet': True,
+                            'no_warnings': True,
+                            'extract_flat': False,
                         }
+                        with yt_dlp.YoutubeDL(video_opts) as video_ydl:
+                            video_info = video_ydl.extract_info(video_url, download=False)
                         
-                        valid_videos.append(video_data)
-                        print(f"  -> OK: {title[:50]} ({duration}s)")
-                        
-                        if len(valid_videos) % 5 == 0:
-                            print(f"Got {len(valid_videos)}/{target_count} valid videos")
+                            if not video_info:
+                                print(f"  -> Could not get video info {video_id}")
+                                continue
+                                
+                            duration = video_info.get('duration', 0)
+                            title = video_info.get('title', 'Unknown')
                             
+                            if duration < min_duration:
+                                print(f"  -> Video too short ({duration}s < {min_duration}s): {title[:50]}")
+                                continue
+                                
+                            if duration > max_duration:
+                                print(f"  -> Video too long ({duration}s > {max_duration}s): {title[:50]}")
+                                continue
+                                
+                            if video_info.get('availability') in ['private', 'premium_only', 'subscriber_only']:
+                                print(f"  -> Video not available: {title[:50]}")
+                                continue
+                            
+                            video_data = {
+                                'video_id': video_id,
+                                'url': video_url,
+                                'title': title,
+                                'duration': duration,
+                                'channel': channel_name,
+                                'channel_url': channel_url,
+                                'index': len(valid_videos) + 1
+                            }
+                            
+                            valid_videos.append(video_data)
+                            print(f"  -> OK: {title[:50]} ({duration}s)")
+                            
+                            if len(valid_videos) % 5 == 0:
+                                print(f"Got {len(valid_videos)}/{target_count} valid videos")
+                                
                     except Exception as e:
                         print(f"  -> Error checking video {video_id}: {e}")
                         continue
@@ -162,39 +190,48 @@ class SingleChannelCrawler:
                             if len(valid_videos) >= target_count:
                                 break
                                 
-                            if not entry or 'id' not in entry:
+                            if not entry:
                                 continue
                                 
-                            video_id = entry['id']
+                            video_id = entry.get('id') or entry.get('url')
+                            if not video_id or video_id.startswith('UC'):
+                                continue
+                                
                             video_url = f"https://www.youtube.com/watch?v={video_id}"
                             
                             try:
-                                video_info = ydl.extract_info(video_url, download=False)
-                                
-                                if not video_info:
-                                    continue
-                                    
-                                duration = video_info.get('duration', 0)
-                                title = video_info.get('title', 'Unknown')
-                                
-                                if duration < min_duration or duration > max_duration:
-                                    continue
-                                    
-                                if video_info.get('availability') in ['private', 'premium_only', 'subscriber_only']:
-                                    continue
-                                
-                                video_data = {
-                                    'video_id': video_id,
-                                    'url': video_url,
-                                    'title': title,
-                                    'duration': duration,
-                                    'channel': channel_name,
-                                    'channel_url': channel_url,
-                                    'index': len(valid_videos) + 1
+                                video_opts = {
+                                    'quiet': True,
+                                    'no_warnings': True,
+                                    'extract_flat': False,
                                 }
-                                
-                                valid_videos.append(video_data)
-                                print(f"Added video: {title[:50]} ({duration}s)")
+                                with yt_dlp.YoutubeDL(video_opts) as video_ydl:
+                                    video_info = video_ydl.extract_info(video_url, download=False)
+                                    
+                                    if not video_info:
+                                        continue
+                                        
+                                    duration = video_info.get('duration', 0)
+                                    title = video_info.get('title', 'Unknown')
+                                    
+                                    if duration < min_duration or duration > max_duration:
+                                        continue
+                                        
+                                    if video_info.get('availability') in ['private', 'premium_only', 'subscriber_only']:
+                                        continue
+                                    
+                                    video_data = {
+                                        'video_id': video_id,
+                                        'url': video_url,
+                                        'title': title,
+                                        'duration': duration,
+                                        'channel': channel_name,
+                                        'channel_url': channel_url,
+                                        'index': len(valid_videos) + 1
+                                    }
+                                    
+                                    valid_videos.append(video_data)
+                                    print(f"Added video: {title[:50]} ({duration}s)")
                                 
                             except:
                                 continue

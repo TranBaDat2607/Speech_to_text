@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  whisper-distillation:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: whisper-distillation:rtx5060
+    container_name: whisper-distillation
+    
+    # Enable GPU
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    
+    # Mount project folder
+    volumes:
+      - .:/workspace/distillation
+      - ../preprocessing_data:/workspace/preprocessing_data
+      - ../model:/workspace/model
+      - ./checkpoints:/workspace/distillation/checkpoints
+      - ./logs:/workspace/distillation/logs
+      - huggingface_cache:/workspace/.cache/huggingface
+    
+    # Working directory
+    working_dir: /workspace/distillation
+    
+    # Keep container running
+    stdin_open: true
+    tty: true
+    
+    # Environment variables
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+      - TF_FORCE_GPU_ALLOW_GROWTH=true
+      - HF_HOME=/workspace/.cache/huggingface
+    
+    # Command
+    command: /bin/bash
+
+volumes:
+  huggingface_cache:
