@@ -44,3 +44,14 @@ webdriver-manager>=4.0.1
 # Development and testing (optional)
 # jupyter>=1.0.0
 # ipykernel>=6.0.0
+
+# Knowledge Distillation and Dataset Processing
+torch>=2.0.0
+torchaudio>=2.0.0
+torchcodec>=0.1.0
+transformers>=4.30.0
+datasets>=2.14.0
+python-dotenv>=1.0.0
+tqdm>=4.65.0
+accelerate>=0.20.0
+evaluate>=0.4.0
