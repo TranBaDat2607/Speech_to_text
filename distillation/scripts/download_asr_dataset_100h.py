@@ -23,7 +23,7 @@ def clear_huggingface_cache():
         print(f"\nClearing cache: {cache_dir}")
         try:
             shutil.rmtree(cache_dir)
-            print("✓ Cache cleared successfully")
+            print("OK: Cache cleared successfully")
             # Wait a bit for filesystem to release
             time.sleep(2)
             return True
@@ -108,7 +108,7 @@ def download_phowhisper_100h(
                 split=split,
                 token=hf_token
             )
-            print(f"✓ Dataset loaded: {len(dataset)} samples")
+            print(f"OK: Dataset loaded: {len(dataset)} samples")
             
         except Exception as e:
             print(f"\nError loading dataset: {e}")
@@ -139,7 +139,7 @@ def download_phowhisper_100h(
                 transcription = sample.get("transcription", sample.get("sentence", sample.get("text", "")))
                 
             except Exception as e:
-                print(f"\n⚠ Warning: Skip sample {idx}: {e}")
+                print(f"\nWARNING: Skip sample {idx}: {e}")
                 continue
             
             # Calculate duration
@@ -178,7 +178,7 @@ def download_phowhisper_100h(
         all_samples.extend(batch_samples)
         total_duration_collected += batch_duration
         
-        print(f"\n✓ Batch {batch_num} completed: {batch_duration/3600:.2f}h ({len(batch_samples)} samples)")
+        print(f"\nOK: Batch {batch_num} completed: {batch_duration/3600:.2f}h ({len(batch_samples)} samples)")
         print(f"  Overall progress: {total_duration_collected/3600:.2f}h / {target_hours}h")
         
         # Clear cache after this batch
@@ -187,7 +187,7 @@ def download_phowhisper_100h(
         
         # Check if we've reached overall target
         if total_duration_collected >= target_hours * 3600:
-            print(f"\n✓ Overall target reached: {total_duration_collected/3600:.2f}h")
+            print(f"\nOK: Overall target reached: {total_duration_collected/3600:.2f}h")
             break
         
         batch_num += 1
@@ -263,7 +263,7 @@ def verify_dataset(output_dir: str = "../preprocessing_data/phoaudiobook_100h"):
             print(f"  - {f}")
         return False
     
-    print("\n✓ All audio files present")
+    print("\nOK: All audio files present")
     print(f"\nDataset Summary:")
     print(f"  Total samples: {metadata['total_samples']}")
     print(f"  Total duration: {metadata['total_duration_hours']:.2f} hours")

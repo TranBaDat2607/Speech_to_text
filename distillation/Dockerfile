@@ -1,5 +1,6 @@
 # Dockerfile for Whisper Distillation with RTX 5060 support
-FROM nvcr.io/nvidia/tensorflow:25.02-tf2-py3
+# Base: NVIDIA PyTorch latest with CUDA 12.6+ for RTX 50 series (Blackwell sm_120)
+FROM nvcr.io/nvidia/pytorch:25.01-py3
 
 # Set working directory
 WORKDIR /workspace
@@ -14,9 +15,13 @@ RUN apt-get update && apt-get install -y \
 # Upgrade pip
 RUN pip install --upgrade pip
 
+# Base image already has PyTorch + CUDA 12.6
+# Skip PyTorch upgrade to speed up build
+# RTX 5060 will work with warnings but functional
+
 # Install Python dependencies
 RUN pip install --no-cache-dir \
-    transformers==4.57.1 \
+    transformers==4.45.0 \
     accelerate \
     librosa \
     soundfile \

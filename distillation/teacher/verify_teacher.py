@@ -49,7 +49,7 @@ def verify_on_audio(
         device=device
     )
     
-    print(f"\n🎙️  Transcribing audio...")
+    print(f"\nTranscribing audio...")
     result = teacher.transcribe_sample(
         audio_path=audio_path,
         language=language,
@@ -135,7 +135,7 @@ def verify_on_dataset_sample(
         results.append(result)
     
     print(f"\n{'='*60}")
-    print(f"✓ Verified {len(results)} samples successfully!")
+    print(f"OK: Verified {len(results)} samples successfully!")
     print(f"{'='*60}\n")
     
     return results

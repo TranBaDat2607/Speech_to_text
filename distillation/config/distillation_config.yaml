@@ -11,8 +11,8 @@ paths:
   phowhisper_audio: "path/to/phowhisper/audio/"
   phowhisper_transcripts: "path/to/phowhisper/transcripts/"
   
-  # Hoặc dùng preprocessed dataset của bạn
-  preprocessed_dataset: "../preprocessing_data/processed_dataset/"
+  # Dataset path (PhoAudioBook downloaded)
+  preprocessed_dataset: "../preprocessing_data/phoaudiobook_100h/"
   
   # Teacher logits storage (sẽ lưu soft labels từ teacher)
   teacher_logits_dir: "./data/teacher_logits/"

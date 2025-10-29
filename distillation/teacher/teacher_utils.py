@@ -235,11 +235,11 @@ def print_gpu_info():
     print(f"{'='*60}")
     
     if not info["cuda_available"]:
-        print("❌ CUDA not available")
+        print("ERROR: CUDA not available")
         print("   Teacher inference will run on CPU (very slow)")
         print("   Consider using a GPU for distillation")
     else:
-        print(f"✓ CUDA available: {info['device_count']} device(s)")
+        print(f"OK: CUDA available: {info['device_count']} device(s)")
         
         for device in info["devices"]:
             print(f"\n  Device {device['id']}: {device['name']}")

@@ -93,7 +93,7 @@ class WhisperTeacherPyTorch:
             # Get config
             self.config = self.model.config
             
-            print(f"  ✓ Model loaded on {self.device}")
+            print(f"  OK: Model loaded on {self.device}")
             
         except Exception as e:
             print(f"  Error loading model: {e}")
@@ -315,7 +315,7 @@ def test_teacher_model_pytorch():
         print(f"  Audio features shape: {audio_features.shape}")
         print(f"  Decoder IDs shape: {decoder_ids.shape}")
         print(f"  Output logits shape: {logits.shape}")
-        print(f"  ✓ Forward pass successful!")
+        print(f"  OK: Forward pass successful!")
         
         print("\n" + "="*60)
         print("ALL TESTS PASSED!")

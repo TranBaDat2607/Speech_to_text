@@ -23,11 +23,11 @@ def verify_audio_dataset(dataset_dir="../preprocessing_data/phoaudiobook_100h"):
     
     # Check if directories exist
     if not os.path.exists(audio_dir):
-        print(f"\n❌ Audio directory not found: {audio_dir}")
+        print(f"\nERROR: Audio directory not found: {audio_dir}")
         return
     
     if not os.path.exists(metadata_path):
-        print(f"\n❌ Metadata file not found: {metadata_path}")
+        print(f"\nERROR: Metadata file not found: {metadata_path}")
         return
     
     print(f"\nAudio dir: {audio_dir}")
@@ -51,7 +51,7 @@ def verify_audio_dataset(dataset_dir="../preprocessing_data/phoaudiobook_100h"):
     print(f"  Found: {actual_count} audio files")
     
     if actual_count == 0:
-        print("\n❌ NO AUDIO FILES FOUND!")
+        print("\nERROR: NO AUDIO FILES FOUND!")
         print("   The audio directory is empty.")
         return
     
@@ -88,31 +88,31 @@ def verify_audio_dataset(dataset_dir="../preprocessing_data/phoaudiobook_100h"):
     print(f"  Average: {avg_duration:.2f} seconds")
     
     if errors > 0:
-        print(f"\n⚠️  Errors: {errors} files could not be read")
+        print(f"\nWARNING: Errors: {errors} files could not be read")
     
     # Verification
     print("\n" + "="*60)
     
     if actual_count == 0:
-        print("❌ FAILED: No audio files found")
+        print("FAILED: No audio files found")
     elif actual_count != metadata_samples:
-        print(f"⚠️  WARNING: File count mismatch!")
+        print(f"WARNING: File count mismatch!")
         print(f"   Expected: {metadata_samples}")
         print(f"   Found: {actual_count}")
         print(f"   Missing: {metadata_samples - actual_count}")
     else:
-        print("✓ File count matches metadata")
+        print("OK: File count matches metadata")
     
     if abs(total_hours - metadata_duration_hours) > 0.1:
-        print(f"⚠️  WARNING: Duration mismatch!")
+        print(f"WARNING: Duration mismatch!")
         print(f"   Difference: {abs(total_hours - metadata_duration_hours):.2f} hours")
     else:
-        print("✓ Duration matches metadata")
+        print("OK: Duration matches metadata")
     
     if total_hours >= 100.0:
-        print(f"\n✓ Target reached: {total_hours:.2f} hours >= 100 hours")
+        print(f"\nOK: Target reached: {total_hours:.2f} hours >= 100 hours")
     else:
-        print(f"\n❌ Target NOT reached: {total_hours:.2f} hours < 100 hours")
+        print(f"\nERROR: Target NOT reached: {total_hours:.2f} hours < 100 hours")
         print(f"   Missing: {100.0 - total_hours:.2f} hours")
     
     print("\n" + "="*60)

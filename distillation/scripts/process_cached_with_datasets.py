@@ -231,7 +231,7 @@ def process_cached_with_datasets(
         
         # Check if target reached
         if total_duration >= target_duration:
-            print(f"\n✓ Target reached!")
+            print(f"\nOK: Target reached!")
             break
     
     # Save metadata
