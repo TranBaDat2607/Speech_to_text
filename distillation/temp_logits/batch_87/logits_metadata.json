@@ -1,0 +1,1211 @@
+{
+  "batch_name": "batch_87",
+  "start_idx": 8700,
+  "end_idx": 8800,
+  "total_samples": 100,
+  "failed_samples": 0,
+  "temperature": 3.0,
+  "generation_time_seconds": 50.09194087982178,
+  "samples": [
+    {
+      "id": 8700,
+      "logits_file": "logits_008700.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008700.wav",
+      "text": "bởi vì chỉ đi với một người bạn bí mật, nên người bên cạnh và người ở công ty điện ảnh không hề biết. ngày hai mốt, cô ta nhận được thiệp mời của cửa hàng tây nam bảo do lục gia gửi tới.",
+      "logits_shape": [
+        1,
+        81,
+        51865
+      ],
+      "duration": 12.557625
+    },
+    {
+      "id": 8701,
+      "logits_file": "logits_008701.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008701.wav",
+      "text": "trên thiếp mời, viết : lục gia tổ chức dạ hội, mời cô ta đến dự tiệc vào ngày hai ba. peter phương nói, nhưng trần bạch điệp đã mất tích vào ngày hai mươi hai rồi, đương nhiên cũng không có đi dạ hội.",
+      "logits_shape": [
+        1,
+        91,
+        51865
+      ],
+      "duration": 14.795
+    },
+    {
+      "id": 8702,
+      "logits_file": "logits_008702.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008702.wav",
+      "text": "hạ vân khâm quay sang nhìn hồng đậu. ngu tiểu thư, cậu của cô làm ở cửa hàng tây nam bảo được bao lâu rồi? hồng đậu suy nghĩ một chút mới nói đã gần mười năm rồi, phẩy ba năm trước.",
+      "logits_shape": [
+        1,
+        84,
+        51865
+      ],
+      "duration": 13.2159375
+    },
+    {
+      "id": 8703,
+      "logits_file": "logits_008703.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008703.wav",
+      "text": "hở một tí là cãi nhau với chị gái của nó. hai chị em nói chuyện với nhau cũng không nhiều bằng hai người chúng tôi nói nữa. hồng đậu chớp mắt.",
+      "logits_shape": [
+        1,
+        58,
+        51865
+      ],
+      "duration": 10.1676875
+    },
+    {
+      "id": 8704,
+      "logits_file": "logits_008704.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008704.wav",
+      "text": "phan tiên sinh suy nghĩ một lúc mới nói : gần đây có đưa thiếp mời cho ngọc kỳ hay không thì tôi không biết, nhưng thiếu gia của chúng tôi đã từng theo đuổi ngọc kỳ trong một khoảng thời gian ngắn.",
+      "logits_shape": [
+        1,
+        93,
+        51865
+      ],
+      "duration": 11.6480625
+    },
+    {
+      "id": 8705,
+      "logits_file": "logits_008705.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008705.wav",
+      "text": "ngu tiểu thư, thứ bảy hôm ấy lục kính hằng từng xuất hiện ở tiệc trà, hơn nữa còn do quấy rối ngu tiểu thư mà trở thành trò hề không lớn không nhỏ.",
+      "logits_shape": [
+        1,
+        78,
+        51865
+      ],
+      "duration": 10.38375
+    },
+    {
+      "id": 8706,
+      "logits_file": "logits_008706.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008706.wav",
+      "text": "anh ta có xe ô tô, có thể lực, có tất cả điều kiện để gây án nếu sau khi kiểm tra phòng chị họ cô mà không phát hiện được gì.",
+      "logits_shape": [
+        1,
+        57,
+        51865
+      ],
+      "duration": 10.478
+    },
+    {
+      "id": 8707,
+      "logits_file": "logits_008707.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008707.wav",
+      "text": "chỉ nghe thấy giọng nói ngọt ngào của hồng đậu vang lên phía sau, cô nói với tần học khải : tần học trưởng, sao anh lại tới đây? tần học khải đáp :",
+      "logits_shape": [
+        1,
+        69,
+        51865
+      ],
+      "duration": 10.1573125
+    },
+    {
+      "id": 8708,
+      "logits_file": "logits_008708.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008708.wav",
+      "text": "cuối cùng rơi vào người đàn ông đứng bên cạnh cha mình, giọng điệu đầy hờ hững. mấy người đang làm gì vậy? hạ vân kham hơi kinh ngạc liếc nhìn cô ta một cái.",
+      "logits_shape": [
+        1,
+        68,
+        51865
+      ],
+      "duration": 11.1505625
+    },
+    {
+      "id": 8709,
+      "logits_file": "logits_008709.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008709.wav",
+      "text": "nước hoa này do bạn của chị tôi tặng cho chị ấy, trên thị trường, kiểu dáng giống như vậy không có mấy lọ đâu, chị ấy thích vô cùng, ngày nào cũng dùng.",
+      "logits_shape": [
+        1,
+        66,
+        51865
+      ],
+      "duration": 10.3799375
+    },
+    {
+      "id": 8710,
+      "logits_file": "logits_008710.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008710.wav",
+      "text": "sao tôi có thể biết hết chứ? có lẽ là viên nhược lạp phan thái thái nói từ trước tới nay ngọc kỳ chưa bao giờ tùy tiện nhận quà người khác tặng.",
+      "logits_shape": [
+        1,
+        76,
+        51865
+      ],
+      "duration": 11.07
+    },
+    {
+      "id": 8711,
+      "logits_file": "logits_008711.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008711.wav",
+      "text": "nhưng nó không chỉ nhận lọ nước hoa này mà ngày nào cũng dùng. chắc chắn là nó vô cùng thích người đó rồi. đáng tiếc con bé này lo lắng, chúng tôi không đồng ý cho nó.",
+      "logits_shape": [
+        1,
+        65,
+        51865
+      ],
+      "duration": 11.93875
+    },
+    {
+      "id": 8712,
+      "logits_file": "logits_008712.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008712.wav",
+      "text": "hồng đậu buồn bực đáp một tiếng. cô ra ngoài cầm lấy đèn pin tay từ tay người hầu mang tới. hạ vân khâm mở đèn pin lên, sau đó lia đèn pin một vòng.",
+      "logits_shape": [
+        1,
+        76,
+        51865
+      ],
+      "duration": 10.6513125
+    },
+    {
+      "id": 8713,
+      "logits_file": "logits_008713.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008713.wav",
+      "text": "anh ta im lặng đi qua giúp hà vân khâm xê dịch bàn trang điểm. sau khi vật nặng được chuyển đi, thứ kẹp trong khe hở ào ào rơi xuống.",
+      "logits_shape": [
+        1,
+        68,
+        51865
+      ],
+      "duration": 11.0538125
+    },
+    {
+      "id": 8714,
+      "logits_file": "logits_008714.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008714.wav",
+      "text": "và trang sức bằng nhựa không dùng tới. cuối cùng anh tìm thấy một tờ giấy màu vàng có rất nhiều nếp nhăn. hạ vân khâm mở tờ giấy kia ra.",
+      "logits_shape": [
+        1,
+        71,
+        51865
+      ],
+      "duration": 10.3599375
+    },
+    {
+      "id": 8715,
+      "logits_file": "logits_008715.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008715.wav",
+      "text": "nếu tình huống trong đạo quán đơn sơ đúng như lời phan thái thái nói thì ít nhất cũng thiếu công cụ gây án. hạ vân khâm lại hỏi phan thái thái :",
+      "logits_shape": [
+        1,
+        74,
+        51865
+      ],
+      "duration": 10.519875
+    },
+    {
+      "id": 8716,
+      "logits_file": "logits_008716.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008716.wav",
+      "text": "cụ thể, đạo quán kia ở đâu vậy? gần đó có người ở không? phan thái thái đáp : ngay trên núi minh tuyền, chỗ đó đông ấm hè mát.",
+      "logits_shape": [
+        1,
+        66,
+        51865
+      ],
+      "duration": 10.9598125
+    },
+    {
+      "id": 8717,
+      "logits_file": "logits_008717.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008717.wav",
+      "text": "mỗi lần nói đến kim chủ của trần bạch điệp thì vẻ mặt lập tức trở nên lạnh nhạt. chủ đề hay như vậy mà không tiếp tục được, quả thực không thể tưởng tượng nổi.",
+      "logits_shape": [
+        1,
+        81,
+        51865
+      ],
+      "duration": 10.5799375
+    },
+    {
+      "id": 8718,
+      "logits_file": "logits_008718.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008718.wav",
+      "text": "ở ghế sau hay không thì lục kính hằng và mấy người lê lộ lộ đã đi ra. người tài xế kia rất đúng giờ trước khi rạp hát chiếu xong đã đến trước một phút rồi.",
+      "logits_shape": [
+        1,
+        69,
+        51865
+      ],
+      "duration": 11.556375
+    },
+    {
+      "id": 8719,
+      "logits_file": "logits_008719.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008719.wav",
+      "text": "mà mắt thường không nhìn thấy được. nhìn rõ mặt bài là điều không dễ, muốn nhớ được thứ tự và hoa văn thì càng khó hơn. lên trời không khỏi âm thầm.",
+      "logits_shape": [
+        1,
+        72,
+        51865
+      ],
+      "duration": 11.274
+    },
+    {
+      "id": 8720,
+      "logits_file": "logits_008720.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008720.wav",
+      "text": "tới tiền bạc, càng không thể vi phạm, càng không thể vi phạm những điều luật pháp, luật. nếu không, tôi có quyền từ chối thực hiện cam kết.",
+      "logits_shape": [
+        1,
+        68,
+        51865
+      ],
+      "duration": 10.8598125
+    },
+    {
+      "id": 8721,
+      "logits_file": "logits_008721.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008721.wav",
+      "text": "thứ hai, cũng cho biết gần đây cô ấy chắc chắn đã gặp chuyện khó giải quyết, cực kỳ cần sự trợ giúp từ bên ngoài. chờ tới khi cô ấy đúng hẹn tới tìm tôi,",
+      "logits_shape": [
+        1,
+        78,
+        51865
+      ],
+      "duration": 11.138875
+    },
+    {
+      "id": 8722,
+      "logits_file": "logits_008722.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008722.wav",
+      "text": "cái này không giống với cậu năm đó. nói một hơi hết tất cả lá bài, tôi nghĩ mặc dù cô ấy có thể đoán đúng đáp án ít nhiều cũng dựa vào may mắn.",
+      "logits_shape": [
+        1,
+        66,
+        51865
+      ],
+      "duration": 10.350375
+    },
+    {
+      "id": 8723,
+      "logits_file": "logits_008723.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008723.wav",
+      "text": "nhưng mà tác phong lại rất thô lỗ, vừa nhìn đã khiến cho người ta thấy ghét rồi. cô nhớ người ngồi sau lưng cô lúc nãy là một vị khách nước ngoài.",
+      "logits_shape": [
+        1,
+        62,
+        51865
+      ],
+      "duration": 10.5
+    },
+    {
+      "id": 8724,
+      "logits_file": "logits_008724.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008724.wav",
+      "text": "nói anh là ai? anh hỏi tôi thì tôi phải nói cho anh biết à? cô liếc anh ta một cái, lạnh lùng quay đầu lại, người đó lại đá một cái nữa.",
+      "logits_shape": [
+        1,
+        59,
+        51865
+      ],
+      "duration": 12.381375
+    },
+    {
+      "id": 8725,
+      "logits_file": "logits_008725.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008725.wav",
+      "text": "nghĩ tới nghĩ lui, đúng lúc trong tay tôi có mấy tư liệu về kiến trúc, trên đó có mấy kiến trúc lịch sử khá cổ xưa lại có vài lời đồn kỳ lạ.",
+      "logits_shape": [
+        1,
+        79,
+        51865
+      ],
+      "duration": 10.56
+    },
+    {
+      "id": 8726,
+      "logits_file": "logits_008726.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008726.wav",
+      "text": "lời đầu tiên tôi tự giới thiệu, tôi là lục kính hằng, trong nhà sao? vừa lúc nãy cũng đã nói rồi. nhà mở cửa hàng buôn bán đồ nước ngoài,",
+      "logits_shape": [
+        1,
+        69,
+        51865
+      ],
+      "duration": 10.36
+    },
+    {
+      "id": 8727,
+      "logits_file": "logits_008727.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008727.wav",
+      "text": "bài giảng của hạ vân khâm bị cắt ngang, anh vừa ngước mắt, lập tức nhận ra người kia đang dây dưa với hồng đậu, ra vẻ kinh ngạc nói : tôi tưởng là ai,",
+      "logits_shape": [
+        1,
+        72,
+        51865
+      ],
+      "duration": 11.86
+    },
+    {
+      "id": 8728,
+      "logits_file": "logits_008728.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008728.wav",
+      "text": "thì ra là lục thiếu gia của cửa hàng tây nam bảo. sao nào, lục thiếu gia đi dạo ở bách lạc môn còn chưa đủ, lại muốn dạo chơi ở quán trà nữa à?",
+      "logits_shape": [
+        1,
+        69,
+        51865
+      ],
+      "duration": 10.799875
+    },
+    {
+      "id": 8729,
+      "logits_file": "logits_008729.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008729.wav",
+      "text": "chỉ có thể chờ lần sau. hình như cậu đang nói tới đoạn đặc sắc rồi, sao đột nhiên lại gián đoạn vậy? quán trà tân á chúng tôi rất quan tâm tới cảm xúc của khách mời.",
+      "logits_shape": [
+        1,
+        80,
+        51865
+      ],
+      "duration": 11.6796875
+    },
+    {
+      "id": 8730,
+      "logits_file": "logits_008730.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008730.wav",
+      "text": "cố quân lên tiếng, đáng tiếc phương thám tử chỉ đồng ý cho một mình cậu tới văn phòng thám tử của ông ấy thôi. nếu không thì bọn tớ cũng cùng đi với cậu.",
+      "logits_shape": [
+        1,
+        78,
+        51865
+      ],
+      "duration": 11.5023125
+    },
+    {
+      "id": 8731,
+      "logits_file": "logits_008731.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008731.wav",
+      "text": "lúc này mới kéo cô vào bên trong. sau này trời tối không được đi ra ngoài nữa, tan học ở trường xong là về nhà ngay đấy. lời nói này có mấy phần kỳ lạ.",
+      "logits_shape": [
+        1,
+        65,
+        51865
+      ],
+      "duration": 12.757875
+    },
+    {
+      "id": 8732,
+      "logits_file": "logits_008732.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008732.wav",
+      "text": "hai anh em vừa vào cửa mẹ liền đặt áo len xuống chuẩn bị ăn cơm. mấy đứa trẻ các con đúng là ham chơi, nhất định phải chơi tới khi trời tối mới về.",
+      "logits_shape": [
+        1,
+        70,
+        51865
+      ],
+      "duration": 11.8605625
+    },
+    {
+      "id": 8733,
+      "logits_file": "logits_008733.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008733.wav",
+      "text": "cũng chỉ có thể theo em mà đi tìm ông ấy thôi. ngày mai anh đi với em một chuyến, đến lúc em đi tìm ông ấy, anh đứng ở cửa chờ em.",
+      "logits_shape": [
+        1,
+        62,
+        51865
+      ],
+      "duration": 11.156
+    },
+    {
+      "id": 8734,
+      "logits_file": "logits_008734.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008734.wav",
+      "text": "chẳng phải là hôm diễn ra tiệc trà ở tân á sao? nhớ lại lúc bước vào quán trà, cô chắc chắn có nhìn thấy chị họ ngọc kỳ nhưng lúc tiệc trà chính thức bắt đầu thì không thấy chị họ đâu nữa.",
+      "logits_shape": [
+        1,
+        91,
+        51865
+      ],
+      "duration": 13.668125
+    },
+    {
+      "id": 8735,
+      "logits_file": "logits_008735.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008735.wav",
+      "text": "hồng đậu vội nói : anh à, hôm thứ bảy em có gặp chị họ ngọc kỳ ở quán trà tân á. lúc đó chị đang nói chuyện với một người đàn ông trung niên.",
+      "logits_shape": [
+        1,
+        69,
+        51865
+      ],
+      "duration": 10.738
+    },
+    {
+      "id": 8736,
+      "logits_file": "logits_008736.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008736.wav",
+      "text": "em nhớ người đó ăn mặc rất chỉnh tề, trên tay đeo một chiếc đồng hồ vàng. hai người nói chuyện một hồi, rồi em không thấy chị ngọc kỳ đâu nữa.",
+      "logits_shape": [
+        1,
+        65,
+        51865
+      ],
+      "duration": 10.938125
+    },
+    {
+      "id": 8737,
+      "logits_file": "logits_008737.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008737.wav",
+      "text": "là một vị thám tử, mẹ còn nhớ minh tinh trần bạch điệp không? cuối cùng con cũng cảm thấy chuyện của chị họ ngọc kỳ không đơn giản. lát nữa anh trai về,",
+      "logits_shape": [
+        1,
+        71,
+        51865
+      ],
+      "duration": 10.87975
+    },
+    {
+      "id": 8738,
+      "logits_file": "logits_008738.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008738.wav",
+      "text": "rồi lắng nghe tiếng động trong phòng tắm. anh tắm nhanh hơn cô rất nhiều, chưa đến mười phút đã có tiếng mở cửa. vốn dĩ cô định nhắm mắt lại giả vờ ngủ,",
+      "logits_shape": [
+        1,
+        74,
+        51865
+      ],
+      "duration": 10.58425
+    },
+    {
+      "id": 8739,
+      "logits_file": "logits_008739.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008739.wav",
+      "text": "cả người cô cứng đờ lại, hơi giật mình hoảng hốt, nhưng vài giây sau cô lại nhận ra, anh vẫn chưa tỉnh giấc. chỉ là không hiểu sao anh lại ôm lấy cô.",
+      "logits_shape": [
+        1,
+        62,
+        51865
+      ],
+      "duration": 10.6880625
+    },
+    {
+      "id": 8740,
+      "logits_file": "logits_008740.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008740.wav",
+      "text": "một tay ôm eo cô, tay còn lại kê dưới cổ cô. nhìn vào hơi thở đều đặn của anh, có thể thấy anh vẫn đang ngủ. cô biết, trước giờ tướng ngủ.",
+      "logits_shape": [
+        1,
+        73,
+        51865
+      ],
+      "duration": 11.51
+    },
+    {
+      "id": 8741,
+      "logits_file": "logits_008741.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008741.wav",
+      "text": "cô sợ anh phát hiện ra mình đã tỉnh giấc, nên chỉ dám nằm yên không nhúc nhích. hạ vân khâm nằm thẳng đơ trên giường một lúc, thấy chỗ nào đó rất khó chịu, rất muốn làm chuyện gì đó.",
+      "logits_shape": [
+        1,
+        85,
+        51865
+      ],
+      "duration": 12.635375
+    },
+    {
+      "id": 8742,
+      "logits_file": "logits_008742.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008742.wav",
+      "text": "nhị thiếu gia, nhị thiếu nải nải, lão gia và thái thái đang đợi mọi người ở dưới lầu để dùng bữa sáng. hai người đã kết hôn, tất nhiên là cách xưng hô.",
+      "logits_shape": [
+        1,
+        75,
+        51865
+      ],
+      "duration": 10.5950625
+    },
+    {
+      "id": 8743,
+      "logits_file": "logits_008743.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008743.wav",
+      "text": "đi theo hạ vân khâm đến cạnh bàn mỉm cười đáp : con ngủ ngon lắm. nói xong cô liền cùng hạ vân khâm lần lượt chào mọi người : cha mẹ, chị cả, anh cả, chị dâu.",
+      "logits_shape": [
+        1,
+        76,
+        51865
+      ],
+      "duration": 13.133125
+    },
+    {
+      "id": 8744,
+      "logits_file": "logits_008744.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008744.wav",
+      "text": "hạ trúc quân đứng dậy chào hai người. anh hai phẩy chị dâu hai. hồng đậu mỉm cười, cùng hạ vân khâm ngồi xuống. mặc dù hạ mạnh mai cũng mỉm cười nhưng trên mặt vẫn mang theo sự uy nghiêm.",
+      "logits_shape": [
+        1,
+        85,
+        51865
+      ],
+      "duration": 13.303375
+    },
+    {
+      "id": 8745,
+      "logits_file": "logits_008745.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008745.wav",
+      "text": "ý là vì cô muốn thay quần áo nên không cho anh vào trong phòng. vốn dĩ anh không hề nghĩ vậy, nhưng đến lúc này đột nhiên lại có rất nhiều suy nghĩ chạy qua đầu.",
+      "logits_shape": [
+        1,
+        61,
+        51865
+      ],
+      "duration": 10.6386875
+    },
+    {
+      "id": 8746,
+      "logits_file": "logits_008746.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008746.wav",
+      "text": "nhưng vẫn cố tình chọn màu này, không muốn để anh nhận ra ý đồ của mình, cô tỏ vẻ dững dưng : đến gần anh mình đi thôi, nhưng hiển nhiên là cô đã đánh giá.",
+      "logits_shape": [
+        1,
+        66,
+        51865
+      ],
+      "duration": 12.0000625
+    },
+    {
+      "id": 8747,
+      "logits_file": "logits_008747.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008747.wav",
+      "text": "mời vương thám tử đến thư phòng ngồi đi, tôi và nhị thiếu nải nải sẽ qua đấy luôn. đến thư phòng, quả nhiên peter vương đang ngồi yên lặng uống trà đợi người.",
+      "logits_shape": [
+        1,
+        77,
+        51865
+      ],
+      "duration": 11.16075
+    },
+    {
+      "id": 8748,
+      "logits_file": "logits_008748.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008748.wav",
+      "text": "nghĩ mà xem, trong lúc giết người mà hung thủ vẫn có tâm trạng hút thuốc, hai người nói xem liệu hắn có ung dung hay không. hồng đậu ngạc nhiên. vị giám đốc này nặng bao nhiêu, cao bao nhiêu?",
+      "logits_shape": [
+        1,
+        85,
+        51865
+      ],
+      "duration": 13.498875
+    },
+    {
+      "id": 8749,
+      "logits_file": "logits_008749.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008749.wav",
+      "text": "cho nên hung thủ biết đêm đó hứa gia không có ai nên thuận lợi ra tay. ông đi hỏi hứa thái thái xem, cô ấy đã lên kế hoạch rằng hôm qua sẽ về nhà mẹ đẻ từ trước hay là nhất thời muốn ra về?",
+      "logits_shape": [
+        1,
+        86,
+        51865
+      ],
+      "duration": 13.93425
+    },
+    {
+      "id": 8750,
+      "logits_file": "logits_008750.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008750.wav",
+      "text": "thứ hai, dấu vết dãy dụa và phạm vi dãy dụa rất kỳ lạ. thứ ba, lúc nạn nhân bị hại, hàng xóm không nghe thấy tiếng kêu cứu, cũng không có bất kỳ nhân chứng nào.",
+      "logits_shape": [
+        1,
+        80,
+        51865
+      ],
+      "duration": 11.787625
+    },
+    {
+      "id": 8751,
+      "logits_file": "logits_008751.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008751.wav",
+      "text": "mặc dù danh tiếng không bằng bạch phượng phi nhưng hát mấy năm qua cũng có lượng người ủng hộ nhất định. cả tháng vừa rồi tôi điều tra rồi mấy chuyện khác thì chưa phát hiện ra điều gì.",
+      "logits_shape": [
+        1,
+        75,
+        51865
+      ],
+      "duration": 11.0814375
+    },
+    {
+      "id": 8752,
+      "logits_file": "logits_008752.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008752.wav",
+      "text": "chỉ một lát sau, danh sách khách mời được mang lên. ba người ngồi vòng quanh cái bàn tròn để nghiên cứu. chỉ riêng khách mời thôi đã mấy nghìn người rồi.",
+      "logits_shape": [
+        1,
+        63,
+        51865
+      ],
+      "duration": 10.0169375
+    },
+    {
+      "id": 8753,
+      "logits_file": "logits_008753.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008753.wav",
+      "text": "dù chưa chắc đã có thể thu thập được gì từ danh sách này, nhưng nếu sau này phát hiện ra điều khác lạ nào nữa, thì cũng có thể đối chiếu lại với danh sách này, thuận tiện thu hẹp lại phạm vi của hung thủ.",
+      "logits_shape": [
+        1,
+        92,
+        51865
+      ],
+      "duration": 12.928625
+    },
+    {
+      "id": 8754,
+      "logits_file": "logits_008754.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008754.wav",
+      "text": "hôm nay lại mới tân hôn, hồng đậu để ý chuyện này như vậy đi kiểm tra hiện trường án mạng cũng không tiện lắm. anh liền nói với cô có muốn về vòng nghỉ ngơi không?",
+      "logits_shape": [
+        1,
+        67,
+        51865
+      ],
+      "duration": 10.6695625
+    },
+    {
+      "id": 8755,
+      "logits_file": "logits_008755.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008755.wav",
+      "text": "hai người đang định vào phòng, bỗng nhiên của hành lang có người khẽ gọi nhị thiếu gia hồng đậu quay sang, hóa ra là người hầu của đoàn minh y. người hầu kia rất bình tĩnh đi tới.",
+      "logits_shape": [
+        1,
+        78,
+        51865
+      ],
+      "duration": 12.8561875
+    },
+    {
+      "id": 8756,
+      "logits_file": "logits_008756.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008756.wav",
+      "text": "đột nhiên tim nhảy mạnh lên một nhịp, mạnh miệng nói : ở trường có giáo sư dạy tiếng đức, em tìm họ để học. trước mặt em cũng có một người hiểu tiếng đức, sao không học từ anh ta?",
+      "logits_shape": [
+        1,
+        87,
+        51865
+      ],
+      "duration": 12.9718125
+    },
+    {
+      "id": 8757,
+      "logits_file": "logits_008757.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008757.wav",
+      "text": "hơn cô là bao, trải qua một khoảng thời gian ngắn lúng túng tìm hiểu, cuối cùng mới thôi không gõ vào răng cửa cô mà thuận lợi hưởng thụ nụ hôn ngọt ngào này.",
+      "logits_shape": [
+        1,
+        78,
+        51865
+      ],
+      "duration": 11.215
+    },
+    {
+      "id": 8758,
+      "logits_file": "logits_008758.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008758.wav",
+      "text": "nhất định. hắn có lý do riêng của mình. có lẽ hắn cần cô ấy hôn mê một khoảng thời gian để hắn bố trí kế hoạch của bản thân hoặc bên cạnh cô ấy.",
+      "logits_shape": [
+        1,
+        69,
+        51865
+      ],
+      "duration": 10.58
+    },
+    {
+      "id": 8759,
+      "logits_file": "logits_008759.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008759.wav",
+      "text": "quá liều lĩnh, quá thiếu tỉnh táo. có lẽ người này đột nhiên phát hiện ra cố tiểu thư có được thứ gì đó của hắn nên nhất định phải lấy lại trước khi cô ấy đi về nhà.",
+      "logits_shape": [
+        1,
+        75,
+        51865
+      ],
+      "duration": 11.50125
+    },
+    {
+      "id": 8760,
+      "logits_file": "logits_008760.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008760.wav",
+      "text": "cậu còn mang gì theo? lúc tỉnh dậy, cậu có thấy thiếu gì không? trên đường đến đây, cố quân đã kiểm tra lại rất nhiều lần. không, mấy món đồ mà tớ để trong cặp",
+      "logits_shape": [
+        1,
+        79,
+        51865
+      ],
+      "duration": 12.5105
+    },
+    {
+      "id": 8761,
+      "logits_file": "logits_008761.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008761.wav",
+      "text": "và sách ở thư viện đều còn nguyên. sự chú ý của bốn người lại quay về mấy quyển sách trên bàn tròn. hồng đậu thuận tay, cầm một quyển sách hướng dẫn làm bánh xe trượt lên xem.",
+      "logits_shape": [
+        1,
+        87,
+        51865
+      ],
+      "duration": 12.730625
+    },
+    {
+      "id": 8762,
+      "logits_file": "logits_008762.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008762.wav",
+      "text": "đây đều là mấy quyển sách rất bình thường, tại sao người đó không trực tiếp yêu cầu mượn sách? chẳng lẽ hắn biết cố quân đang điều tra về vụ án hứa dịch sơn, nên biết?",
+      "logits_shape": [
+        1,
+        80,
+        51865
+      ],
+      "duration": 10.937125
+    },
+    {
+      "id": 8763,
+      "logits_file": "logits_008763.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008763.wav",
+      "text": "peter vương nói : tôi cũng nghĩ thế, nhưng trừ việc cố tiểu thư hôn mê thì điều bất thường nhất hôm qua đó là hồng đậu bị hắn bắt đi.",
+      "logits_shape": [
+        1,
+        64,
+        51865
+      ],
+      "duration": 10.1274375
+    },
+    {
+      "id": 8764,
+      "logits_file": "logits_008764.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008764.wav",
+      "text": "dường như vẫn còn một con dao sắc nhọn đang cắm chặt vào tim anh. mặc dù không động đến, nhưng nó vẫn luôn nhói đau. anh im lặng hồi lâu mới dịu dàng hỏi hồng đậu.",
+      "logits_shape": [
+        1,
+        69,
+        51865
+      ],
+      "duration": 11.4393125
+    },
+    {
+      "id": 8765,
+      "logits_file": "logits_008765.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008765.wav",
+      "text": "em đoán là người bị hại đang vùng vẫy mới không cẩn thận đụng vào cửa, khiến cho nó mở ra. nói chung là tiếng động kia không bình thường, em cực kỳ sợ hãi, quay người định chạy đi, nhưng người nọ nhanh chóng rời khỏi phòng học đuổi theo em.",
+      "logits_shape": [
+        1,
+        110,
+        51865
+      ],
+      "duration": 15.918125
+    },
+    {
+      "id": 8766,
+      "logits_file": "logits_008766.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008766.wav",
+      "text": "đúng là hiếm thấy, toàn là những chi tiết quan trọng. ông lấy một chiếc bút mực từ trong ngực, viết lên giấy. theo lời miêu tả của nhân viên quán và hồng đậu thì người này cao khoảng trên dưới tám thước.",
+      "logits_shape": [
+        1,
+        101,
+        51865
+      ],
+      "duration": 14.605125
+    },
+    {
+      "id": 8767,
+      "logits_file": "logits_008767.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008767.wav",
+      "text": "vẫn còn một vài vấn đề nữa. thứ nhất, chúng ta vẫn chưa rõ liệu cố quân và hồng đậu có bị tấn công bởi cùng một người hay không? thứ hai,",
+      "logits_shape": [
+        1,
+        61,
+        51865
+      ],
+      "duration": 10.270125
+    },
+    {
+      "id": 8768,
+      "logits_file": "logits_008768.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008768.wav",
+      "text": "vì người kia xuống xe nên hồng đậu ngồi ở ghế sau cũng mơ mơ màng màng xuống xe theo, khi đến gần chỗ công viên thì lại ngủ mất, điều này cực kỳ mâu thuẫn.",
+      "logits_shape": [
+        1,
+        76,
+        51865
+      ],
+      "duration": 11.4109375
+    },
+    {
+      "id": 8769,
+      "logits_file": "logits_008769.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008769.wav",
+      "text": "nghiêng về giả thiết hung thủ không muốn làm sát kẻ vô tội. nhưng mà tại sao hắn lại muốn giết đám người phó tử tiêu dương phụ thiên ph hứa dịch sơn?",
+      "logits_shape": [
+        1,
+        73,
+        51865
+      ],
+      "duration": 10.28
+    },
+    {
+      "id": 8770,
+      "logits_file": "logits_008770.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008770.wav",
+      "text": "nên khả năng cao là hai người này quen biết nhau. tối hôm qua, anh ta đã nhận điện thoại của ai? mấy ngày trước, liệu có thiệp mời nào được gửi đến nhà anh ta hay không?",
+      "logits_shape": [
+        1,
+        75,
+        51865
+      ],
+      "duration": 10.62
+    },
+    {
+      "id": 8771,
+      "logits_file": "logits_008771.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008771.wav",
+      "text": "có thể anh ta và đám người dương vũ thiên cùng nhận được lời mời ấy thì sao? những vấn đề này, ông hãy lợi dụng thân phận thám tử của mình để đến nhà phó tử tiêu.",
+      "logits_shape": [
+        1,
+        81,
+        51865
+      ],
+      "duration": 10.30825
+    },
+    {
+      "id": 8772,
+      "logits_file": "logits_008772.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008772.wav",
+      "text": "thân thể em vẫn chưa khỏe lại, anh đã hẹn bác sĩ rít đến khám cho em. cậu ấy là bạn thân của anh, y thuật cũng cao. nếu khó chịu chỗ nào thì đừng có giấu, cứ nói thẳng với cậu ấy.",
+      "logits_shape": [
+        1,
+        87,
+        51865
+      ],
+      "duration": 12.9609375
+    },
+    {
+      "id": 8773,
+      "logits_file": "logits_008773.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008773.wav",
+      "text": "người này khoảng ba mươi tuổi, cử chỉ lịch sự, vẻ mặt tươi cười, mặc một bộ âu phục màu xám tro được cắt mai rất tỉ mỉ sau khi anh ta đi vào.",
+      "logits_shape": [
+        1,
+        69,
+        51865
+      ],
+      "duration": 10.429375
+    },
+    {
+      "id": 8774,
+      "logits_file": "logits_008774.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008774.wav",
+      "text": "tâm trạng cô lại khác hẳn. nếu như không để ý đến người phụ nữ kia thì sao trong hôn lễ anh còn nhận quà của người ta, có thể nói lời ngon tiếng ngọt với cô.",
+      "logits_shape": [
+        1,
+        74,
+        51865
+      ],
+      "duration": 11.4665625
+    },
+    {
+      "id": 8775,
+      "logits_file": "logits_008775.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008775.wav",
+      "text": "ngoài mặt, cô có thể cố tỏ ra là mình không để ý, nhưng trong lòng vẫn luôn canh cánh chuyện này. nếu trước kia cô không gặp hạ vân khâm thì tốt rồi, cô vẫn sẽ là hồng đậu.",
+      "logits_shape": [
+        1,
+        80,
+        51865
+      ],
+      "duration": 11.799625
+    },
+    {
+      "id": 8776,
+      "logits_file": "logits_008776.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008776.wav",
+      "text": "nếu cuộc hôn nhân này là một trận đấu thì chắc chắn cô là người thua, nhưng mà cô cũng không muốn sống đau khổ qua ngày, lại càng không muốn anh đối xử tốt với cô chỉ để làm tròn bổn phận.",
+      "logits_shape": [
+        1,
+        75,
+        51865
+      ],
+      "duration": 12.6075625
+    },
+    {
+      "id": 8777,
+      "logits_file": "logits_008777.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008777.wav",
+      "text": "anh thở dài, đưa tay lên bóp má cô, cười nói : vấn đề này anh cũng đã từng nghĩ đến rồi, đáp án đơn giản lắm, chỉ là muốn.",
+      "logits_shape": [
+        1,
+        57,
+        51865
+      ],
+      "duration": 10.6248125
+    },
+    {
+      "id": 8778,
+      "logits_file": "logits_008778.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008778.wav",
+      "text": "anh về nhà và nghĩ lại thì không hề thấy hối hận chút nào. anh nhìn xuống gò má cô. chuyện này không thể nói ra bằng lời, cũng không thể dùng kiến thức.",
+      "logits_shape": [
+        1,
+        65,
+        51865
+      ],
+      "duration": 11.419875
+    },
+    {
+      "id": 8779,
+      "logits_file": "logits_008779.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008779.wav",
+      "text": "lặng im không nói một lời, bầu không khí ngọt ngào lãng mạn bao trùm khắp không gian. nhưng đột nhiên anh nói : thế nên em nhất định.",
+      "logits_shape": [
+        1,
+        59,
+        51865
+      ],
+      "duration": 10.8568125
+    },
+    {
+      "id": 8780,
+      "logits_file": "logits_008780.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008780.wav",
+      "text": "người này bị làm sao thế? cô còn chưa phản ứng. hạ vân khâm đã tập trung thực hiện kế hoạch của mình. anh nhẹ nhàng cúi xuống, trải rác những nụ hôn nhỏ lên cổ cô.",
+      "logits_shape": [
+        1,
+        76,
+        51865
+      ],
+      "duration": 11.34
+    },
+    {
+      "id": 8781,
+      "logits_file": "logits_008781.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008781.wav",
+      "text": "cố ý đẩy cửa phòng tắm ra. tối hôm qua anh cũng tắm cho em rồi còn gì? cô vẫn còn nhớ rõ chuyện tối hôm qua, nhưng dù sao thì khi đó cô cũng đang trong tình trạng hôn mê.",
+      "logits_shape": [
+        1,
+        81,
+        51865
+      ],
+      "duration": 13.3765
+    },
+    {
+      "id": 8782,
+      "logits_file": "logits_008782.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008782.wav",
+      "text": "bây giờ hai người đều đang tỉnh táo, mặt đối mặt với nhau trong phòng tắm. trước lúc kết hôn, mẹ chưa dạy cô về chuyện này, càng nghĩ cô càng thấy xấu hổ.",
+      "logits_shape": [
+        1,
+        75,
+        51865
+      ],
+      "duration": 10.2595
+    },
+    {
+      "id": 8783,
+      "logits_file": "logits_008783.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008783.wav",
+      "text": "không được, em tự tắm được, anh mau thả em xuống. hạ vân khâm ôm cô lên bồn rửa mặt, vừa hôn vừa cởi áo cô ra, xoa nhẹ lên người.",
+      "logits_shape": [
+        1,
+        67,
+        51865
+      ],
+      "duration": 10.6460625
+    },
+    {
+      "id": 8784,
+      "logits_file": "logits_008784.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008784.wav",
+      "text": "quá vui vì chuyện làm hòa hạ, vân khâm dường như phát điên. lần này anh dốc hết sức mình ra để cài cấy bồn rửa mặt, bồn tắm trước gương.",
+      "logits_shape": [
+        1,
+        68,
+        51865
+      ],
+      "duration": 11.57975
+    },
+    {
+      "id": 8785,
+      "logits_file": "logits_008785.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008785.wav",
+      "text": "em đi học, cô thử lấy lại bàn chải đánh răng nhưng lấy không nổi, đành nâng cả cánh tay anh lên, dùng tay anh để đánh răng. anh ngẩn ra, làm thế này mà cũng được à?",
+      "logits_shape": [
+        1,
+        73,
+        51865
+      ],
+      "duration": 11.924
+    },
+    {
+      "id": 8786,
+      "logits_file": "logits_008786.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008786.wav",
+      "text": "nhận dạy cô tiếng đức đã đành, bây giờ còn đòi dạy cả những môn khác. anh đang định đánh răng, nghe câu này liền liếc mắt về phía cô. có phải là em lại nghĩ đi đâu rồi đúng không? anh đang muốn dạy em rất đàng hoàng mà.",
+      "logits_shape": [
+        1,
+        90,
+        51865
+      ],
+      "duration": 15.879
+    },
+    {
+      "id": 8787,
+      "logits_file": "logits_008787.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008787.wav",
+      "text": "vừa bước ra đã thấy cô chỉ quấn mỗi chiếc khăn tắm trắng, cánh tay và bắp chân lộ hết ra bên ngoài, chỗ đẩy đà nào đó thì như ẩn như hiện, anh không dám nhìn lâu.",
+      "logits_shape": [
+        1,
+        79,
+        51865
+      ],
+      "duration": 11.3645
+    },
+    {
+      "id": 8788,
+      "logits_file": "logits_008788.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008788.wav",
+      "text": "thậm chí nó còn khiến khuôn mặt chị dâu hai càng thêm trắng trẻo, nõn nà. lúc chị dâu hai ngắm anh hai, ánh mắt rất dịu dàng, dường như trong mắt chị dâu hai chứa cả một hồ nước vậy.",
+      "logits_shape": [
+        1,
+        86,
+        51865
+      ],
+      "duration": 12.6323125
+    },
+    {
+      "id": 8789,
+      "logits_file": "logits_008789.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008789.wav",
+      "text": "hai người đi xuống chào hỏi, sau đó im lặng ngồi xuống dùng cơm, từ đầu tới cuối không ai nói với ai lời nào, nhưng hạ trúc quân ngồi đối diện hai người không hiểu sao lại có cảm giác.",
+      "logits_shape": [
+        1,
+        75,
+        51865
+      ],
+      "duration": 12.1015625
+    },
+    {
+      "id": 8790,
+      "logits_file": "logits_008790.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008790.wav",
+      "text": "nếu cứ như vậy mà bán cô ta thì đoàn kịch sẽ mất đi một cây hái tiền. đây chắc chắn là một vụ mua bán lỗ vốn. ông chủ đoàn kịch nghe xong, cảm thấy cũng rất có lý,",
+      "logits_shape": [
+        1,
+        78,
+        51865
+      ],
+      "duration": 12.2754375
+    },
+    {
+      "id": 8791,
+      "logits_file": "logits_008791.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008791.wav",
+      "text": "gọi điện thoại về cửa hàng cầu cứu. khi trình lão gia chạy đến, ông cũng tỏ vẻ nghi ngờ, lái xe và phó tử tiêu cho người điều tra nhưng không thu được gì. hơn",
+      "logits_shape": [
+        1,
+        73,
+        51865
+      ],
+      "duration": 11.8105
+    },
+    {
+      "id": 8792,
+      "logits_file": "logits_008792.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008792.wav",
+      "text": "anh ta liền giận tím mặt nói : người lên kế hoạch là anh ta làm nội gián ở cửa hiệu cũng là anh ta, bị thương nặng nhất cũng là anh ta. tại sao anh ta chỉ có được một ngàn?",
+      "logits_shape": [
+        1,
+        75,
+        51865
+      ],
+      "duration": 12.1
+    },
+    {
+      "id": 8793,
+      "logits_file": "logits_008793.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008793.wav",
+      "text": "thấy nhóm phó tử tiêu đi vào trường, phan tiểu thư nóng lòng muốn gặp trình quang chi nên đã đi theo họ vào trường, nào ngờ lại tình cờ nghe thấy chuyện chia tiền của bọn họ.",
+      "logits_shape": [
+        1,
+        82,
+        51865
+      ],
+      "duration": 10.7788125
+    },
+    {
+      "id": 8794,
+      "logits_file": "logits_008794.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008794.wav",
+      "text": "là độ tuổi có thể nhớ được mọi chuyện. khi dì út qua đời, bà ngoại đã khóc rất nhiều. đến tận bây giờ, anh ta vẫn nhớ cảm giác đau lòng lúc đó. có thể khi đó.",
+      "logits_shape": [
+        1,
+        73,
+        51865
+      ],
+      "duration": 11.04
+    },
+    {
+      "id": 8795,
+      "logits_file": "logits_008795.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008795.wav",
+      "text": "ở trường trung học nữ sinh. lần trước pháp y khám không ra nguyên nhân phan tiểu thư chết. tất nhiên cũng không thể khám ra được cái chết của đinh tiểu thư. tính ra thì đây là cách làm hiệu quả nhất lúc đó.",
+      "logits_shape": [
+        1,
+        92,
+        51865
+      ],
+      "duration": 13.1198125
+    },
+    {
+      "id": 8796,
+      "logits_file": "logits_008796.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008796.wav",
+      "text": "còn phó tử tiêu dù đi cỡ dài bốn hai nhưng nhân cách lại quá kém. con gái thầy không thể phải lòng loại đàn ông như vậy được. trong lúc điều tra chuyện này.",
+      "logits_shape": [
+        1,
+        68,
+        51865
+      ],
+      "duration": 11.9953125
+    },
+    {
+      "id": 8797,
+      "logits_file": "logits_008797.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008797.wav",
+      "text": "chuyện này đành phải tạm gác lại sang một bên. nửa năm trước, đặng quy trang định quay lại thượng hải để chăm sóc mẹ ốm nên đã cho người đi tìm nghiêm tiên sinh",
+      "logits_shape": [
+        1,
+        74,
+        51865
+      ],
+      "duration": 12.0786875
+    },
+    {
+      "id": 8798,
+      "logits_file": "logits_008798.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008798.wav",
+      "text": "nhờ thầy ấy viết một bức thư giới thiệu. năm đó, khi đặng quy trang và đinh kỳ yêu đương, đinh tiểu thư thường nhắc đến cha mẹ mình. đặng quy trang cứ nghĩ rằng cha mẹ cô là giảng viên đại học ở thượng hải.",
+      "logits_shape": [
+        1,
+        96,
+        51865
+      ],
+      "duration": 14.6370625
+    },
+    {
+      "id": 8799,
+      "logits_file": "logits_008799.npy",
+      "audio_path": "preprocessing_data/phoaudiobook_100h/audio/audio_008799.wav",
+      "text": "dẫn dắt tới chuyện năm đó ở phố xuân oanh nói tư tưởng này quá tiêu cực, không nên khuyến khích chút nào. ngày xưa từng có nữ sinh vì yêu đương không thành.",
+      "logits_shape": [
+        1,
+        70,
+        51865
+      ],
+      "duration": 10.28
+    }
+  ]
+}

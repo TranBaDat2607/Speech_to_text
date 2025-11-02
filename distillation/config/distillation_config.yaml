@@ -54,26 +54,26 @@ distillation:
   feature_loss_weight: 0.0  # Intermediate layer matching (optional, disabled)
   
   # Temperature for distillation
-  temperature: 5.0  # Higher temp = softer targets, reduces KL loss (was 3.0)
+  temperature: 2.0  # Balanced temp for stable training (5.0 was too high, caused flat loss)
   
   # Training hyperparameters
   epochs: 1  # One-shot distillation (20 epochs was too slow and unnecessary)
-  batch_size: 1  # Keep at 1 to avoid OOM (loss computation on long sequences)
-  gradient_accumulation_steps: 8  # Accumulate to maintain effective_batch_size=8
-  effective_batch_size: 8  # 1 × 8 = 8  
+  batch_size: 1  # Must use 1 to fit in 8GB VRAM (both 2 and 4 caused OOM)
+  gradient_accumulation_steps: 8  # Maintain effective_batch_size=8
+  effective_batch_size: 8  # 1 × 8 = 8 (unchanged)  
   
   # Optimizer configuration
   optimizer: "adamw"  # AdamW optimizer with weight decay
-  learning_rate: 5.0e-5  # Max learning rate (0.00005)
+  learning_rate: 1e-3  # Balanced: not too low (8e-5) nor too high (5e-4 caused oscillation)
   weight_decay: 0.01  # Weight decay for regularization
   beta_1: 0.9  # Adam beta1 parameter
   beta_2: 0.98  # Adam beta2 parameter
   epsilon: 1.0e-6  # Epsilon for numerical stability
   
   # Learning rate schedule
-  lr_schedule: "cosine"  # Cosine annealing schedule
-  warmup_steps: 50  # Reduced warmup (50% of ~100 steps per batch with epochs=1)
-  min_learning_rate: 1.0e-6  # Minimum LR after decay
+  lr_schedule: "constant"  # Constant LR (cosine caused per-batch reset in mini-batch mode)
+  warmup_steps: 0  # No warmup needed with constant LR
+  min_learning_rate: 2.0e-4  # Same as base LR (constant)
   
   # Mixed precision training (CRITICAL for 8GB VRAM)
   mixed_precision: true  # Enable mixed precision (fp16)
@@ -152,7 +152,7 @@ logging:
 # Advanced options
 advanced:
   # Activation checkpointing to save VRAM
-  use_gradient_checkpointing: false  # Enable if OOM occurs
+  use_gradient_checkpointing: true  # Enabled to prevent OOM with batch_size=2
   
   # Progressive unfreezing (not used with epochs=1)
   progressive_unfreezing: false  # Gradually unfreeze layers

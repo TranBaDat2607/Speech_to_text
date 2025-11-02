@@ -1,6 +1,6 @@
 {
-  "batches_completed": 2,
-  "total_samples_trained": 200,
+  "batches_completed": 87,
+  "total_samples_trained": 8700,
   "start_time": 1762054863.6846974,
   "batch_losses": []
 }

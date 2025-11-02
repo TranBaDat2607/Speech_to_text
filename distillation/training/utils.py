@@ -41,6 +41,13 @@ class LearningRateScheduler:
     
     def get_lr(self, step: int) -> float:
         """Get learning rate for current step"""
+        # Constant LR (no decay)
+        if self.schedule_type == "constant":
+            if step < self.warmup_steps:
+                return self.base_lr * (step / self.warmup_steps)
+            return self.base_lr
+        
+        # Standard warmup
         if step < self.warmup_steps:
             # Linear warmup
             return self.base_lr * (step / self.warmup_steps)

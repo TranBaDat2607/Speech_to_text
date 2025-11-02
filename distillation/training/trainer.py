@@ -171,7 +171,12 @@ class DistillationTrainer:
         # Check if teacher logits exist
         logits_dir = Path(self.config.paths.teacher_logits_dir)
         if not logits_dir.exists() or not (logits_dir / "logits_metadata.json").exists():
-            print(f"WARNING: No teacher logits at {logits_dir}")
+            # This is expected in mini-batch mode where logits are generated on-the-fly
+            if hasattr(self.config.distillation, 'enable_mini_batch') and self.config.distillation.enable_mini_batch:
+                print(f"[INFO] Mini-batch mode: Global teacher logits not needed (will use batch-specific logits)")
+            else:
+                print(f"[WARN] No teacher logits found at {logits_dir}")
+                print(f"       Please generate logits first using scripts/generate_teacher_logits.py")
             self.train_dataset = None
             self.val_dataset = None
             return
@@ -486,92 +491,98 @@ class DistillationTrainer:
         Returns:
             tf.data.Dataset with prefetching enabled
         """
+        from concurrent.futures import ThreadPoolExecutor
+        
         num_samples = len(batch_dataset)
+        num_workers = getattr(self.config.hardware, 'num_workers', 4)
         
         def data_generator():
             """Generator function to yield preprocessed batches"""
-            for epoch in range(num_epochs):
-                for step_idx in range(0, num_samples, batch_size):
-                    # Load batch samples
-                    start_idx = step_idx
-                    end_idx = min(start_idx + batch_size, num_samples)
-                    batch_samples = [batch_dataset[i] for i in range(start_idx, end_idx)]
-                    
-                    # Preprocess batch (audio -> mel, tokenize, padding)
-                    mel_inputs_list = []
-                    teacher_logits_list = []
-                    decoder_input_ids_list = []
-                    
-                    for sample in batch_samples:
-                        # Convert audio to mel
-                        audio = sample['audio']
-                        mel = self._audio_to_mel(audio)
-                        mel_inputs_list.append(mel)
+            # Create thread pool for parallel audio processing
+            with ThreadPoolExecutor(max_workers=num_workers) as executor:
+                for epoch in range(num_epochs):
+                    for step_idx in range(0, num_samples, batch_size):
+                        # Load batch samples
+                        start_idx = step_idx
+                        end_idx = min(start_idx + batch_size, num_samples)
+                        batch_samples = [batch_dataset[i] for i in range(start_idx, end_idx)]
                         
-                        # Teacher logits
-                        teacher_logits_np = sample['teacher_logits']
+                        # Preprocess batch (audio -> mel, tokenize, padding)
+                        # Use parallel processing for audio -> mel conversion
+                        audios = [sample['audio'] for sample in batch_samples]
                         
-                        # Squeeze batch dim if present
-                        if len(teacher_logits_np.shape) == 3 and teacher_logits_np.shape[0] == 1:
-                            teacher_logits_np = teacher_logits_np[0]
+                        # Convert audio to mel in parallel
+                        mel_inputs_list = list(executor.map(self._audio_to_mel, audios))
                         
-                        # Match vocab size
-                        if teacher_logits_np.shape[-1] > 51864:
-                            teacher_logits_np = teacher_logits_np[..., :51864]
+                        # Process teacher logits and tokenize text for each sample
+                        teacher_logits_list = []
+                        decoder_input_ids_list = []
                         
-                        # Tokenize text
-                        text = sample['text']
-                        tokens = self.tokenizer.encode(text)
-                        if len(tokens) > self.config.data.max_text_length:
-                            tokens = tokens[:self.config.data.max_text_length]
+                        for sample in batch_samples:
+                            # Teacher logits
+                            teacher_logits_np = sample['teacher_logits']
+                            
+                            # Squeeze batch dim if present
+                            if len(teacher_logits_np.shape) == 3 and teacher_logits_np.shape[0] == 1:
+                                teacher_logits_np = teacher_logits_np[0]
+                            
+                            # Match vocab size
+                            if teacher_logits_np.shape[-1] > 51864:
+                                teacher_logits_np = teacher_logits_np[..., :51864]
+                            
+                            # Tokenize text
+                            text = sample['text']
+                            tokens = self.tokenizer.encode(text)
+                            if len(tokens) > self.config.data.max_text_length:
+                                tokens = tokens[:self.config.data.max_text_length]
+                            
+                            # Pad teacher logits to match decoder length
+                            teacher_seq_len = teacher_logits_np.shape[0]
+                            decoder_seq_len = len(tokens)
+                            
+                            if teacher_seq_len < decoder_seq_len:
+                                pad_len = decoder_seq_len - teacher_seq_len
+                                teacher_logits_np = np.pad(
+                                    teacher_logits_np,
+                                    ((0, pad_len), (0, 0)),
+                                    mode='constant',
+                                    constant_values=-100
+                                )
+                            elif teacher_seq_len > decoder_seq_len:
+                                teacher_logits_np = teacher_logits_np[:decoder_seq_len, :]
+                            
+                            teacher_logits_list.append(teacher_logits_np)
+                            decoder_input_ids_list.append(tokens)
                         
-                        # Pad teacher logits to match decoder length
-                        teacher_seq_len = teacher_logits_np.shape[0]
-                        decoder_seq_len = len(tokens)
+                        # Pad sequences to max length in batch
+                        max_seq_len = max(len(tokens) for tokens in decoder_input_ids_list)
                         
-                        if teacher_seq_len < decoder_seq_len:
-                            pad_len = decoder_seq_len - teacher_seq_len
-                            teacher_logits_np = np.pad(
-                                teacher_logits_np,
-                                ((0, pad_len), (0, 0)),
-                                mode='constant',
-                                constant_values=-100
-                            )
-                        elif teacher_seq_len > decoder_seq_len:
-                            teacher_logits_np = teacher_logits_np[:decoder_seq_len, :]
+                        # Pad decoder_input_ids
+                        padded_decoder_ids = []
+                        for tokens in decoder_input_ids_list:
+                            if len(tokens) < max_seq_len:
+                                tokens = tokens + [0] * (max_seq_len - len(tokens))
+                            padded_decoder_ids.append(tokens)
                         
-                        teacher_logits_list.append(teacher_logits_np)
-                        decoder_input_ids_list.append(tokens)
-                    
-                    # Pad sequences to max length in batch
-                    max_seq_len = max(len(tokens) for tokens in decoder_input_ids_list)
-                    
-                    # Pad decoder_input_ids
-                    padded_decoder_ids = []
-                    for tokens in decoder_input_ids_list:
-                        if len(tokens) < max_seq_len:
-                            tokens = tokens + [0] * (max_seq_len - len(tokens))
-                        padded_decoder_ids.append(tokens)
-                    
-                    # Pad teacher_logits
-                    padded_teacher_logits = []
-                    for logits in teacher_logits_list:
-                        if logits.shape[0] < max_seq_len:
-                            pad_len = max_seq_len - logits.shape[0]
-                            logits = np.pad(
-                                logits,
-                                ((0, pad_len), (0, 0)),
-                                mode='constant',
-                                constant_values=-100
-                            )
-                        padded_teacher_logits.append(logits)
-                    
-                    # Stack into batches
-                    mel_inputs = np.stack(mel_inputs_list)
-                    teacher_logits = np.stack(padded_teacher_logits)
-                    decoder_input_ids = np.array(padded_decoder_ids, dtype=np.int32)
-                    
-                    yield mel_inputs, teacher_logits, decoder_input_ids
+                        # Pad teacher_logits
+                        padded_teacher_logits = []
+                        for logits in teacher_logits_list:
+                            if logits.shape[0] < max_seq_len:
+                                pad_len = max_seq_len - logits.shape[0]
+                                logits = np.pad(
+                                    logits,
+                                    ((0, pad_len), (0, 0)),
+                                    mode='constant',
+                                    constant_values=-100
+                                )
+                            padded_teacher_logits.append(logits)
+                        
+                        # Stack into batches
+                        mel_inputs = np.stack(mel_inputs_list)
+                        teacher_logits = np.stack(padded_teacher_logits)
+                        decoder_input_ids = np.array(padded_decoder_ids, dtype=np.int32)
+                        
+                        yield mel_inputs, teacher_logits, decoder_input_ids
         
         # Create TensorFlow dataset from generator
         dataset = tf.data.Dataset.from_generator(
@@ -634,9 +645,14 @@ class DistillationTrainer:
         batch_size = self.config.training.batch_size
         steps_per_epoch = (num_samples + batch_size - 1) // batch_size
         
+        num_workers = getattr(self.config.hardware, 'num_workers', 4)
+        prefetch_size = getattr(self.config.hardware, 'prefetch_size', 2)
+        
         print(f"Loaded DistillationDataset: {len(batch_dataset)} samples")
         print(f"Batch size: {batch_size}, Steps per epoch: {steps_per_epoch}")
-        print(f"Using TensorFlow data pipeline with prefetching (buffer_size={getattr(self.config.hardware, 'prefetch_size', 2)})")
+        print(f"Using optimized data pipeline:")
+        print(f"  - Parallel audio processing: {num_workers} workers")
+        print(f"  - Prefetching: buffer_size={prefetch_size}")
         
         # Create TensorFlow dataset with prefetching
         dataset = self._create_tf_dataset(batch_dataset, batch_size, num_epochs)
