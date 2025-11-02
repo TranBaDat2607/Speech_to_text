@@ -21,8 +21,7 @@ class AudioConvLayers(tf.keras.Model):
         super().__init__(name=name)
         
         self.dims = dims
-        
-        # First 1D convolutional layer matching OpenAI Whisper
+
         # After transpose: (batch, n_frames, n_mels) -> (batch, n_frames, n_audio_state)
         self.conv1 = tf.keras.layers.Conv1D(
             filters=dims.n_audio_state,

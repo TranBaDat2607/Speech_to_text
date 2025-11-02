@@ -2,13 +2,7 @@
 TensorFlow implementation of Whisper audio preprocessing
 """
 
-import os
-# Force TensorFlow to use CPU only to avoid CUDA issues
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
-
 import tensorflow as tf
-tf.config.set_visible_devices([], 'GPU')
-
 import numpy as np
 from audio_constants import *
 from mel_filters import get_mel_filters

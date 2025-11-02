@@ -28,10 +28,7 @@ from training.metrics_logger import MetricsLogger
 from losses.distillation_loss import DistillationLoss
 from student.load_student_tensorflow import WhisperStudentTensorFlow
 from data.distillation_dataset import DistillationDataset, collate_fn_distillation
-
-# Add model directory for tokenizer
-sys.path.insert(0, str(Path(__file__).parent.parent.parent / "model"))
-from tokenizer import get_tokenizer
+from transformers import WhisperProcessor
 
 
 class DistillationTrainer:
@@ -114,18 +111,15 @@ class DistillationTrainer:
         self.student = WhisperStudentTensorFlow(
             model_name=self.config.model.student_model_name,
             freeze_encoder=self.config.model.freeze_encoder,
-            load_openai_weights=self.load_openai_weights
+            load_openai_weights=self.load_openai_weights,
+            truncate_vocab=self.config.model.truncate_vocab
         )
         
         self.model = self.student.model
         
-        # Get tokenizer
-        self.tokenizer = get_tokenizer(
-            multilingual=True,
-            num_languages=self.model.dims.n_vocab,
-            language=self.config.data.language,
-            task="transcribe"
-        )
+        # Get PhoWhisper tokenizer (matches teacher)
+        self.processor = WhisperProcessor.from_pretrained("vinai/PhoWhisper-large")
+        self.tokenizer = self.processor.tokenizer
     
     def _setup_loss(self):
         """Setup distillation loss function"""
@@ -196,19 +190,14 @@ class DistillationTrainer:
             dataset_size = len(self.train_dataset)
             train_size = int(dataset_size * self.config.data.train_split)
             
-            print(f"  Dataset: {dataset_size} samples")
-            print(f"  Train: {train_size} samples")
-            print(f"  Validation: {dataset_size - train_size} samples")
+            print(f"  Dataset: {dataset_size} samples (train: {train_size}, val: {dataset_size - train_size})")
             
             # Update total steps
             steps_per_epoch = train_size // self.config.training.effective_batch_size
             self.total_steps = steps_per_epoch * self.config.training.epochs
-            
-            # Update LR scheduler with correct total steps
             self.lr_scheduler.total_steps = self.total_steps
             
-            print(f"  Steps per epoch: {steps_per_epoch}")
-            print(f"  Total steps: {self.total_steps}")
+            print(f"  Steps: {steps_per_epoch}/epoch, {self.total_steps} total")
             
         except Exception as e:
             print(f"  Error loading dataset: {e}")
@@ -281,17 +270,27 @@ class DistillationTrainer:
         # Get teacher logits
         teacher_logits = batch['teacher_logits']  # (batch, seq_len, vocab_size)
         
+        # Truncate to PhoWhisper vocab size (50364)
+        # Teacher logits are 51865, but we only need first 50364
+        if teacher_logits.shape[-1] > 50364:
+            teacher_logits = teacher_logits[..., :50364]
+        
         # Tokenize text
         texts = batch['text']
         decoder_input_ids = []
         
         for text in texts:
-            tokens = self.tokenizer.encode(text)
+            # Use processor to encode (includes special tokens automatically)
+            inputs = self.processor(text=text, return_tensors="pt")
+            tokens = inputs.input_ids[0].numpy().tolist()
+            
             # Pad/truncate to max length
             if len(tokens) > self.config.data.max_text_length:
                 tokens = tokens[:self.config.data.max_text_length]
             else:
-                tokens = tokens + [self.tokenizer.eot] * (self.config.data.max_text_length - len(tokens))
+                # Use eos_token_id for padding (50257 for PhoWhisper)
+                eos_token = self.tokenizer.eos_token_id
+                tokens = tokens + [eos_token] * (self.config.data.max_text_length - len(tokens))
             decoder_input_ids.append(tokens)
         
         decoder_input_ids = tf.constant(decoder_input_ids, dtype=tf.int32)
@@ -318,10 +317,6 @@ class DistillationTrainer:
         with tf.GradientTape() as tape:
             # Forward pass
             student_logits = self.model(mel_inputs, decoder_input_ids, training=True)
-            
-            # Debug: log shapes on first call
-            if self.current_step == 0:
-                print(f"      student_logits (after forward): {student_logits.shape}")
             
             # Compute loss
             total_loss, loss_dict = self.loss_fn(
@@ -526,13 +521,15 @@ class DistillationTrainer:
                             if len(teacher_logits_np.shape) == 3 and teacher_logits_np.shape[0] == 1:
                                 teacher_logits_np = teacher_logits_np[0]
                             
-                            # Match vocab size
-                            if teacher_logits_np.shape[-1] > 51864:
-                                teacher_logits_np = teacher_logits_np[..., :51864]
+                            # Truncate to PhoWhisper vocab size (50364)
+                            if teacher_logits_np.shape[-1] > 50364:
+                                teacher_logits_np = teacher_logits_np[..., :50364]
                             
-                            # Tokenize text
+                            # Tokenize text with processor (includes special tokens)
                             text = sample['text']
-                            tokens = self.tokenizer.encode(text)
+                            inputs = self.processor(text=text, return_tensors="pt")
+                            tokens = inputs.input_ids[0].numpy().tolist()
+                            
                             if len(tokens) > self.config.data.max_text_length:
                                 tokens = tokens[:self.config.data.max_text_length]
                             
@@ -589,7 +586,7 @@ class DistillationTrainer:
             data_generator,
             output_signature=(
                 tf.TensorSpec(shape=(None, 80, None), dtype=tf.float32),  # mel_inputs
-                tf.TensorSpec(shape=(None, None, 51864), dtype=tf.float32),  # teacher_logits
+                tf.TensorSpec(shape=(None, None, 50364), dtype=tf.float32),  # teacher_logits (PhoWhisper vocab)
                 tf.TensorSpec(shape=(None, None), dtype=tf.int32)  # decoder_input_ids
             )
         )
@@ -621,8 +618,7 @@ class DistillationTrainer:
         """
         num_samples = end_idx - start_idx
         
-        print(f"\nTraining on batch: samples {start_idx}-{end_idx} ({num_samples} samples)")
-        print(f"Logits dir: {logits_dir}")
+        print(f"\nBatch {start_idx}-{end_idx} ({num_samples} samples)")
         
         batch_dataset = DistillationDataset(
             audio_dir=str(Path(self.config.paths.preprocessed_dataset) / "audio"),
@@ -648,11 +644,6 @@ class DistillationTrainer:
         num_workers = getattr(self.config.hardware, 'num_workers', 4)
         prefetch_size = getattr(self.config.hardware, 'prefetch_size', 2)
         
-        print(f"Loaded DistillationDataset: {len(batch_dataset)} samples")
-        print(f"Batch size: {batch_size}, Steps per epoch: {steps_per_epoch}")
-        print(f"Using optimized data pipeline:")
-        print(f"  - Parallel audio processing: {num_workers} workers")
-        print(f"  - Prefetching: buffer_size={prefetch_size}")
         
         # Create TensorFlow dataset with prefetching
         dataset = self._create_tf_dataset(batch_dataset, batch_size, num_epochs)
@@ -681,23 +672,12 @@ class DistillationTrainer:
                 epoch = step_idx // steps_per_epoch
                 print(f"  Epoch {epoch + 1}/{num_epochs}")
             
-            if step_in_epoch % 10 == 0:
-                print(f"    Step {step_in_epoch + 1}/{steps_per_epoch}", end='\r')
             
-            # Debug info for first step
-            if first_step:
-                print(f"    Running training step (compiling graph, this may take time)...")
-                print(f"    Debug shapes:")
-                print(f"      mel_inputs: {mel_inputs.shape}")
-                print(f"      teacher_logits: {teacher_logits.shape}")
-                print(f"      decoder_input_ids: {decoder_input_ids.shape}")
             
             # Training step (data is already prefetched!)
             step_metrics = self.train_step(mel_inputs, teacher_logits, decoder_input_ids)
             
             if first_step:
-                print(f"    First step complete! Loss: {step_metrics['loss']:.4f}")
-                print(f"    Subsequent steps will be faster with prefetching...")
                 first_step = False
             
             # Update metrics tracker

@@ -35,11 +35,6 @@ class WhisperTextProcessor:
             language=language,
             task=task
         )
-        
-        print(f"Initialized tokenizer for language: {language}, task: {task}")
-        print(f"SOT sequence: {self.tokenizer.sot_sequence}")
-        print(f"EOT token: {self.tokenizer.eot}")
-        print(f"Max sequence length: {max_length}")
     
     def tokenize_text(self, text: str) -> List[int]:
         """
@@ -143,55 +138,3 @@ class WhisperTextProcessor:
             Decoded text
         """
         return self.tokenizer.decode(token_ids)
-    
-    def test_tokenization(self, sample_texts: List[str]):
-        """Test tokenization functionality"""
-        print("\n=== Testing Text Processing ===")
-        
-        for i, text in enumerate(sample_texts):
-            print(f"\nSample {i+1}:")
-            print(f"Original text: {text[:100]}...")
-            
-            # Test tokenization
-            tokens = self.tokenize_text(text)
-            print(f"Tokenized ({len(tokens)} tokens): {tokens[:10]}...")
-            
-            # Test decoder input/target preparation
-            decoder_input, decoder_target = self.prepare_decoder_input_target(text)
-            print(f"Decoder input shape: {decoder_input.shape}")
-            print(f"Decoder target shape: {decoder_target.shape}")
-            print(f"Decoder input (first 10): {decoder_input[:10]}")
-            print(f"Decoder target (first 10): {decoder_target[:10]}")
-            
-            # Test decoding
-            decoded_text = self.decode_tokens(tokens)
-            print(f"Decoded text: {decoded_text[:100]}...")
-        
-        # Test batch processing
-        print(f"\n=== Testing Batch Processing ===")
-        batch_inputs, batch_targets = self.process_batch_texts(sample_texts)
-        print(f"Batch inputs shape: {batch_inputs.shape}")
-        print(f"Batch targets shape: {batch_targets.shape}")
-        
-        print("=== Text Processing Test Complete ===\n")
-
-
-if __name__ == "__main__":
-    # Test the text processor
-    print("Testing WhisperTextProcessor...")
-    
-    # Initialize for Vietnamese
-    text_processor = WhisperTextProcessor(
-        language="vi",  # Vietnamese
-        task="transcribe",
-        max_length=448
-    )
-    
-    # Test with some sample Vietnamese texts
-    sample_texts = [
-        "Xin chào các bạn, hôm nay chúng ta sẽ học về trí tuệ nhân tạo.",
-        "Đây là một ví dụ về xử lý ngôn ngữ tự nhiên trong tiếng Việt.",
-        "Machine learning là một lĩnh vực rất thú vị và có nhiều ứng dụng."
-    ]
-    
-    text_processor.test_tokenization(sample_texts)

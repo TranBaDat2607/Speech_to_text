@@ -29,27 +29,21 @@ def sinusoidal_positional_encoding(length: int, channels: int, max_timescale: fl
     Returns:
         tf.Tensor: Positional encodings of shape [length, channels]
     """
-    # Verify channels is even, matching OpenAI assert
     assert channels % 2 == 0, f"channels must be even, got {channels}"
-    
-    # Calculate log timescale increment - matching OpenAI exactly
+
     log_timescale_increment = np.log(max_timescale) / (channels // 2 - 1)
-    
-    # Calculate inverse timescales - matching OpenAI exactly
+
     # torch.arange(channels // 2) -> tf.range(channels // 2)
     # torch.exp(-log_timescale_increment * x) -> tf.exp(-log_timescale_increment * x)
     inv_timescales = tf.exp(-log_timescale_increment * tf.cast(tf.range(channels // 2), tf.float32))
-    
-    # Create position indices - matching OpenAI exactly
+
     # torch.arange(length) -> tf.range(length)
     positions = tf.cast(tf.range(length), tf.float32)
-    
-    # Calculate scaled time - matching OpenAI exactly
+
     # torch.arange(length)[:, np.newaxis] * inv_timescales[np.newaxis, :]
     # becomes: positions[:, tf.newaxis] * inv_timescales[tf.newaxis, :]
     scaled_time = positions[:, tf.newaxis] * inv_timescales[tf.newaxis, :]
-    
-    # Concatenate sin and cos - matching OpenAI exactly
+
     # torch.cat([torch.sin(scaled_time), torch.cos(scaled_time)], dim=1)
     # becomes: tf.concat([tf.sin(scaled_time), tf.cos(scaled_time)], axis=1)
     pos_encoding = tf.concat([

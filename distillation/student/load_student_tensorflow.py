@@ -27,7 +27,8 @@ class WhisperStudentTensorFlow:
         model_name: str = "small",
         freeze_encoder: bool = False,
         weights_path: Optional[str] = None,
-        load_openai_weights: bool = True
+        load_openai_weights: bool = True,
+        truncate_vocab: bool = False
     ):
         """
         Initialize Whisper Small student model
@@ -37,13 +38,15 @@ class WhisperStudentTensorFlow:
             freeze_encoder: If True, freeze encoder weights (train decoder only)
             weights_path: Optional path to load pretrained weights (.weights.h5)
             load_openai_weights: If True, load OpenAI pretrained weights (first time or if no weights_path)
+            truncate_vocab: If True, truncate OpenAI vocab (51865->50364) for PhoWhisper compatibility
         """
         self.model_name = model_name
         self.freeze_encoder = freeze_encoder
         self.weights_path = weights_path
         self.load_openai_weights = load_openai_weights
+        self.truncate_vocab = truncate_vocab
         
-        print(f"\nLoading student: {model_name}")
+        print(f"\nStudent: {model_name}")
         
         self._setup_gpu()
         self._load_model()
@@ -107,27 +110,34 @@ class WhisperStudentTensorFlow:
         """
         Load OpenAI Whisper pretrained weights
         Downloads from OpenAI if needed, converts PyTorch -> TensorFlow
+        
+        Uses caching to avoid re-downloading
+        Only downloads/converts once, then loads from cache
         """
-        print(f"\n{'='*60}")
-        print(f"Loading OpenAI pretrained weights for '{self.model_name}'...")
-        print(f"{'='*60}")
         
         try:
-            # Import the loader
-            from .load_openai_pretrained import load_and_convert_openai_weights
-            
             # Set cache directory
             cache_dir = Path(__file__).parent / "pretrained_weights"
             
-            # Load and convert
-            self.model = load_and_convert_openai_weights(
-                model_name=self.model_name,
-                tf_model=self.model,
-                cache_dir=str(cache_dir)
-            )
-            
-            print(f"\n[DONE] OpenAI pretrained weights loaded successfully!")
-            print(f"       Model is ready for fine-tuning via distillation.")
+            if self.truncate_vocab:
+                # Load with vocab truncation (51865 -> 50364 for PhoWhisper)
+                from .load_openai_truncated import load_openai_with_truncated_vocab
+                
+                self.model = load_openai_with_truncated_vocab(
+                    model_name=self.model_name,
+                    tf_model=self.model,
+                    target_vocab_size=self.dims.n_vocab,
+                    cache_dir=str(cache_dir)
+                )
+            else:
+                # Load full OpenAI weights (requires matching vocab size)
+                from .load_openai_pretrained import load_and_convert_openai_weights
+                
+                self.model = load_and_convert_openai_weights(
+                    model_name=self.model_name,
+                    tf_model=self.model,
+                    cache_dir=str(cache_dir)
+                )
             
         except ImportError as e:
             print(f"\n[WARN] Warning: Could not load OpenAI weights: {e}")
@@ -142,8 +152,7 @@ class WhisperStudentTensorFlow:
         total_params = sum([tf.size(var).numpy() for var in self.model.variables])
         trainable_params = sum([tf.size(var).numpy() for var in self.model.trainable_variables])
         
-        print(f"Params: {total_params / 1e6:.1f}M (trainable: {trainable_params / 1e6:.1f}M)")
-        print(f"Vocab: {self.dims.n_vocab}, Layers: {self.dims.n_audio_layer}E/{self.dims.n_text_layer}D")
+        print(f"{total_params / 1e6:.1f}M params, vocab {self.dims.n_vocab}, {self.dims.n_audio_layer}E/{self.dims.n_text_layer}D layers")
     
     def get_model_info(self) -> Dict:
         """Get model information"""

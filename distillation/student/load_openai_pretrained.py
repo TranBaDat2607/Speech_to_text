@@ -8,16 +8,8 @@ import sys
 from pathlib import Path
 import numpy as np
 import tensorflow as tf
-
-# Try to import whisper and torch
-try:
-    import whisper
-    import torch
-    WHISPER_AVAILABLE = True
-except ImportError:
-    WHISPER_AVAILABLE = False
-    print("Warning: whisper or torch not available. Install with: pip install openai-whisper torch")
-
+import whisper
+import torch
 
 def download_openai_weights(model_name: str = "base"):
     """
@@ -29,27 +21,15 @@ def download_openai_weights(model_name: str = "base"):
     Returns:
         Path to downloaded .pt file
     """
-    if not WHISPER_AVAILABLE:
-        raise ImportError("whisper library not available. Install with: pip install openai-whisper")
-    
-    print(f"\n{'='*60}")
-    print(f"Downloading OpenAI Whisper '{model_name}' weights...")
-    print(f"{'='*60}")
-    
-    # Use whisper's download mechanism
-    model = whisper.load_model(model_name, device="cpu")
+    # Use whisper's download mechanism (silent)
+    model = whisper.load_model(model_name, device="cpu", download_root=None)
     
     # Get checkpoint path from whisper's cache
     checkpoint_path = whisper._MODELS[model_name]
     cache_dir = os.path.join(os.path.expanduser("~"), ".cache", "whisper")
-    
-    # Construct full path
     checkpoint_file = os.path.join(cache_dir, os.path.basename(checkpoint_path))
     
     if os.path.exists(checkpoint_file):
-        print(f"[CACHE] Weights cached at: {checkpoint_file}")
-        size_mb = os.path.getsize(checkpoint_file) / (1024**2)
-        print(f"        Size: {size_mb:.2f} MB")
         return checkpoint_file, model.state_dict()
     else:
         raise FileNotFoundError(f"Could not find checkpoint at {checkpoint_file}")

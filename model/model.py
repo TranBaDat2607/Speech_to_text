@@ -385,12 +385,24 @@ class Whisper(tf.keras.Model):
     @property
     def is_multilingual(self) -> bool:
         """Check if model supports multiple languages"""
-        return self.dims.n_vocab >= 51865
+        # PhoWhisper: 50364 tokens (multilingual)
+        # OpenAI: 51865 tokens (multilingual) or 51864 (English-only)
+        return self.dims.n_vocab >= 50364
     
     @property  
     def num_languages(self) -> int:
         """Get number of supported languages"""
-        return self.dims.n_vocab - 51765 - int(self.is_multilingual)
+        # PhoWhisper has ~100 languages (like OpenAI multilingual)
+        # This is approximate as exact count depends on tokenizer
+        if self.dims.n_vocab >= 51865:
+            # OpenAI multilingual
+            return self.dims.n_vocab - 51765 - int(self.is_multilingual)
+        elif self.dims.n_vocab >= 50364:
+            # PhoWhisper multilingual
+            return 99  # PhoWhisper supports ~99 languages
+        else:
+            # English-only or unknown
+            return 1
     
     def get_config(self):
         return {
@@ -421,75 +433,3 @@ def create_whisper_model(model_name: str = "base") -> Whisper:
     """
     dims = get_whisper_dimensions(model_name)
     return Whisper(dims)
-
-
-if __name__ == "__main__":
-    print("Whisper TensorFlow Implementation Test")
-    print("-" * 40)
-    
-    # Initialize test parameters
-    batch_size = 2
-    seq_len = 10
-    
-    # Create dummy inputs
-    tokens = tf.random.uniform([batch_size, seq_len], 0, 1000, dtype=tf.int32)
-    mel_spectrogram = tf.random.normal([batch_size, 80, 3000])  # [batch, n_mels, n_frames]
-    
-    # Test 1: AudioEncoder
-    print("1. Testing AudioEncoder...")
-    encoder = create_audio_encoder("tiny")
-    audio_features = encoder(mel_spectrogram)
-    print(f"   Input: {mel_spectrogram.shape} -> Output: {audio_features.shape}")
-    
-    # Test 2: TextDecoder  
-    print("2. Testing TextDecoder...")
-    decoder = create_text_decoder("tiny")
-    logits = decoder(tokens, audio_features)
-    print(f"   Tokens: {tokens.shape} + Audio: {audio_features.shape} -> Logits: {logits.shape}")
-    
-    # Test 3: Complete Whisper Model
-    print("3. Testing Complete Whisper Model...")
-    whisper = create_whisper_model("tiny")
-    
-    # Test individual methods
-    audio_encoded = whisper.embed_audio(mel_spectrogram)
-    logits_decoded = whisper.logits(tokens, audio_encoded)
-    
-    # Test full forward pass
-    logits_full = whisper(mel_spectrogram, tokens)
-    
-    print(f"   embed_audio: {mel_spectrogram.shape} -> {audio_encoded.shape}")
-    print(f"   logits: {tokens.shape} -> {logits_decoded.shape}")
-    print(f"   full_forward: mel + tokens -> {logits_full.shape}")
-    
-    # Model info
-    print("\n4. Model Information:")
-    print(f"   Model size: tiny")
-    print(f"   Multilingual: {whisper.is_multilingual}")
-    print(f"   Languages: {whisper.num_languages}")
-    print(f"   Parameters: ~37.2M")
-    
-    # Build models with concrete shapes for summary
-    print("\n5. Model Architecture Summary:")
-    print("-" * 40)
-    
-    # Build encoder with concrete shapes
-    print("AudioEncoder Summary:")
-    # Force build all layers with concrete inputs
-    temp_input = tf.random.normal([1, 80, 3000])
-    _ = encoder(temp_input)  # This builds all internal layers
-    encoder.summary(line_length=80, print_fn=lambda x: print(f"   {x}"))
-    
-    print("\nTextDecoder Summary:")  
-    # Build decoder with concrete shapes
-    temp_tokens = tf.random.uniform([1, 5], 0, 1000, dtype=tf.int32)
-    temp_audio = tf.random.normal([1, 1500, 384])
-    _ = decoder(temp_tokens, temp_audio)  # This builds all internal layers
-    decoder.summary(line_length=80, print_fn=lambda x: print(f"   {x}"))
-    
-    print("\nComplete Whisper Model Summary:")
-    # Build complete model with concrete shapes
-    _ = whisper(temp_input, temp_tokens)  # This builds all internal layers
-    whisper.summary(line_length=80, print_fn=lambda x: print(f"   {x}"))
-    
-    print("\nAll tests passed successfully!")

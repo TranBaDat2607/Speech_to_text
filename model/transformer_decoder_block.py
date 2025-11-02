@@ -59,13 +59,9 @@ class MultiHeadAttention(tf.keras.layers.Layer):
         # Always compute Query from input x
         q = self.query(x)
         
-        # Debug: print dtypes  
-        # print(f"Input dtype: {x.dtype}, Query output dtype: {q.dtype}")
-        
         # Cast query to original dtype to handle Dense layer promotion
         q = tf.cast(q, original_dtype)
         
-        # Key and Value logic matching OpenAI Whisper exactly
         # PyTorch: if kv_cache is None or xa is None or self.key not in kv_cache:
         if kv_cache is None or xa is None or self.key not in kv_cache:
             # hooks, if installed (i.e. kv_cache is not None), will prepend the cached kv tensors;
@@ -87,16 +83,10 @@ class MultiHeadAttention(tf.keras.layers.Layer):
         
         # Final output projection: return self.out(wv), qk
         output = self.out(wv)
-        
-        # Debug: Check dtypes
-        # print(f"Before final cast - wv dtype: {wv.dtype}, output dtype: {output.dtype}, original_dtype: {original_dtype}")
-        
+
         # Ensure output matches original input dtype (critical for mixed precision)
         output = tf.cast(output, original_dtype)
-        
-        # Debug: Verify final dtype
-        # print(f"Final output dtype: {output.dtype}")
-        
+
         return output, qk
     
     def qkv_attention(self, q: tf.Tensor, k: tf.Tensor, v: tf.Tensor, mask: Optional[tf.Tensor] = None) -> Tuple[tf.Tensor, Optional[tf.Tensor]]:

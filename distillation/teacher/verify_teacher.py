@@ -9,7 +9,7 @@ import argparse
 from pathlib import Path
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from teacher.load_teacher import WhisperTeacher
+from teacher.load_teacher_pytorch import WhisperTeacherPyTorch as WhisperTeacher
 
 
 def verify_on_audio(

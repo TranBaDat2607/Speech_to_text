@@ -146,6 +146,15 @@ checkpoints/
 *.model
 
 # ================================
+# DISTILLATION TRAINING ARTIFACTS
+# ================================
+distillation/checkpoints/
+distillation/final_model/
+distillation/logs/
+distillation/plots/
+distillation/temp_logits/
+
+# ================================
 # CONFIGURATION FILES (sensitive)
 # ================================
 config/secrets.py

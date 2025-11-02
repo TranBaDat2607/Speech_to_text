@@ -6,7 +6,6 @@ Combines soft targets (teacher) and hard targets (ground truth)
 import tensorflow as tf
 from typing import Optional, Tuple
 
-
 class DistillationLoss:
     """
     Knowledge Distillation Loss for Whisper training
@@ -19,7 +18,6 @@ class DistillationLoss:
     - alpha: Weight balancing soft vs hard targets (typically 0.5-0.9)
     - Temperature: Softens probability distributions (typically 2-5)
     """
-    
     def __init__(
         self,
         alpha: float = 0.7,
@@ -74,9 +72,10 @@ class DistillationLoss:
         student_vocab_size = tf.shape(student_logits)[2]
         teacher_vocab_size = tf.shape(teacher_logits)[2]
         
-        # Handle vocab size mismatch (PhoWhisper=51864 vs OpenAI=51865)
+        # Handle vocab size mismatch (should be same: both=50364)
+        # This is a safety check in case of mismatched logits
         if teacher_vocab_size != student_vocab_size:
-            # Pad teacher logits to match student vocab size
+            # Pad smaller vocab to match larger one
             pad_size = student_vocab_size - teacher_vocab_size
             padding = tf.zeros([batch_size, seq_len, pad_size], dtype=teacher_logits.dtype)
             teacher_logits = tf.concat([teacher_logits, padding], axis=-1)
@@ -146,30 +145,3 @@ class DistillationLoss:
             'temperature': self.temperature,
             'ignore_index': self.ignore_index
         }
-
-
-def compute_distillation_loss(
-    student_logits: tf.Tensor,
-    teacher_logits: tf.Tensor,
-    labels: tf.Tensor,
-    alpha: float = 0.7,
-    temperature: float = 3.0,
-    ignore_index: int = -100
-) -> Tuple[tf.Tensor, dict]:
-    """
-    Convenience function to compute distillation loss
-    
-    Args:
-        student_logits: [batch_size, seq_len, vocab_size]
-        teacher_logits: [batch_size, seq_len, vocab_size]
-        labels: [batch_size, seq_len]
-        alpha: Weight for soft target loss
-        temperature: Temperature scaling
-        ignore_index: Label to ignore
-        
-    Returns:
-        loss: Scalar tensor
-        loss_dict: Dictionary with loss components
-    """
-    loss_fn = DistillationLoss(alpha, temperature, ignore_index)
-    return loss_fn(student_logits, teacher_logits, labels)

@@ -25,8 +25,6 @@ def convert_pytorch_to_tensorflow(pytorch_weights, tf_model):
         pytorch_weights: PyTorch state_dict
         tf_model: TensorFlow Whisper model
     """
-    print("\nConverting weights from PyTorch to TensorFlow...")
-    
     weight_mapping = []
     
     for pt_name, pt_tensor in pytorch_weights.items():
@@ -173,37 +171,3 @@ def save_tensorflow_weights(tf_model, save_dir, model_name="tiny"):
     print(f"File size: {os.path.getsize(save_path) / (1024*1024):.2f} MB")
     
     return save_path
-
-
-def main():
-    model_name = "tiny"
-    
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    pt_file = os.path.join(script_dir, "pretrained_weights", f"whisper_{model_name}.pt")
-    tf_save_dir = os.path.join(script_dir, "pretrained_weights")
-    
-    print(f"Converting Whisper {model_name} from PyTorch to TensorFlow")
-    print(f"PyTorch file: {pt_file}")
-    print(f"TensorFlow save dir: {tf_save_dir}")
-    
-    pytorch_weights = load_pytorch_weights(pt_file)
-    
-    print(f"\nCreating TensorFlow model...")
-    tf_model = create_whisper_model(model_name)
-    
-    dummy_mel = tf.random.normal([1, 80, 3000])
-    dummy_tokens = tf.constant([[50258, 50259, 50359]], dtype=tf.int32)
-    _ = tf_model(dummy_mel, dummy_tokens, training=False)
-    print(f"TensorFlow model initialized")
-    
-    tf_model = convert_pytorch_to_tensorflow(pytorch_weights, tf_model)
-    
-    save_path = save_tensorflow_weights(tf_model, tf_save_dir, model_name)
-    
-    print(f"\n[SUCCESS] Conversion complete!")
-    print(f"You can now load the weights in your training script:")
-    print(f"  model.load_weights('{save_path}')")
-
-
-if __name__ == "__main__":
-    main()

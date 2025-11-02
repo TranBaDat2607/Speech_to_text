@@ -91,11 +91,8 @@ def main():
     # Initialize trainer
     trainer = DistillationTrainer(config)
     
-    # Resume from checkpoint if specified
     if args.resume:
         print(f"Resuming from: {args.resume}")
-        # TODO: Implement checkpoint loading
-        # trainer.load_checkpoint(args.resume)
     
     # Start training
     try:

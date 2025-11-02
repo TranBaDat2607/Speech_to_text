@@ -30,15 +30,16 @@ paths:
 
 teacher:
   model_name: "vinai/PhoWhisper-large"  # PhoWhisper for Vietnamese
-  temperature: 5.0  # Match distillation temperature for consistency
+  temperature: 2.0  # FIXED: Must match distillation.temperature
   batch_size: 8  # Teacher inference batch size
   use_pytorch: true  # PyTorch is faster for inference
   save_logits_format: "npy"  # Use 'h5' for larger datasets
   
 student:
   model_name: "base"  # OpenAI Whisper base (74M params)
-  pretrained: true  # Load from pretrained weights
-  load_from_openai: true  # Use OpenAI weights (vocab=51865)
+  pretrained: true  # Load pretrained weights
+  load_from_openai: true  # Load OpenAI pretrained weights
+  truncate_vocab: true  # Truncate OpenAI vocab (51865->50364) for PhoWhisper compatibility
   freeze_encoder_initially: false  # Set true to train decoder first
 
 distillation:
@@ -57,23 +58,23 @@ distillation:
   temperature: 2.0  # Balanced temp for stable training (5.0 was too high, caused flat loss)
   
   # Training hyperparameters
-  epochs: 1  # One-shot distillation (20 epochs was too slow and unnecessary)
+  epochs: 1  # One-shot distillation
   batch_size: 1  # Must use 1 to fit in 8GB VRAM (both 2 and 4 caused OOM)
   gradient_accumulation_steps: 8  # Maintain effective_batch_size=8
   effective_batch_size: 8  # 1 × 8 = 8 (unchanged)  
   
   # Optimizer configuration
   optimizer: "adamw"  # AdamW optimizer with weight decay
-  learning_rate: 1e-3  # Balanced: not too low (8e-5) nor too high (5e-4 caused oscillation)
+  learning_rate: 0.00005  # FIXED: 5e-5 was parsed as string, now explicit float
   weight_decay: 0.01  # Weight decay for regularization
   beta_1: 0.9  # Adam beta1 parameter
   beta_2: 0.98  # Adam beta2 parameter
-  epsilon: 1.0e-6  # Epsilon for numerical stability
+  epsilon: 0.000001  # Epsilon for numerical stability
   
   # Learning rate schedule
-  lr_schedule: "constant"  # Constant LR (cosine caused per-batch reset in mini-batch mode)
-  warmup_steps: 0  # No warmup needed with constant LR
-  min_learning_rate: 2.0e-4  # Same as base LR (constant)
+  lr_schedule: "cosine"  # FIXED: Cosine decay for better convergence
+  warmup_steps: 500  # FIXED: Gradual warmup to prevent early instability
+  min_learning_rate: 0.000001  # Minimum LR at end of cosine schedule
   
   # Mixed precision training (CRITICAL for 8GB VRAM)
   mixed_precision: true  # Enable mixed precision (fp16)
@@ -124,6 +125,10 @@ data:
   max_text_length: 448  # Maximum text sequence length (tokens)
   language: "vi"  # Vietnamese language code
   task: "transcribe"  # Transcription task
+  
+  # Timestamp settings
+  return_timestamps: false  # Disable timestamps - standard transcription only
+  timestamp_granularity: "word"  # Not used when return_timestamps=false
   
   # Data augmentation
   use_augmentation: true  # Enable data augmentation

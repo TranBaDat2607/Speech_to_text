@@ -31,6 +31,7 @@ class ModelConfig:
     student_model_name: str = "small"
     student_pretrained: bool = True
     freeze_encoder: bool = False
+    truncate_vocab: bool = False
     teacher_temperature: float = 3.0
 
 
@@ -84,6 +85,9 @@ class DataConfig:
     max_text_length: int = 448
     language: str = "vi"
     
+    return_timestamps: bool = False
+    timestamp_granularity: str = "word"
+    
     train_split: float = 0.95
     random_seed: int = 42
 
@@ -134,6 +138,7 @@ class Config:
             student_model_name=config_dict['student']['model_name'],
             student_pretrained=config_dict['student']['pretrained'],
             freeze_encoder=config_dict['student']['freeze_encoder_initially'],
+            truncate_vocab=config_dict['student'].get('truncate_vocab', False),
             teacher_temperature=config_dict['teacher']['temperature']
         )
         
@@ -144,12 +149,12 @@ class Config:
             batch_size=training_dict['batch_size'],
             gradient_accumulation_steps=training_dict['gradient_accumulation_steps'],
             effective_batch_size=training_dict['effective_batch_size'],
-            learning_rate=training_dict['learning_rate'],
-            weight_decay=training_dict['weight_decay'],
-            max_gradient_norm=training_dict['max_gradient_norm'],
+            learning_rate=float(training_dict['learning_rate']),
+            weight_decay=float(training_dict['weight_decay']),
+            max_gradient_norm=float(training_dict['max_gradient_norm']),
             warmup_steps=training_dict['warmup_steps'],
             lr_schedule=training_dict['lr_schedule'],
-            min_learning_rate=training_dict['min_learning_rate'],
+            min_learning_rate=float(training_dict['min_learning_rate']),
             mixed_precision=training_dict['mixed_precision'],
             save_every_n_steps=training_dict['save_every_n_steps'],
             eval_every_n_steps=training_dict['eval_every_n_steps'],
@@ -176,6 +181,8 @@ class Config:
             max_audio_length=data_dict['max_audio_length'],
             max_text_length=data_dict['max_text_length'],
             language=data_dict['language'],
+            return_timestamps=data_dict.get('return_timestamps', False),
+            timestamp_granularity=data_dict.get('timestamp_granularity', 'word'),
             train_split=data_dict['train_split'],
             random_seed=data_dict['random_seed']
         )

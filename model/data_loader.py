@@ -39,8 +39,6 @@ class WhisperDataLoader:
         if self.max_samples is not None:
             self.mel_files = self.mel_files[:self.max_samples]
         
-        print(f"Found {len(self.mel_files)} mel spectrogram files")
-        
         if len(self.mel_files) == 0:
             raise ValueError(f"No mel files found in {dataset_dir}")
     
@@ -108,50 +106,3 @@ class WhisperDataLoader:
         dataset = dataset.prefetch(tf.data.AUTOTUNE)
         
         return dataset
-    
-    def test_data_loading(self):
-        """Test data loading functionality"""
-        print("\n=== Testing Data Loading ===")
-        
-        # Test single sample loading
-        if len(self.mel_files) > 0:
-            sample_file = self.mel_files[0]
-            print(f"Testing single sample: {sample_file.name}")
-            
-            mel_spec, transcript = self.load_sample(sample_file)
-            print(f"Mel spectrogram shape: {mel_spec.shape}")
-            print(f"Mel spectrogram dtype: {mel_spec.dtype}")
-            print(f"Mel spectrogram range: [{mel_spec.min():.4f}, {mel_spec.max():.4f}]")
-            print(f"Transcript: {transcript[:100]}..." if len(transcript) > 100 else f"Transcript: {transcript}")
-        
-        # Test dataset creation
-        dataset = self.get_batched_dataset()
-        print(f"\nDataset created with batch size: {self.batch_size}")
-        
-        # Test one batch
-        try:
-            for batch_mel, batch_transcript in dataset.take(1):
-                print(f"Batch mel shape: {batch_mel.shape}")
-                print(f"Batch transcript shape: {batch_transcript.shape}")
-                print(f"Sample transcript from batch: {batch_transcript[0].numpy().decode('utf-8')[:100]}...")
-                break
-        except Exception as e:
-            print(f"Error testing batch: {e}")
-        
-        print("=== Data Loading Test Complete ===\n")
-
-
-if __name__ == "__main__":
-    # Test the data loader
-    dataset_dir = r"c:\Users\Admin\Desktop\dat301m\Speech_to_text\preprocessing_data\processed_dataset"
-    
-    print("Testing WhisperDataLoader...")
-    
-    # Test with 10 samples as requested
-    data_loader = WhisperDataLoader(
-        dataset_dir=dataset_dir,
-        batch_size=2,
-        max_samples=10
-    )
-    
-    data_loader.test_data_loading()

@@ -24,10 +24,7 @@ def download_and_save_whisper_weights(model_name="tiny", save_dir="pretrained_we
     
     print(f"Saving weights to {save_path}...")
     torch.save(model.state_dict(), save_path)
-    
-    print(f"Successfully saved Whisper {model_name} weights!")
-    print(f"File size: {os.path.getsize(save_path) / (1024*1024):.2f} MB")
-    
+
     model_dims = {
         "n_mels": model.dims.n_mels,
         "n_audio_ctx": model.dims.n_audio_ctx,
@@ -40,16 +37,4 @@ def download_and_save_whisper_weights(model_name="tiny", save_dir="pretrained_we
         "n_text_head": model.dims.n_text_head,
         "n_text_layer": model.dims.n_text_layer,
     }
-    
-    print(f"\nModel dimensions:")
-    for key, value in model_dims.items():
-        print(f"  {key}: {value}")
-    
     return save_path
-
-
-if __name__ == "__main__":
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    save_directory = os.path.join(script_dir, "pretrained_weights")
-    
-    download_and_save_whisper_weights("tiny", save_directory)
