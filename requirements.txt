@@ -46,12 +46,23 @@ webdriver-manager>=4.0.1
 # ipykernel>=6.0.0
 
 # Knowledge Distillation and Dataset Processing
-torch>=2.0.0
-torchaudio>=2.0.0
+# PyTorch 2.7.1 with CUDA 12.8 for RTX 50 series (Blackwell architecture) support
+# Install with: python -m pip install -U torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+torch>=2.7.1
+torchaudio>=2.7.1
+torchvision>=0.22.1
 torchcodec>=0.1.0
-transformers>=4.30.0
+transformers>=4.40.0  # Required for PyTorch 2.9.0 and PhoWhisper support
 datasets>=2.14.0
 python-dotenv>=1.0.0
 tqdm>=4.65.0
-accelerate>=0.20.0
+accelerate>=0.27.0  # Required for mixed precision training with PyTorch 2.9.0
 evaluate>=0.4.0
+
+# TensorFlow with GPU support for RTX 5000 series
+# Use nightly build with auto CUDA support (works with RTX 5060)
+# Install with: pip install tf-nightly[and-cuda]
+tf-nightly[and-cuda]  # TensorFlow nightly with CUDA bundled
+
+# YAML support for configs
+pyyaml>=6.0

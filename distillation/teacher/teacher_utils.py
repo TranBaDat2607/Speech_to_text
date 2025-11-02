@@ -230,47 +230,24 @@ def print_gpu_info():
     
     info = verify_gpu_availability()
     
-    print(f"\n{'='*60}")
-    print("GPU INFORMATION")
-    print(f"{'='*60}")
+    print(f"\nGPU Info:")
     
     if not info["cuda_available"]:
-        print("ERROR: CUDA not available")
-        print("   Teacher inference will run on CPU (very slow)")
-        print("   Consider using a GPU for distillation")
+        print("CUDA not available - will run on CPU (slow)")
     else:
-        print(f"OK: CUDA available: {info['device_count']} device(s)")
-        
+        print(f"CUDA: {info['device_count']} device(s)")
         for device in info["devices"]:
-            print(f"\n  Device {device['id']}: {device['name']}")
-            print(f"    Total Memory: {device['total_memory_gb']:.2f} GB")
-            if 'free_memory_gb' in device:
-                print(f"    Free Memory: {device['free_memory_gb']:.2f} GB")
-            print(f"    Compute Capability: {device['compute_capability']}")
-    
-    print(f"{'='*60}\n")
+            mem_info = f" ({device['free_memory_gb']:.1f}GB free)" if 'free_memory_gb' in device else ""
+            print(f"  {device['id']}: {device['name']}{mem_info}")
 
 
 if __name__ == "__main__":
     print_gpu_info()
     
-    print("\nStorage estimation for 100h dataset:")
-    print("  Assuming ~3600 samples (100s average)")
     storage = estimate_logits_storage(
         num_samples=3600,
         avg_sequence_length=448,
         vocab_size=51864,
         dtype="float32"
     )
-    print(f"  Total storage: {storage['total_gb']:.2f} GB")
-    print(f"  Per sample: {storage['bytes_per_sample'] / (1024**2):.2f} MB")
-    
-    storage_fp16 = estimate_logits_storage(
-        num_samples=3600,
-        avg_sequence_length=448,
-        vocab_size=51864,
-        dtype="float16"
-    )
-    print(f"\n  With float16 compression:")
-    print(f"  Total storage: {storage_fp16['total_gb']:.2f} GB")
-    print(f"  Saved: {storage['total_gb'] - storage_fp16['total_gb']:.2f} GB")
+    print(f"\nStorage (3600 samples): {storage['total_gb']:.1f}GB ({storage['bytes_per_sample'] / (1024**2):.1f}MB/sample)")

@@ -1,20 +1,22 @@
 # Knowledge Distillation Configuration
-# Whisper Large (Teacher) -> Whisper Small (Student)
+# Whisper Large (Teacher) -> Whisper Base (Student)
 
 project:
-  name: "whisper_small_vietnamese_distillation"
-  description: "Knowledge distillation from Large to Small for Vietnamese ASR"
+  name: "whisper_base_vietnamese_distillation"
+  description: "Knowledge distillation from PhoWhisper-large to OpenAI Whisper-base for Vietnamese ASR"
   language: "vi"
   
+experiment_name: "whisper_base_vietnamese_distillation"  # Used for metrics logging
+  
 paths:
-  # Dataset paths - THAY ĐỔI THEO PATHS CỦA BẠN
+  # Dataset paths - CHANGE TO YOUR PATHS
   phowhisper_audio: "path/to/phowhisper/audio/"
   phowhisper_transcripts: "path/to/phowhisper/transcripts/"
   
   # Dataset path (PhoAudioBook downloaded)
-  preprocessed_dataset: "../preprocessing_data/phoaudiobook_100h/"
+  preprocessed_dataset: "./preprocessing_data/phoaudiobook_100h/"
   
-  # Teacher logits storage (sẽ lưu soft labels từ teacher)
+  # Teacher logits storage (will store soft labels from teacher)
   teacher_logits_dir: "./data/teacher_logits/"
   
   # Pretrained weights paths
@@ -27,127 +29,135 @@ paths:
   final_model_dir: "./final_model/"
 
 teacher:
-  model_name: "large"
-  temperature: 3.0
-  batch_size: 8
-  use_pytorch: true  # PyTorch nhanh hơn cho inference
-  save_logits_format: "npy"  # hoặc "h5" cho dataset lớn
+  model_name: "vinai/PhoWhisper-large"  # PhoWhisper for Vietnamese
+  temperature: 5.0  # Match distillation temperature for consistency
+  batch_size: 8  # Teacher inference batch size
+  use_pytorch: true  # PyTorch is faster for inference
+  save_logits_format: "npy"  # Use 'h5' for larger datasets
   
 student:
-  model_name: "small"
-  pretrained: true
-  load_from_openai: true
-  freeze_encoder_initially: false  # Set true để train decoder trước
+  model_name: "base"  # OpenAI Whisper base (74M params)
+  pretrained: true  # Load from pretrained weights
+  load_from_openai: true  # Use OpenAI weights (vocab=51865)
+  freeze_encoder_initially: false  # Set true to train decoder first
 
 distillation:
-  # Loss weights (tổng = 1.0)
-  soft_loss_weight: 0.7    # KL divergence với teacher
-  hard_loss_weight: 0.3    # Cross entropy với ground truth
-  feature_loss_weight: 0.0  # Intermediate layer matching (optional)
+  # Mini-batch mode (saves disk space)
+  enable_mini_batch: true  # Enable mini-batch distillation pipeline
+  mini_batch_size: 100  # Samples per mini-batch
+  auto_cleanup_logits: true  # Auto-delete logits after training
+  one_shot_mode: true  # Each sample trained only once
   
-  # Temperature cho distillation
-  temperature: 3.0
+  # Loss weights (must sum to 1.0)
+  soft_loss_weight: 0.7  # KL divergence with teacher (soft targets)
+  hard_loss_weight: 0.3  # Cross entropy with ground truth (hard labels)
+  feature_loss_weight: 0.0  # Intermediate layer matching (optional, disabled)
+  
+  # Temperature for distillation
+  temperature: 5.0  # Higher temp = softer targets, reduces KL loss (was 3.0)
   
   # Training hyperparameters
-  epochs: 20  # Tăng epochs vì ít data hơn (100h vs 1000h)
-  batch_size: 2  # Real batch size trên GPU
-  gradient_accumulation_steps: 4
-  effective_batch_size: 8  # batch_size × accumulation_steps
+  epochs: 1  # One-shot distillation (20 epochs was too slow and unnecessary)
+  batch_size: 1  # Keep at 1 to avoid OOM (loss computation on long sequences)
+  gradient_accumulation_steps: 8  # Accumulate to maintain effective_batch_size=8
+  effective_batch_size: 8  # 1 × 8 = 8  
   
   # Optimizer configuration
-  optimizer: "adamw"
-  learning_rate: 5.0e-5
-  weight_decay: 0.01
-  beta_1: 0.9
-  beta_2: 0.98
-  epsilon: 1.0e-6
+  optimizer: "adamw"  # AdamW optimizer with weight decay
+  learning_rate: 5.0e-5  # Max learning rate (0.00005)
+  weight_decay: 0.01  # Weight decay for regularization
+  beta_1: 0.9  # Adam beta1 parameter
+  beta_2: 0.98  # Adam beta2 parameter
+  epsilon: 1.0e-6  # Epsilon for numerical stability
   
   # Learning rate schedule
-  lr_schedule: "cosine"
-  warmup_steps: 200  # Giảm vì dataset nhỏ hơn (100h)
-  min_learning_rate: 1.0e-6
+  lr_schedule: "cosine"  # Cosine annealing schedule
+  warmup_steps: 50  # Reduced warmup (50% of ~100 steps per batch with epochs=1)
+  min_learning_rate: 1.0e-6  # Minimum LR after decay
   
-  # Mixed precision training (QUAN TRỌNG cho 8GB VRAM)
-  mixed_precision: true
-  policy: "mixed_float16"
+  # Mixed precision training (CRITICAL for 8GB VRAM)
+  mixed_precision: true  # Enable mixed precision (fp16)
+  policy: "mixed_float16"  # Use fp16 for forward/backward, fp32 for weights
   
   # Gradient clipping
-  max_gradient_norm: 1.0
+  max_gradient_norm: 1.0  # Clip gradients to prevent explosion
   
   # Checkpointing
-  save_every_n_steps: 500  # Save thường xuyên hơn với dataset nhỏ
-  keep_last_n_checkpoints: 5
-  save_best_only: true
+  save_every_n_steps: 1000  # Save less frequently (not needed with epochs=1)
+  keep_last_n_checkpoints: 3  # Keep only 3 recent checkpoints (save disk space)
+  save_best_only: false  # Save all checkpoints (no validation to determine "best")
   
-  # Validation & Evaluation
-  eval_every_n_steps: 250  # Eval thường xuyên hơn
-  eval_samples: 100  # Số samples để eval nhanh
+  # Validation & Evaluation (disabled for one-shot training)
+  eval_every_n_steps: 10000  # Effectively disabled (batch has ~100 steps)
+  eval_samples: 100  # Number of samples for quick validation
   
-  # Early stopping
-  early_stopping_patience: 6
-  early_stopping_metric: "wer"
-  early_stopping_mode: "min"
+  # Early stopping (disabled for one-shot training)
+  early_stopping_patience: 100  # Effectively disabled
+  early_stopping_metric: "wer"  # Word Error Rate
+  early_stopping_mode: "min"  # Lower is better
 
 hardware:
-  device: "GPU"
-  gpu_id: 0
-  gpu_memory_limit: 8192  # MB
-  allow_growth: true
+  device: "GPU"  # Use GPU for training
+  gpu_id: 0  # GPU device ID
+  gpu_memory_limit: 8192  # MB (8GB for RTX 5060)
+  allow_growth: true  # Allow TensorFlow to allocate memory as needed
   
   # Data loading
-  num_workers: 4
-  prefetch_size: 2
-  pin_memory: true
+  num_workers: 4  # Parallel data loading workers
+  prefetch_size: 2  # Prefetch batches
+  pin_memory: true  # Pin memory for faster GPU transfer
 
 data:
-  # Dataset filtering - QUAN TRỌNG
-  use_full_dataset: false  # Set true để dùng toàn bộ 1000h
-  max_hours: 100           # Giới hạn 100 giờ dữ liệu
-  max_samples: null        # Hoặc giới hạn theo số samples (null = theo max_hours)
-  train_split: 0.95        # 95% train, 5% validation
-  random_seed: 42          # Để reproducible
+  # Dataset filtering - IMPORTANT
+  use_full_dataset: false  # Set true to use full 1000h dataset
+  max_hours: 100  # Limit to 100 hours of audio
+  max_samples: null  # Limit by number of samples (null = use max_hours)
+  train_split: 0.95  # 95% train, 5% validation
+  random_seed: 42  # For reproducibility
   
   # Audio processing
-  sample_rate: 16000
-  n_mels: 80
-  n_fft: 400
-  hop_length: 160
-  max_audio_length: 30.0  # seconds
-  
-  # Text processing
-  max_text_length: 448
-  language: "vi"
-  task: "transcribe"
+  sample_rate: 16000  # 16kHz audio
+  n_mels: 80  # Number of mel filterbanks
+  n_fft: 400  # FFT window size
+  hop_length: 160  # Hop length for STFT
+  max_audio_length: 12.0  # Maximum audio length in seconds (base model)
+  max_text_length: 448  # Maximum text sequence length (tokens)
+  language: "vi"  # Vietnamese language code
+  task: "transcribe"  # Transcription task
   
   # Data augmentation
-  use_augmentation: true
-  spec_augment: true
-  time_masking: true
-  freq_masking: true
+  use_augmentation: true  # Enable data augmentation
+  spec_augment: true  # SpecAugment for mel spectrograms
+  time_masking: true  # Time axis masking
+  freq_masking: true  # Frequency axis masking
 
 logging:
   # Console logging
-  log_level: "INFO"
-  log_every_n_steps: 10
+  log_level: "INFO"  # Logging level
+  log_every_n_steps: 10  # Print to console every N steps
+  
+  # Step-level metrics logging
+  log_step_metrics: true  # Enable per-step metrics logging (not just per-batch)
+  save_step_metrics_every: 1  # Save step metrics every N steps (1=every step, 5=every 5 steps)
   
   # TensorBoard
-  use_tensorboard: true
-  tensorboard_dir: "./logs/tensorboard/"
+  use_tensorboard: true  # Enable TensorBoard logging
+  tensorboard_dir: "./logs/tensorboard/"  # TensorBoard log directory
   
   # Weights & Biases (optional)
-  use_wandb: false
-  wandb_project: "whisper-distillation"
-  wandb_entity: null
+  use_wandb: false  # Enable W&B logging
+  wandb_project: "whisper-distillation"  # W&B project name
+  wandb_entity: null  # W&B entity (organization)
 
 # Advanced options
 advanced:
-  # Activation checkpointing để tiết kiệm VRAM
-  use_gradient_checkpointing: false  # Enable nếu OOM
+  # Activation checkpointing to save VRAM
+  use_gradient_checkpointing: false  # Enable if OOM occurs
   
-  # Progressive unfreezing
-  progressive_unfreezing: false
-  unfreeze_schedule: [0, 3, 6]  # Epochs để unfreeze layers
+  # Progressive unfreezing (not used with epochs=1)
+  progressive_unfreezing: false  # Gradually unfreeze layers
+  unfreeze_schedule: [0, 3, 6]  # Epochs at which to unfreeze layers
   
-  # Temperature annealing
-  temperature_annealing: false
-  temperature_schedule: [3.0, 2.0, 1.0]  # Giảm dần qua epochs
+  # Temperature annealing (not used with epochs=1)
+  temperature_annealing: false  # Gradually reduce temperature
+  temperature_schedule: [5.0, 3.0, 1.0]  # Temperature values per epoch

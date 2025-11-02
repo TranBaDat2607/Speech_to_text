@@ -28,7 +28,7 @@ class WhisperTeacherPyTorch:
     
     def __init__(
         self,
-        model_name: str = "openai/whisper-large-v2",
+        model_name: str = "vinai/PhoWhisper-large",
         device: str = "auto",
         cache_dir: Optional[str] = None
     ):
@@ -44,18 +44,11 @@ class WhisperTeacherPyTorch:
         self.model_name = model_name
         self.cache_dir = cache_dir
         
-        print(f"\n{'='*60}")
-        print(f"Loading Whisper Teacher Model (PyTorch)")
-        print(f"{'='*60}")
-        print(f"  Model: {model_name}")
+        print(f"\nLoading teacher: {model_name}")
         
         self._setup_device(device)
         self._load_model()
         self._print_model_info()
-        
-        print(f"{'='*60}")
-        print("Teacher model loaded successfully!")
-        print(f"{'='*60}\n")
     
     def _setup_device(self, device: str):
         """Setup compute device"""
@@ -64,23 +57,17 @@ class WhisperTeacherPyTorch:
         else:
             self.device = device
         
-        print(f"  Device: {self.device}")
-        
         if self.device == "cuda":
-            print(f"  GPU: {torch.cuda.get_device_name(0)}")
-            print(f"  CUDA Version: {torch.version.cuda}")
-            print(f"  PyTorch Version: {torch.__version__}")
+            print(f"Device: {torch.cuda.get_device_name(0)}")
     
     def _load_model(self):
         """Load PyTorch Whisper model and processor"""
         try:
-            print(f"\n  Loading processor...")
             self.processor = WhisperProcessor.from_pretrained(
                 self.model_name,
                 cache_dir=self.cache_dir
             )
             
-            print(f"  Loading model (this may take a few minutes)...")
             self.model = WhisperForConditionalGeneration.from_pretrained(
                 self.model_name,
                 cache_dir=self.cache_dir
@@ -93,23 +80,14 @@ class WhisperTeacherPyTorch:
             # Get config
             self.config = self.model.config
             
-            print(f"  OK: Model loaded on {self.device}")
-            
         except Exception as e:
-            print(f"  Error loading model: {e}")
+            print(f"Error loading model: {e}")
             raise
     
     def _print_model_info(self):
         """Print model information"""
         total_params = sum(p.numel() for p in self.model.parameters())
-        
-        print(f"\n  Model Configuration:")
-        print(f"    Total Parameters: {total_params / 1e6:.1f}M")
-        print(f"    Vocabulary Size: {self.config.vocab_size}")
-        print(f"    Max Length: {self.config.max_length}")
-        print(f"    Encoder Layers: {self.config.encoder_layers}")
-        print(f"    Decoder Layers: {self.config.decoder_layers}")
-        print(f"    Hidden Size: {self.config.d_model}")
+        print(f"Params: {total_params / 1e6:.1f}M, Vocab: {self.config.vocab_size}, Layers: {self.config.encoder_layers}E/{self.config.decoder_layers}D")
     
     def generate_logits(
         self,
@@ -281,7 +259,7 @@ def test_teacher_model_pytorch():
     
     try:
         teacher = WhisperTeacherPyTorch(
-            model_name="openai/whisper-large-v2",
+            model_name="vinai/PhoWhisper-large",
             device=device
         )
         

@@ -35,21 +35,14 @@ def verify_on_audio(
     if device is None:
         device = "cuda" if torch.cuda.is_available() else "cpu"
     
-    print(f"\n{'='*60}")
-    print(f"VERIFYING TEACHER MODEL ON AUDIO")
-    print(f"{'='*60}")
-    print(f"  Audio file: {audio_path}")
-    print(f"  Model: {model_name}")
-    print(f"  Language: {language}")
-    print(f"  Device: {device}")
-    print(f"{'='*60}\n")
+    print(f"\nVerifying: {audio_path}")
+    print(f"Model: {model_name}, Language: {language}")
     
     teacher = WhisperTeacher(
         model_name=model_name,
         device=device
     )
     
-    print(f"\nTranscribing audio...")
     result = teacher.transcribe_sample(
         audio_path=audio_path,
         language=language,
@@ -57,22 +50,7 @@ def verify_on_audio(
         verbose=False
     )
     
-    print(f"\n{'='*60}")
-    print("TRANSCRIPTION RESULT")
-    print(f"{'='*60}")
-    print(f"\n{result['text']}\n")
-    print(f"{'='*60}")
-    print(f"  Language detected: {result.get('language', 'N/A')}")
-    
-    if 'segments' in result and len(result['segments']) > 0:
-        print(f"  Number of segments: {len(result['segments'])}")
-        print(f"\n  First segment:")
-        seg = result['segments'][0]
-        print(f"    Start: {seg['start']:.2f}s")
-        print(f"    End: {seg['end']:.2f}s")
-        print(f"    Text: {seg['text']}")
-    
-    print(f"{'='*60}\n")
+    print(f"\nResult: {result['text']}")
     
     return result
 
@@ -109,9 +87,7 @@ def verify_on_dataset_sample(
     
     device = "cuda" if torch.cuda.is_available() else "cpu"
     
-    print(f"\n{'='*60}")
-    print(f"VERIFYING ON {len(audio_files)} DATASET SAMPLES")
-    print(f"{'='*60}\n")
+    print(f"\nVerifying {len(audio_files)} samples")
     
     teacher = WhisperTeacher(
         model_name=model_name,
@@ -121,22 +97,16 @@ def verify_on_dataset_sample(
     results = []
     
     for idx, audio_path in enumerate(audio_files, 1):
-        print(f"\n--- Sample {idx}/{len(audio_files)} ---")
-        print(f"File: {audio_path.name}")
-        
         result = teacher.transcribe_sample(
             audio_path=str(audio_path),
             language=language,
             task="transcribe",
             verbose=False
         )
-        
-        print(f"Transcription: {result['text'][:100]}...")
+        print(f"{idx}/{len(audio_files)}: {result['text'][:80]}...")
         results.append(result)
     
-    print(f"\n{'='*60}")
-    print(f"OK: Verified {len(results)} samples successfully!")
-    print(f"{'='*60}\n")
+    print(f"\nVerified {len(results)} samples")
     
     return results
 

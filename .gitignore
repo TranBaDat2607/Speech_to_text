@@ -90,14 +90,9 @@ MANIFEST
 # ================================
 .ipynb_checkpoints/
 *.ipynb
-
-# ================================
-# PREPROCESSING OUTPUTS
-# ================================
-preprocessing_data/processed_dataset/
-preprocessing_data/**/*.npy
-preprocessing_data/**/*_processed.json
-preprocessing_data/**/processing_summary.json
+ 
+*.npy
+preprocessing_data/processed_dataset/*.json
 
 # ================================
 # VIRTUAL ENVIRONMENTS

@@ -1,6 +1,6 @@
 """Teacher model module for knowledge distillation"""
 
-from .load_teacher import WhisperTeacher
+from .load_teacher_pytorch import WhisperTeacherPyTorch
 from .teacher_utils import (
     estimate_logits_storage,
     calculate_dataset_hours,
@@ -10,7 +10,7 @@ from .teacher_utils import (
 )
 
 __all__ = [
-    'WhisperTeacher',
+    'WhisperTeacherPyTorch',
     'estimate_logits_storage',
     'calculate_dataset_hours',
     'get_optimal_batch_size',
