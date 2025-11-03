@@ -288,6 +288,8 @@ class ResidualAttentionBlock(tf.keras.layers.Layer):
         if self.cross_attn is not None:
             cross_attn_input = self.cross_attn_ln(x, training=training)
             cross_attn_output, _ = self.cross_attn(cross_attn_input, xa=xa, kv_cache=kv_cache, training=training)
+            if tf.shape(x)[1] <= 4:
+                print(f"[DEBUG cross_attn] query sum={tf.reduce_sum(cross_attn_input).numpy():.2f}, output sum={tf.reduce_sum(cross_attn_output).numpy():.2f}")
             x = x + cross_attn_output
         
         # 3. MLP with residual connection

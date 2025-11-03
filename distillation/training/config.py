@@ -31,7 +31,6 @@ class ModelConfig:
     student_model_name: str = "small"
     student_pretrained: bool = True
     freeze_encoder: bool = False
-    truncate_vocab: bool = False
     teacher_temperature: float = 3.0
 
 
@@ -138,7 +137,6 @@ class Config:
             student_model_name=config_dict['student']['model_name'],
             student_pretrained=config_dict['student']['pretrained'],
             freeze_encoder=config_dict['student']['freeze_encoder_initially'],
-            truncate_vocab=config_dict['student'].get('truncate_vocab', False),
             teacher_temperature=config_dict['teacher']['temperature']
         )
         

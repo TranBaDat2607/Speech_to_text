@@ -8,8 +8,13 @@ import sys
 from pathlib import Path
 import numpy as np
 import tensorflow as tf
-import whisper
-import torch
+
+try:
+    import whisper
+    import torch
+    WHISPER_AVAILABLE = True
+except ImportError:
+    WHISPER_AVAILABLE = False
 
 def download_openai_weights(model_name: str = "base"):
     """

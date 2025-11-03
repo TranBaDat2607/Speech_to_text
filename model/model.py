@@ -180,7 +180,7 @@ class AudioEncoder(tf.keras.Model):
             filters=dims.n_audio_state,
             kernel_size=3,
             strides=2,
-            padding="same", 
+            padding="same",  # Use 'same' to match PyTorch output shape
             activation=None,  # Apply GELU separately
             name="conv2"
         )
@@ -234,6 +234,7 @@ class AudioEncoder(tf.keras.Model):
         x = tf.nn.gelu(x)
         
         # Second convolution + GELU with stride=2: [batch, 3000, n_audio_state] -> [batch, 1500, n_audio_state]
+        # padding='same' with stride=2 matches PyTorch Conv1d(stride=2, padding=1)
         x = self.conv2(x, training=training)  
         x = tf.nn.gelu(x)
         
@@ -385,23 +386,20 @@ class Whisper(tf.keras.Model):
     @property
     def is_multilingual(self) -> bool:
         """Check if model supports multiple languages"""
-        # PhoWhisper: 50364 tokens (multilingual)
-        # OpenAI: 51865 tokens (multilingual) or 51864 (English-only)
-        return self.dims.n_vocab >= 50364
+        # PhoWhisper/OpenAI full vocab: 51865 (includes 1501 timestamp tokens + specials)
+        # Base vocab: 50258 (tokenizer vocab_size)
+        return self.dims.n_vocab >= 51865
     
     @property  
     def num_languages(self) -> int:
         """Get number of supported languages"""
-        # PhoWhisper has ~100 languages (like OpenAI multilingual)
-        # This is approximate as exact count depends on tokenizer
+        # PhoWhisper/OpenAI supports ~99 languages
+        # Full vocab: 51865 (base 50258 + 1501 timestamps + specials)
         if self.dims.n_vocab >= 51865:
-            # OpenAI multilingual
-            return self.dims.n_vocab - 51765 - int(self.is_multilingual)
-        elif self.dims.n_vocab >= 50364:
-            # PhoWhisper multilingual
-            return 99  # PhoWhisper supports ~99 languages
+            # Multilingual (PhoWhisper/OpenAI)
+            return 99  # Supports ~99 languages
         else:
-            # English-only or unknown
+            # English-only or incomplete
             return 1
     
     def get_config(self):

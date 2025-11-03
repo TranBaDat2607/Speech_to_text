@@ -39,7 +39,6 @@ student:
   model_name: "base"  # OpenAI Whisper base (74M params)
   pretrained: true  # Load pretrained weights
   load_from_openai: true  # Load OpenAI pretrained weights
-  truncate_vocab: true  # Truncate OpenAI vocab (51865->50364) for PhoWhisper compatibility
   freeze_encoder_initially: false  # Set true to train decoder first
 
 distillation:

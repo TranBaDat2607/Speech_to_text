@@ -111,8 +111,7 @@ class DistillationTrainer:
         self.student = WhisperStudentTensorFlow(
             model_name=self.config.model.student_model_name,
             freeze_encoder=self.config.model.freeze_encoder,
-            load_openai_weights=self.load_openai_weights,
-            truncate_vocab=self.config.model.truncate_vocab
+            load_openai_weights=self.load_openai_weights
         )
         
         self.model = self.student.model
@@ -214,34 +213,17 @@ class DistillationTrainer:
         Returns:
             Mel spectrogram (n_mels, frames) padded to model's expected length
         """
-        import librosa
+        from whisper.audio import log_mel_spectrogram, pad_or_trim
         
-        # Compute mel spectrogram
-        mel = librosa.feature.melspectrogram(
-            y=audio,
-            sr=self.config.data.sample_rate,
-            n_mels=self.config.data.n_mels,
-            n_fft=self.config.data.n_fft,
-            hop_length=self.config.data.hop_length
-        )
+        # Use Whisper's official preprocessing
+        # Pad/trim audio to 30s FIRST (critical!)
+        audio_padded = pad_or_trim(audio)
         
-        # Convert to log scale
-        mel = librosa.power_to_db(mel, ref=np.max)
+        # Compute mel using Whisper's method
+        mel = log_mel_spectrogram(audio_padded, n_mels=self.config.data.n_mels)
         
-        # Normalize
-        mel = (mel + 80) / 80
-        
-        # Model has fixed positional embedding size (n_audio_ctx)
-        # Conv layers downsample by factor of 2, so input needs 2x frames
-        # base model: n_audio_ctx=1500 → requires 3000 input frames
-        target_frames = self.model.dims.n_audio_ctx * 2
-        
-        # Pad or truncate to target length
-        if mel.shape[1] < target_frames:
-            pad_width = target_frames - mel.shape[1]
-            mel = np.pad(mel, ((0, 0), (0, pad_width)), mode='constant', constant_values=0)
-        elif mel.shape[1] > target_frames:
-            mel = mel[:, :target_frames]
+        # mel is torch tensor (n_mels, frames), convert to numpy
+        mel = mel.cpu().numpy()
         
         return tf.constant(mel, dtype=tf.float32)
     

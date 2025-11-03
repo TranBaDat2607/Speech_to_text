@@ -27,8 +27,7 @@ class WhisperStudentTensorFlow:
         model_name: str = "small",
         freeze_encoder: bool = False,
         weights_path: Optional[str] = None,
-        load_openai_weights: bool = True,
-        truncate_vocab: bool = False
+        load_openai_weights: bool = True
     ):
         """
         Initialize Whisper Small student model
@@ -37,14 +36,12 @@ class WhisperStudentTensorFlow:
             model_name: Model size ("tiny", "base", "small", "medium", "large")
             freeze_encoder: If True, freeze encoder weights (train decoder only)
             weights_path: Optional path to load pretrained weights (.weights.h5)
-            load_openai_weights: If True, load OpenAI pretrained weights (first time or if no weights_path)
-            truncate_vocab: If True, truncate OpenAI vocab (51865->50364) for PhoWhisper compatibility
+            load_openai_weights: If True, load OpenAI pretrained weights
         """
         self.model_name = model_name
         self.freeze_encoder = freeze_encoder
         self.weights_path = weights_path
         self.load_openai_weights = load_openai_weights
-        self.truncate_vocab = truncate_vocab
         
         print(f"\nStudent: {model_name}")
         
@@ -119,25 +116,20 @@ class WhisperStudentTensorFlow:
             # Set cache directory
             cache_dir = Path(__file__).parent / "pretrained_weights"
             
-            if self.truncate_vocab:
-                # Load with vocab truncation (51865 -> 50364 for PhoWhisper)
-                from .load_openai_truncated import load_openai_with_truncated_vocab
-                
-                self.model = load_openai_with_truncated_vocab(
-                    model_name=self.model_name,
-                    tf_model=self.model,
-                    target_vocab_size=self.dims.n_vocab,
-                    cache_dir=str(cache_dir)
-                )
-            else:
-                # Load full OpenAI weights (requires matching vocab size)
+            # Load full OpenAI weights (vocab_size=51865, matches PhoWhisper)
+            try:
                 from .load_openai_pretrained import load_and_convert_openai_weights
-                
-                self.model = load_and_convert_openai_weights(
-                    model_name=self.model_name,
-                    tf_model=self.model,
-                    cache_dir=str(cache_dir)
-                )
+            except ImportError:
+                # Fallback for when script is run directly
+                import sys
+                sys.path.insert(0, str(Path(__file__).parent))
+                from load_openai_pretrained import load_and_convert_openai_weights
+            
+            self.model = load_and_convert_openai_weights(
+                model_name=self.model_name,
+                tf_model=self.model,
+                cache_dir=str(cache_dir)
+            )
             
         except ImportError as e:
             print(f"\n[WARN] Warning: Could not load OpenAI weights: {e}")
