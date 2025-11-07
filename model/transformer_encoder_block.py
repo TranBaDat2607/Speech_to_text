@@ -63,7 +63,6 @@ class MultiHeadAttention(tf.keras.layers.Layer):
         v = tf.transpose(v, [0, 2, 1, 3])
         
         # Scaled dot-product attention matching OpenAI exactly
-        # OpenAI: (q * scale) @ (k * scale).T = (q @ k.T) * scale^2
         attention_scores = tf.matmul(q * self.scale, k * self.scale, transpose_b=True)
         
         # Apply mask if provided

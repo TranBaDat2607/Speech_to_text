@@ -52,7 +52,7 @@ def get_whisper_dimensions(model_name: str) -> ModelDimensions:
             n_audio_state=512,
             n_audio_head=8,
             n_audio_layer=6,
-            n_vocab=51865,  # PhoWhisper model vocab (includes timestamp tokens)
+            n_vocab=51865, 
             n_text_ctx=448,
             n_text_state=512,
             n_text_head=8,
@@ -64,7 +64,7 @@ def get_whisper_dimensions(model_name: str) -> ModelDimensions:
             n_audio_state=768,
             n_audio_head=12,
             n_audio_layer=12,
-            n_vocab=51865,  # PhoWhisper model vocab (includes timestamp tokens)
+            n_vocab=51865, 
             n_text_ctx=448,
             n_text_state=768,
             n_text_head=12,

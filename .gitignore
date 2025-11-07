@@ -153,6 +153,12 @@ distillation/final_model/
 distillation/logs/
 distillation/plots/
 distillation/temp_logits/
+distillation/examples/
+distillation/final_model/
+distillation/logs/
+distillation/evaluation_results/
+test/
+distillation/mini_batch_state.json
 
 # ================================
 # CONFIGURATION FILES (sensitive)

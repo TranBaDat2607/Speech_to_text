@@ -189,10 +189,8 @@ class DecoderMLP(tf.keras.layers.Layer):
         super().__init__(name=name)
         
         self.n_state = n_state
-        self.n_hidden = n_state * 4  # Expansion factor of 4, matching OpenAI
-        
-        # Two linear layers with GELU activation matching PyTorch exactly
-        # PyTorch: nn.Sequential(Linear(n_state, n_mlp), nn.GELU(), Linear(n_mlp, n_state))
+        self.n_hidden = n_state * 4 
+
         self.dense1 = tf.keras.layers.Dense(
             self.n_hidden, 
             activation=None,  # No activation - will apply GELU separately
@@ -216,7 +214,6 @@ class DecoderMLP(tf.keras.layers.Layer):
             tf.Tensor: Output of shape [batch_size, seq_len, n_state]
         """
         # Linear -> GELU -> Linear matching PyTorch exactly
-        # PyTorch: nn.Sequential(Linear(n_state, n_mlp), nn.GELU(), Linear(n_mlp, n_state))
         x = self.dense1(x)  # [batch, seq_len, n_state] -> [batch, seq_len, n_state*4]
         x = tf.nn.gelu(x)   # Apply GELU separately like PyTorch nn.GELU()
         x = self.dense2(x)  # [batch, seq_len, n_state*4] -> [batch, seq_len, n_state]
@@ -278,22 +275,17 @@ class ResidualAttentionBlock(tf.keras.layers.Layer):
             tf.Tensor: Output of shape [batch_size, seq_len, n_state]
         """
         # 1. Self-attention with residual connection
-        # PyTorch: x = x + self.attn(self.attn_ln(x), mask=mask, kv_cache=kv_cache)[0]
         attn_input = self.attn_ln(x, training=training)
         attn_output, _ = self.attn(attn_input, xa=None, mask=mask, kv_cache=kv_cache, training=training)
         x = x + attn_output
         
         # 2. Cross-attention (only if cross_attention=True)
-        # PyTorch: if self.cross_attn: x = x + self.cross_attn(self.cross_attn_ln(x), xa, kv_cache=kv_cache)[0]
         if self.cross_attn is not None:
             cross_attn_input = self.cross_attn_ln(x, training=training)
             cross_attn_output, _ = self.cross_attn(cross_attn_input, xa=xa, kv_cache=kv_cache, training=training)
-            if tf.shape(x)[1] <= 4:
-                print(f"[DEBUG cross_attn] query sum={tf.reduce_sum(cross_attn_input).numpy():.2f}, output sum={tf.reduce_sum(cross_attn_output).numpy():.2f}")
             x = x + cross_attn_output
         
         # 3. MLP with residual connection
-        # PyTorch: x = x + self.mlp(self.mlp_ln(x))
         mlp_input = self.mlp_ln(x, training=training)
         mlp_output = self.mlp(mlp_input, training=training)
         x = x + mlp_output

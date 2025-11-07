@@ -291,20 +291,29 @@ class DistillationTrainer:
         Args:
             mel_inputs: Mel spectrogram
             teacher_logits: Teacher soft labels
-            decoder_input_ids: Ground truth tokens
+            decoder_input_ids: Ground truth tokens (full sequence with BOS and EOS)
             
         Returns:
             Dictionary with loss values
         """
         with tf.GradientTape() as tape:
-            # Forward pass
-            student_logits = self.model(mel_inputs, decoder_input_ids, training=True)
+            # CRITICAL: Shift for autoregressive training
+            # Decoder input: [BOS, tok1, tok2, ...] (all but last)
+            # Labels: [tok1, tok2, ..., EOS] (all but first)
+            decoder_input = decoder_input_ids[:, :-1]  # Remove last token
+            labels = decoder_input_ids[:, 1:]  # Remove BOS (first token)
+            
+            # Forward pass with shifted input
+            student_logits = self.model(mel_inputs, decoder_input, training=True)
+            
+            # Also shift teacher logits to match
+            teacher_logits_shifted = teacher_logits[:, :-1, :]  # Match decoder_input length
             
             # Compute loss
             total_loss, loss_dict = self.loss_fn(
                 student_logits=student_logits,
-                teacher_logits=teacher_logits,
-                labels=decoder_input_ids
+                teacher_logits=teacher_logits_shifted,
+                labels=labels
             )
         
         # Compute gradients

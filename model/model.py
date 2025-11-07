@@ -386,17 +386,12 @@ class Whisper(tf.keras.Model):
     @property
     def is_multilingual(self) -> bool:
         """Check if model supports multiple languages"""
-        # PhoWhisper/OpenAI full vocab: 51865 (includes 1501 timestamp tokens + specials)
-        # Base vocab: 50258 (tokenizer vocab_size)
         return self.dims.n_vocab >= 51865
     
     @property  
     def num_languages(self) -> int:
         """Get number of supported languages"""
-        # PhoWhisper/OpenAI supports ~99 languages
-        # Full vocab: 51865 (base 50258 + 1501 timestamps + specials)
         if self.dims.n_vocab >= 51865:
-            # Multilingual (PhoWhisper/OpenAI)
             return 99  # Supports ~99 languages
         else:
             # English-only or incomplete
