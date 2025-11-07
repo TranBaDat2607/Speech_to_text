@@ -33,12 +33,12 @@ class MiniBatchOrchestrator:
         
         self.data_dir = self.config['paths']['preprocessed_dataset']
         self.checkpoint_dir = self.config['paths']['checkpoints_dir']
-        self.temp_logits_dir = Path("./temp_logits")
+        self.temp_logits_dir = Path("./distillation/temp_logits")
         
         self.temp_logits_dir.mkdir(exist_ok=True)
         Path(self.checkpoint_dir).mkdir(parents=True, exist_ok=True)
         
-        self.state_file = Path("./mini_batch_state.json")
+        self.state_file = Path("./distillation/mini_batch_state.json")
         
         self.state = {
             'batches_completed': 0,
@@ -89,7 +89,7 @@ class MiniBatchOrchestrator:
         
         cmd = [
             sys.executable,
-            "scripts/generate_batch_logits_standalone.py",
+            "distillation/scripts/generate_batch_logits_standalone.py",
             "--config", str(self.config_path),
             "--batch_num", str(batch_num),
             "--start_idx", str(start_idx),
@@ -99,7 +99,9 @@ class MiniBatchOrchestrator:
             "--temperature", str(self.config['distillation']['temperature'])
         ]
         
-        result = subprocess.run(cmd, check=True)
+        # Run subprocess and show output in real-time
+        print(f"  Generating teacher logits...")
+        result = subprocess.run(cmd, check=True, stdout=sys.stdout, stderr=sys.stderr)
         
         if result.returncode != 0:
             raise RuntimeError(f"Logits generation failed for batch {batch_num}")
@@ -118,7 +120,7 @@ class MiniBatchOrchestrator:
         """
         cmd = [
             sys.executable,
-            "scripts/train_batch_standalone.py",
+            "distillation/scripts/train_batch_standalone.py",
             "--config", str(self.config_path),
             "--batch_num", str(batch_num),
             "--start_idx", str(start_idx),
@@ -135,7 +137,9 @@ class MiniBatchOrchestrator:
                 cmd.extend(["--resume_from", str(prev_checkpoint)])
                 print(f"  Will resume from: {prev_checkpoint.name}")
         
-        result = subprocess.run(cmd, check=True)
+        # Run subprocess and show output in real-time
+        print(f"  Training student model...")
+        result = subprocess.run(cmd, check=True, stdout=sys.stdout, stderr=sys.stderr)
         
         if result.returncode != 0:
             raise RuntimeError(f"Training failed for batch {batch_num}")

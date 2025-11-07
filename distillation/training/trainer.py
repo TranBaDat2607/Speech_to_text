@@ -63,6 +63,11 @@ class DistillationTrainer:
         self.best_val_metric = float('inf')
         self.patience_counter = 0
         
+        # Gradient accumulation state
+        self.gradient_accumulation_steps = getattr(self.config.training, 'gradient_accumulation_steps', 1)
+        self.accumulated_gradients = None
+        self.accumulation_counter = 0
+        
         # Metrics tracking
         self.metrics_tracker = MetricsTracker()
         self.timer = Timer()
@@ -286,7 +291,7 @@ class DistillationTrainer:
         decoder_input_ids: tf.Tensor
     ) -> Dict[str, float]:
         """
-        Single training step
+        Single training step with gradient accumulation
         
         Args:
             mel_inputs: Mel spectrogram
@@ -315,26 +320,60 @@ class DistillationTrainer:
                 teacher_logits=teacher_logits_shifted,
                 labels=labels
             )
+            
+            # Scale loss by accumulation steps for proper gradient averaging
+            scaled_loss = total_loss / tf.cast(self.gradient_accumulation_steps, tf.float32)
         
-        # Compute gradients
-        gradients = tape.gradient(total_loss, self.model.trainable_variables)
+        # Compute gradients from scaled loss
+        gradients = tape.gradient(scaled_loss, self.model.trainable_variables)
         
-        # Clip gradients
-        gradients, global_norm = tf.clip_by_global_norm(
-            gradients,
-            self.config.training.max_gradient_norm
-        )
+        # Initialize accumulated gradients on first step
+        if self.accumulated_gradients is None:
+            self.accumulated_gradients = [
+                tf.Variable(tf.zeros_like(g), trainable=False) if g is not None else None
+                for g in gradients
+            ]
         
-        # Update weights
-        # LossScaleOptimizer automatically handles loss scaling and gradient unscaling
-        self.optimizer.apply_gradients(zip(gradients, self.model.trainable_variables))
+        # Accumulate gradients
+        for i, grad in enumerate(gradients):
+            if grad is not None:
+                self.accumulated_gradients[i].assign_add(grad)
         
-        # Return metrics
+        self.accumulation_counter += 1
+        
+        # Apply gradients when accumulation is complete
+        should_apply = (self.accumulation_counter >= self.gradient_accumulation_steps)
+        
+        if should_apply:
+            # Clip accumulated gradients
+            accumulated_grads_list = [g.read_value() if g is not None else None for g in self.accumulated_gradients]
+            clipped_gradients, global_norm = tf.clip_by_global_norm(
+                accumulated_grads_list,
+                self.config.training.max_gradient_norm
+            )
+            
+            # Apply gradients
+            # LossScaleOptimizer automatically handles loss scaling and gradient unscaling
+            self.optimizer.apply_gradients(
+                [(g, v) for g, v in zip(clipped_gradients, self.model.trainable_variables) if g is not None]
+            )
+            
+            # Reset accumulation
+            for g in self.accumulated_gradients:
+                if g is not None:
+                    g.assign(tf.zeros_like(g))
+            self.accumulation_counter = 0
+        else:
+            # No gradient norm to report when not applying
+            global_norm = tf.constant(0.0)
+        
+        # Return metrics (unscaled loss for reporting)
         return {
             'loss': float(total_loss.numpy()),
             'kl_loss': float(loss_dict['kl_loss'].numpy()),
             'ce_loss': float(loss_dict['ce_loss'].numpy()),
-            'grad_norm': float(global_norm.numpy())
+            'grad_norm': float(global_norm.numpy()),
+            'applied_gradients': should_apply  # Track when gradients are applied
         }
     
     def train_epoch(self, epoch: int) -> Dict[str, float]:
@@ -515,11 +554,15 @@ class DistillationTrainer:
                             # Truncate to PhoWhisper vocab size (50364)
                             if teacher_logits_np.shape[-1] > 50364:
                                 teacher_logits_np = teacher_logits_np[..., :50364]
-                            
-                            # Tokenize text with processor (includes special tokens)
-                            text = sample['text']
-                            inputs = self.processor(text=text, return_tensors="pt")
-                            tokens = inputs.input_ids[0].numpy().tolist()
+
+                            if sample.get('tokens') is not None:
+                                # Use pre-tokenized tokens (faster!)
+                                tokens = sample['tokens'].tolist() if isinstance(sample['tokens'], np.ndarray) else sample['tokens']
+                            else:
+                                # Fallback: tokenize on-the-fly (for backward compatibility)
+                                text = sample['text']
+                                inputs = self.processor(text=text, return_tensors="pt")
+                                tokens = inputs.input_ids[0].numpy().tolist()
                             
                             if len(tokens) > self.config.data.max_text_length:
                                 tokens = tokens[:self.config.data.max_text_length]
@@ -610,6 +653,9 @@ class DistillationTrainer:
         num_samples = end_idx - start_idx
         
         print(f"\nBatch {start_idx}-{end_idx} ({num_samples} samples)")
+        print(f"  Batch size: {self.config.training.batch_size}")
+        print(f"  Gradient accumulation steps: {self.gradient_accumulation_steps}")
+        print(f"  Effective batch size: {self.config.training.batch_size * self.gradient_accumulation_steps}")
         
         batch_dataset = DistillationDataset(
             audio_dir=str(Path(self.config.paths.preprocessed_dataset) / "audio"),
@@ -670,6 +716,11 @@ class DistillationTrainer:
             
             if first_step:
                 first_step = False
+                print(f"  Training with gradient accumulation (apply every {self.gradient_accumulation_steps} steps)")
+            
+            # Print when gradients are applied
+            if step_metrics.get('applied_gradients', False):
+                print(f"    Step {step_idx}: Applied gradients (loss: {step_metrics['loss']:.4f}, grad_norm: {step_metrics['grad_norm']:.3f})")
             
             # Update metrics tracker
             for key, value in step_metrics.items():

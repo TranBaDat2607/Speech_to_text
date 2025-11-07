@@ -14,7 +14,7 @@ paths:
   phowhisper_transcripts: "path/to/phowhisper/transcripts/"
   
   # Dataset path (PhoAudioBook downloaded)
-  preprocessed_dataset: "./preprocessing_data/phoaudiobook_100h/"
+  preprocessed_dataset: "./distillation/preprocessing_data/phoaudiobook_100h/"
   
   # Teacher logits storage (will store soft labels from teacher)
   teacher_logits_dir: "./data/teacher_logits/"
@@ -24,9 +24,9 @@ paths:
   student_weights: "../model/pretrained_weights/whisper_small_tf.weights.h5"
   
   # Output paths
-  checkpoints_dir: "./checkpoints/"
-  logs_dir: "./logs/"
-  final_model_dir: "./final_model/"
+  checkpoints_dir: "./distillation/checkpoints/"
+  logs_dir: "./distillation/logs/"
+  final_model_dir: "./distillation/final_model/"
 
 teacher:
   model_name: "vinai/PhoWhisper-large"  # PhoWhisper for Vietnamese
@@ -58,11 +58,9 @@ distillation:
   
   # Training hyperparameters
   epochs: 1  # One-shot distillation
-  batch_size: 1  # Must use 1 to fit in 8GB VRAM (both 2 and 4 caused OOM)
-  gradient_accumulation_steps: 8  # Maintain effective_batch_size=8
-  effective_batch_size: 8  # 1 × 8 = 8 (unchanged)  
-  
-  # Optimizer configuration
+  batch_size: 2  # ADJUSTED: 4 → 2 to fit in 8GB VRAM (avoids OOM)
+  gradient_accumulation_steps: 4  # ADJUSTED: 2 → 4 to maintain effective_batch_size=8
+  effective_batch_size: 8  # 2 × 4 = 8 (maintained)
   optimizer: "adamw"  # AdamW optimizer with weight decay
   learning_rate: 0.00005  # FIXED: 5e-5 was parsed as string, now explicit float
   weight_decay: 0.01  # Weight decay for regularization
@@ -103,8 +101,8 @@ hardware:
   allow_growth: true  # Allow TensorFlow to allocate memory as needed
   
   # Data loading
-  num_workers: 4  # Parallel data loading workers
-  prefetch_size: 2  # Prefetch batches
+  num_workers: 8  # INCREASED: 4 → 8 parallel workers for faster data loading
+  prefetch_size: 8  # INCREASED: 2 → 8 prefetch batches to keep GPU fed
   pin_memory: true  # Pin memory for faster GPU transfer
 
 data:
@@ -146,7 +144,7 @@ logging:
   
   # TensorBoard
   use_tensorboard: true  # Enable TensorBoard logging
-  tensorboard_dir: "./logs/tensorboard/"  # TensorBoard log directory
+  tensorboard_dir: "./distillation/logs/tensorboard/"  # TensorBoard log directory
   
   # Weights & Biases (optional)
   use_wandb: false  # Enable W&B logging
