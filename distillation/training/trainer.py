@@ -29,7 +29,7 @@ from losses.distillation_loss import DistillationLoss
 from student.load_student_tensorflow import WhisperStudentTensorFlow
 from data.distillation_dataset import DistillationDataset, collate_fn_distillation
 from transformers import WhisperProcessor
-from distillation.training.progress_logger import SimpleProgbar
+from training.progress_logger import SimpleProgbar
 
 
 class DistillationTrainer:
@@ -312,8 +312,26 @@ class DistillationTrainer:
             # Forward pass with shifted input
             student_logits = self.model(mel_inputs, decoder_input, training=True)
             
-            # Also shift teacher logits to match
-            teacher_logits_shifted = teacher_logits[:, :-1, :]  # Match decoder_input length
+            # Match teacher_logits length with decoder_input
+            # decoder_input has shape [batch, seq_len - 1] after shifting
+            target_len = tf.shape(decoder_input)[1]
+            teacher_len = tf.shape(teacher_logits)[1]
+            
+            # Safe truncate/pad: use minimum then pad if needed
+            min_len = tf.minimum(teacher_len, target_len)
+            teacher_logits_truncated = teacher_logits[:, :min_len, :]
+            
+            # Pad to target_len if teacher was shorter
+            pad_needed = target_len - min_len
+            teacher_logits_shifted = tf.cond(
+                pad_needed > 0,
+                lambda: tf.pad(
+                    teacher_logits_truncated,
+                    [[0, 0], [0, pad_needed], [0, 0]],
+                    constant_values=-100.0
+                ),
+                lambda: teacher_logits_truncated
+            )
             
             # Compute loss
             total_loss, loss_dict = self.loss_fn(
@@ -713,10 +731,10 @@ class DistillationTrainer:
                 # Close previous epoch progress bar
                 if progbar is not None:
                     progbar.close()
+                    print()  # Add newline between epochs
                 
                 # Start new epoch progress bar
-                print(f"\n  Epoch {epoch + 1}/{num_epochs}")
-                progbar = SimpleProgbar(steps_per_epoch, desc="  Training", unit="step")
+                progbar = SimpleProgbar(steps_per_epoch, desc=f"  Epoch {epoch + 1}/{num_epochs}", unit="step")
             
             # Training step
             step_metrics = self.train_step(mel_inputs, teacher_logits, decoder_input_ids)
@@ -748,7 +766,7 @@ class DistillationTrainer:
         
         avg_metrics = {k: epoch_metrics.get_average(k) for k in ['loss', 'kl_loss', 'ce_loss']}
         
-        print(f"Batch training complete - Avg loss: {avg_metrics['loss']:.4f}")
+        print(f"\nBatch training complete - Avg loss: {avg_metrics['loss']:.4f}")
         
         # Log batch-level metrics for visualization
         self.metrics_logger.log_batch(batch_num, avg_metrics)
