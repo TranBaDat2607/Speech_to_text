@@ -75,12 +75,18 @@ class DistillationLoss:
         # Handle vocab size mismatch (should be same: both=50364)
         # This is a safety check in case of mismatched logits
         if teacher_vocab_size != student_vocab_size:
-            # Pad smaller vocab to match larger one
-            pad_size = student_vocab_size - teacher_vocab_size
-            padding = tf.zeros([batch_size, seq_len, pad_size], dtype=teacher_logits.dtype)
-            teacher_logits = tf.concat([teacher_logits, padding], axis=-1)
-        
-        vocab_size = student_vocab_size
+            if teacher_vocab_size < student_vocab_size:
+                # Pad teacher logits to match student
+                pad_size = student_vocab_size - teacher_vocab_size
+                padding = tf.zeros([batch_size, seq_len, pad_size], dtype=teacher_logits.dtype)
+                teacher_logits = tf.concat([teacher_logits, padding], axis=-1)
+                vocab_size = student_vocab_size
+            else:
+                # Truncate teacher logits to match student
+                teacher_logits = teacher_logits[:, :, :student_vocab_size]
+                vocab_size = student_vocab_size
+        else:
+            vocab_size = student_vocab_size
         
         # 1. Soft target loss (KL Divergence)
         # Apply temperature scaling

@@ -90,9 +90,7 @@ def generate_teacher_logits_batch(
             logits_filename = f"logits_{idx:06d}.npy"
             logits_path = os.path.join(output_dir, logits_filename)
             np.save(logits_path, logits_np)
-            
-            # ✅ OPTIMIZATION: Pre-tokenize and save tokens (saves 20-30% training time)
-            # Tokens are TINY (~1KB per sample) but save re-tokenization cost
+
             tokens_filename = f"tokens_{idx:06d}.npy"
             tokens_path = os.path.join(output_dir, tokens_filename)
             np.save(tokens_path, np.array(full_sequence, dtype=np.int32))

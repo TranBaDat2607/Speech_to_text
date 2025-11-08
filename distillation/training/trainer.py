@@ -29,6 +29,7 @@ from losses.distillation_loss import DistillationLoss
 from student.load_student_tensorflow import WhisperStudentTensorFlow
 from data.distillation_dataset import DistillationDataset, collate_fn_distillation
 from transformers import WhisperProcessor
+from distillation.training.progress_logger import SimpleProgbar
 
 
 class DistillationTrainer:
@@ -625,9 +626,10 @@ class DistillationTrainer:
             )
         )
         
-        # Apply prefetching for parallel data loading
-        prefetch_size = getattr(self.config.hardware, 'prefetch_size', 2)
-        dataset = dataset.prefetch(buffer_size=prefetch_size)
+        if num_epochs > 1:
+            dataset = dataset.cache()  # Cache in memory after first epoch
+        
+        dataset = dataset.prefetch(buffer_size=tf.data.AUTOTUNE)
         
         return dataset
     
@@ -688,7 +690,7 @@ class DistillationTrainer:
         # Training loop using prefetched data
         step_idx = 0
         epoch = 0
-        first_step = True
+        progbar = None
         
         for mel_inputs, teacher_logits, decoder_input_ids in dataset:
             # Convert numpy arrays to TensorFlow tensors if needed
@@ -703,24 +705,24 @@ class DistillationTrainer:
             current_lr = self.lr_scheduler.get_lr(self.current_step)
             self.optimizer.learning_rate.assign(current_lr)
             
-            # Print progress
+            # Handle epoch transitions
             step_in_epoch = step_idx % steps_per_epoch
             if step_in_epoch == 0:
                 epoch = step_idx // steps_per_epoch
-                print(f"  Epoch {epoch + 1}/{num_epochs}")
+                
+                # Close previous epoch progress bar
+                if progbar is not None:
+                    progbar.close()
+                
+                # Start new epoch progress bar
+                print(f"\n  Epoch {epoch + 1}/{num_epochs}")
+                progbar = SimpleProgbar(steps_per_epoch, desc="  Training", unit="step")
             
-            
-            
-            # Training step (data is already prefetched!)
+            # Training step
             step_metrics = self.train_step(mel_inputs, teacher_logits, decoder_input_ids)
             
-            if first_step:
-                first_step = False
-                print(f"  Training with gradient accumulation (apply every {self.gradient_accumulation_steps} steps)")
-            
-            # Print when gradients are applied
-            if step_metrics.get('applied_gradients', False):
-                print(f"    Step {step_idx}: Applied gradients (loss: {step_metrics['loss']:.4f}, grad_norm: {step_metrics['grad_norm']:.3f})")
+            # Update progress bar with metrics
+            progbar.update(1, **{k: v for k, v in step_metrics.items() if k != 'applied_gradients'})
             
             # Update metrics tracker
             for key, value in step_metrics.items():
@@ -739,14 +741,14 @@ class DistillationTrainer:
             
             self.current_step += 1
             step_idx += 1
-            
-            # New line after each epoch
-            if step_in_epoch == steps_per_epoch - 1:
-                print()  # New line after progress
+        
+        # Close final progress bar
+        if progbar is not None:
+            progbar.close()
         
         avg_metrics = {k: epoch_metrics.get_average(k) for k in ['loss', 'kl_loss', 'ce_loss']}
         
-        print(f"  Batch training complete - Avg loss: {avg_metrics['loss']:.4f}")
+        print(f"Batch training complete - Avg loss: {avg_metrics['loss']:.4f}")
         
         # Log batch-level metrics for visualization
         self.metrics_logger.log_batch(batch_num, avg_metrics)
