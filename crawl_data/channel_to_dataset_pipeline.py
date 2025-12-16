@@ -9,118 +9,251 @@ import sys
 import time
 import shutil
 from pathlib import Path
+import logging
 from single_channel_crawler import SingleChannelCrawler
 from download_subtitles_ytdlp import YouTubeSubtitleDownloader
 from youtube_audio_processor import YouTubeAudioProcessor
 from create_dataset_labels import DatasetLabeler
 from config_manager import ConfigManager
+from checkpoint_manager import PipelineCheckpoint
+from file_validators import DatasetValidator
+
+# Setup logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('pipeline.log'),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
 
 class ChannelToDatasetPipeline:
-    def __init__(self, channel_url: str, config: ConfigManager = None):
+    def __init__(self, channel_url: str, config: ConfigManager = None, enable_checkpoint: bool = True):
         self.channel_url = channel_url
         self.config = config if config else ConfigManager()
         self.max_videos = self.config.get_max_videos_per_channel()
         self.cleanup = self.config.get_cleanup_mode()
         self.results = {}
+        self.enable_checkpoint = enable_checkpoint
+        self.checkpoint = PipelineCheckpoint(f"pipeline_{self._get_channel_name()}") if enable_checkpoint else None
+        logger.info(f"Initialized pipeline for channel: {channel_url}")
+
+    def _get_channel_name(self):
+        """Extract channel name from URL for checkpoint naming"""
+        if '@' in self.channel_url:
+            return self.channel_url.split('@')[-1].split('/')[0]
+        return "unknown_channel"
         
     def step1_crawl_channel(self):
-        """Bước 1: Crawl channel để lấy video URLs"""
-        print("\n" + "="*60)
-        print("STEP 1: CRAWL CHANNEL VIDEOS")
-        print("="*60)
-        
-        crawler = SingleChannelCrawler()
-        
-        # Crawl channel với cấu hình từ config
-        result = crawler.crawl_channel(
-            channel_url=self.channel_url,
-            max_videos=self.max_videos,
-            filter_duration=False,    # Không lọc thêm vì đã lọc trong get_valid_videos_from_channel
-            min_duration=self.config.get_min_duration(),
-            max_duration=self.config.get_max_duration(),
-            selection_strategy=self.config.get_video_selection_strategy(),
-            batch_multiplier=self.config.get_batch_multiplier()
-        )
-        
-        if not result:
-            print("Could not crawl any videos")
+        """Step 1: Crawl channel to get video URLs"""
+        step_name = "crawl_channel"
+
+        # Check if step already completed
+        if self.checkpoint and self.checkpoint.is_step_complete(step_name):
+            logger.info(f"Step '{step_name}' already completed, skipping...")
+            self.results['crawl'] = self.checkpoint.step_results.get(step_name)
+            return True
+
+        logger.info("\n" + "="*60)
+        logger.info("STEP 1: CRAWL CHANNEL VIDEOS")
+        logger.info("="*60)
+
+        try:
+            crawler = SingleChannelCrawler()
+
+            # Crawl channel with config settings
+            result = crawler.crawl_channel(
+                channel_url=self.channel_url,
+                max_videos=self.max_videos,
+                filter_duration=False,
+                min_duration=self.config.get_min_duration(),
+                max_duration=self.config.get_max_duration(),
+                selection_strategy=self.config.get_video_selection_strategy(),
+                batch_multiplier=self.config.get_batch_multiplier()
+            )
+
+            if not result:
+                logger.error("Could not crawl any videos")
+                return False
+
+            self.results['crawl'] = result
+            logger.info(f"Crawled {result['total_videos']} videos from channel")
+
+            # Save checkpoint
+            if self.checkpoint:
+                self.checkpoint.mark_step_complete(step_name, result)
+
+            return True
+
+        except Exception as e:
+            logger.error(f"Error in step1_crawl_channel: {e}", exc_info=True)
             return False
-            
-        self.results['crawl'] = result
-        print(f"Crawled {result['total_videos']} videos from channel")
-        return True
         
     def step2_download_subtitles(self):
-        """Bước 2: Tải subtitles"""
-        print("\n" + "="*60)
-        print("STEP 2: DOWNLOAD SUBTITLES")
-        print("="*60)
-        
-        if not os.path.exists("youtube_video_urls.txt"):
-            print("Could not find file youtube_video_urls.txt")
+        """Step 2: Download subtitles"""
+        step_name = "download_subtitles"
+
+        # Check if step already completed
+        if self.checkpoint and self.checkpoint.is_step_complete(step_name):
+            logger.info(f"Step '{step_name}' already completed, skipping...")
+            self.results['subtitles'] = self.checkpoint.step_results.get(step_name, 0)
+            return True
+
+        logger.info("\n" + "="*60)
+        logger.info("STEP 2: DOWNLOAD SUBTITLES")
+        logger.info("="*60)
+
+        try:
+            if not os.path.exists("youtube_video_urls.txt"):
+                logger.error("Could not find file youtube_video_urls.txt")
+                return False
+
+            downloader = YouTubeSubtitleDownloader()
+            downloader.process_url_file("youtube_video_urls.txt")
+
+            # Check results
+            subtitles_folder = Path("subtitles")
+            if subtitles_folder.exists():
+                srt_files = list(subtitles_folder.glob("*.srt"))
+                logger.info(f"Downloaded {len(srt_files)} subtitle files")
+                self.results['subtitles'] = len(srt_files)
+
+                # Save checkpoint
+                if self.checkpoint:
+                    self.checkpoint.mark_step_complete(step_name, len(srt_files))
+
+                return len(srt_files) > 0
+
+            logger.warning("Subtitles folder not found")
             return False
-            
-        downloader = YouTubeSubtitleDownloader()
-        downloader.process_url_file("youtube_video_urls.txt")
-        
-        # Kiểm tra kết quả
-        subtitles_folder = Path("subtitles")
-        if subtitles_folder.exists():
-            srt_files = list(subtitles_folder.glob("*.srt"))
-            print(f"Downloaded {len(srt_files)} subtitle files")
-            self.results['subtitles'] = len(srt_files)
-            return len(srt_files) > 0
-        return False
+
+        except Exception as e:
+            logger.error(f"Error in step2_download_subtitles: {e}", exc_info=True)
+            return False
         
     def step3_process_audio(self):
-        """Bước 3: Xử lý audio"""
-        print("\n" + "="*60)
-        print("STEP 3: PROCESS AUDIO")
-        print("="*60)
-        
-        processor = YouTubeAudioProcessor()
-        results = processor.process_urls_from_file("youtube_video_urls.txt", limit=self.max_videos)
-        
-        # Kiểm tra kết quả
-        segments_folder = Path("audio_segments")
-        if segments_folder.exists():
-            wav_files = list(segments_folder.glob("*.wav"))
-            print(f"Created {len(wav_files)} audio segment files")
-            self.results['audio_segments'] = len(wav_files)
-            return len(wav_files) > 0
-        return False
+        """Step 3: Process audio"""
+        step_name = "process_audio"
+
+        # Check if step already completed
+        if self.checkpoint and self.checkpoint.is_step_complete(step_name):
+            logger.info(f"Step '{step_name}' already completed, skipping...")
+            self.results['audio_segments'] = self.checkpoint.step_results.get(step_name, 0)
+            return True
+
+        logger.info("\n" + "="*60)
+        logger.info("STEP 3: PROCESS AUDIO")
+        logger.info("="*60)
+
+        try:
+            processor = YouTubeAudioProcessor()
+            results = processor.process_urls_from_file("youtube_video_urls.txt", limit=self.max_videos)
+
+            # Check results
+            segments_folder = Path("audio_segments")
+            if segments_folder.exists():
+                wav_files = list(segments_folder.glob("*.wav"))
+                logger.info(f"Created {len(wav_files)} audio segment files")
+                self.results['audio_segments'] = len(wav_files)
+
+                # Save checkpoint
+                if self.checkpoint:
+                    self.checkpoint.mark_step_complete(step_name, len(wav_files))
+
+                return len(wav_files) > 0
+
+            logger.warning("Audio segments folder not found")
+            return False
+
+        except Exception as e:
+            logger.error(f"Error in step3_process_audio: {e}", exc_info=True)
+            return False
         
     def step4_create_labels(self):
-        """Bước 4: Tạo labels"""
-        print("\n" + "="*60)
-        print("STEP 4: CREATE DATASET LABELS")
-        print("="*60)
-        
-        labeler = DatasetLabeler()
-        results = labeler.process_all_videos()
-        
-        # Kiểm tra kết quả
-        dataset_folder = Path("dataset")
-        if dataset_folder.exists():
-            wav_files = list(dataset_folder.glob("*.wav"))
-            json_files = list(dataset_folder.glob("*.json"))
-            print(f"Created {len(wav_files)} .wav files and {len(json_files)} .json files")
-            self.results['dataset'] = {
-                'wav_files': len(wav_files),
-                'json_files': len(json_files)
-            }
-            return len(wav_files) > 0 and len(json_files) > 0
-        return False
-        
-    def step5_cleanup_intermediate_files(self):
-        """Bước 5: Xóa các file trung gian để tiết kiệm dung lượng"""
-        if not self.cleanup:
-            print("Skipping cleanup - keeping all files")
+        """Step 4: Create dataset labels"""
+        step_name = "create_labels"
+
+        # Check if step already completed
+        if self.checkpoint and self.checkpoint.is_step_complete(step_name):
+            logger.info(f"Step '{step_name}' already completed, skipping...")
+            self.results['dataset'] = self.checkpoint.step_results.get(step_name, {})
             return True
-            
-        print("\n" + "="*60)
-        print("STEP 5: CLEANUP - DELETE INTERMEDIATE FILES")
-        print("="*60)
+
+        logger.info("\n" + "="*60)
+        logger.info("STEP 4: CREATE DATASET LABELS")
+        logger.info("="*60)
+
+        try:
+            labeler = DatasetLabeler()
+            results = labeler.process_all_videos()
+
+            # Check results
+            dataset_folder = Path("dataset")
+            if dataset_folder.exists():
+                wav_files = list(dataset_folder.glob("*.wav"))
+                json_files = list(dataset_folder.glob("*.json"))
+                logger.info(f"Created {len(wav_files)} .wav files and {len(json_files)} .json files")
+
+                dataset_result = {
+                    'wav_files': len(wav_files),
+                    'json_files': len(json_files)
+                }
+                self.results['dataset'] = dataset_result
+
+                # Save checkpoint
+                if self.checkpoint:
+                    self.checkpoint.mark_step_complete(step_name, dataset_result)
+
+                return len(wav_files) > 0 and len(json_files) > 0
+
+            logger.warning("Dataset folder not found")
+            return False
+
+        except Exception as e:
+            logger.error(f"Error in step4_create_labels: {e}", exc_info=True)
+            return False
+
+    def step5_validate_dataset(self):
+        """Step 5: Validate dataset integrity"""
+        step_name = "validate_dataset"
+
+        logger.info("\n" + "="*60)
+        logger.info("STEP 5: VALIDATE DATASET")
+        logger.info("="*60)
+
+        try:
+            dataset_folder = Path("dataset")
+            if not dataset_folder.exists():
+                logger.error("Dataset folder does not exist")
+                return True  # Not critical, continue
+
+            validator = DatasetValidator(dataset_folder)
+            validation_results = validator.validate_dataset()
+            validator.print_validation_report()
+
+            self.results['validation'] = validation_results
+
+            # Save checkpoint
+            if self.checkpoint:
+                self.checkpoint.mark_step_complete(step_name, validation_results)
+
+            return True
+
+        except Exception as e:
+            logger.error(f"Error in step5_validate_dataset: {e}", exc_info=True)
+            return True  # Validation failure shouldn't stop the pipeline
+        
+    def step6_cleanup_intermediate_files(self):
+        """Step 6: Cleanup intermediate files to save space"""
+        if not self.cleanup:
+            logger.info("Skipping cleanup - keeping all files")
+            return True
+
+        logger.info("\n" + "="*60)
+        logger.info("STEP 6: CLEANUP - DELETE INTERMEDIATE FILES")
+        logger.info("="*60)
         
         folders_to_remove = ["audio", "audio_segments", "subtitles"]
         files_to_remove = ["youtube_video_urls.txt", "youtube_video_urls.json", "processing_metadata.json"]
@@ -235,55 +368,81 @@ class ChannelToDatasetPipeline:
                     print(f"Could not read JSON file: {e}")
                     
     def run_pipeline(self):
-        """Chạy toàn bộ pipeline"""
-        print("YOUTUBE CHANNEL TO SPEECH DATASET PIPELINE")
-        print(f"Channel URL: {self.channel_url}")
-        print(f"Max videos: {self.max_videos}")
-        print("="*60)
-        
+        """Run complete pipeline with error handling and checkpointing"""
+        logger.info("="*60)
+        logger.info("YOUTUBE CHANNEL TO SPEECH DATASET PIPELINE")
+        logger.info("="*60)
+        logger.info(f"Channel URL: {self.channel_url}")
+        logger.info(f"Max videos: {self.max_videos}")
+        logger.info(f"Checkpoint enabled: {self.enable_checkpoint}")
+        logger.info("="*60)
+
         start_time = time.time()
-        
+        pipeline_success = False
+
         try:
-            # Bước 1: Crawl channel
+            # Show checkpoint status if resuming
+            if self.checkpoint and self.checkpoint.completed_steps:
+                logger.info("\nResuming from checkpoint:")
+                self.checkpoint.print_status()
+
+            # Step 1: Crawl channel
             if not self.step1_crawl_channel():
-                print("ERROR: Could not crawl channel")
+                logger.error("ERROR: Could not crawl channel")
                 return False
-                
-            # Bước 2: Tải subtitles
+
+            # Step 2: Download subtitles
             if not self.step2_download_subtitles():
-                print("ERROR: Could not download subtitles")
+                logger.error("ERROR: Could not download subtitles")
                 return False
-                
-            # Bước 3: Xử lý audio  
+
+            # Step 3: Process audio
             if not self.step3_process_audio():
-                print("ERROR: Could not process audio")
+                logger.error("ERROR: Could not process audio")
                 return False
-                
-            # Bước 4: Tạo labels
+
+            # Step 4: Create labels
             if not self.step4_create_labels():
-                print("ERROR: Could not create labels")
+                logger.error("ERROR: Could not create labels")
                 return False
-                
-            # Bước 5: Cleanup (nếu được bật)
-            if not self.step5_cleanup_intermediate_files():
-                print("ERROR: Could not cleanup")
-                return False
-                
-            # Hiển thị kết quả
+
+            # Step 5: Validate dataset (non-critical)
+            self.step5_validate_dataset()
+
+            # Step 6: Cleanup (if enabled)
+            if not self.step6_cleanup_intermediate_files():
+                logger.warning("WARNING: Cleanup had issues but continuing")
+
+            # Display results
             self.show_final_results()
-            
+
             end_time = time.time()
             duration = end_time - start_time
-            
-            print(f"\nPIPELINE COMPLETED!")
-            print(f"Processing time: {duration/60:.1f} minutes")
-            print(f"Dataset ready for model training!")
-            
+
+            logger.info(f"\n{'='*60}")
+            logger.info("PIPELINE COMPLETED SUCCESSFULLY!")
+            logger.info(f"{'='*60}")
+            logger.info(f"Processing time: {duration/60:.1f} minutes")
+            logger.info(f"Dataset ready for model training!")
+
+            # Clear checkpoint on success
+            if self.checkpoint:
+                self.checkpoint.clear()
+                logger.info("Checkpoint cleared after successful completion")
+
+            pipeline_success = True
             return True
-            
+
         except Exception as e:
-            print(f"PIPELINE ERROR: {e}")
+            logger.error(f"PIPELINE ERROR: {e}", exc_info=True)
+            logger.error("Pipeline failed. Checkpoint saved for resume.")
             return False
+
+        finally:
+            # Print final checkpoint status if failed
+            if not pipeline_success and self.checkpoint:
+                logger.info("\nPipeline incomplete. To resume, run the same command again.")
+                self.checkpoint.print_status()
 
 def main():
     """Hàm main tự động chạy tất cả channel URLs từ config"""

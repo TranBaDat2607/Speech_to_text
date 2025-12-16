@@ -1,49 +1,82 @@
 # YouTube Audio Dataset Crawler
 
-Pipeline tự động để crawl audio và transcript từ YouTube channels, tạo dataset cho ML speech-to-text training.
+A production-ready automated pipeline for crawling audio and transcripts from YouTube channels to create structured datasets for speech-to-text machine learning model training.
 
-## Tính năng chính
+## Overview
 
-- Multi-channel crawling: Crawl nhiều YouTube channels cùng lúc
-- Auto subtitle download: Tự động tải subtitle tiếng Việt/tiếng Anh 
-- Audio segmentation: Chia audio thành segments 30 giây chuẩn
-- Dataset generation: Tạo dataset structured cho ML training
-- Smart cleanup: Dọn dẹp file trung gian tự động
-- JSON configuration: Cấu hình linh hoạt qua file JSON
+This pipeline provides an end-to-end solution for creating high-quality speech recognition datasets from YouTube content. It handles video crawling, audio extraction, subtitle downloading, audio segmentation, and dataset label generation with built-in error handling, retry mechanisms, and resume capabilities.
 
-## Yêu cầu hệ thống
+## Key Features
+
+### Core Functionality
+- **Multi-channel crawling**: Process multiple YouTube channels concurrently
+- **Automatic subtitle download**: Downloads Vietnamese and English subtitles with fallback to auto-generated captions
+- **Audio segmentation**: Splits audio into standardized segments (default: 30 seconds)
+- **Dataset generation**: Creates structured WAV and JSON label pairs ready for ML training
+- **Smart cleanup**: Automatically removes intermediate files to conserve disk space
+- **JSON configuration**: Flexible configuration through JSON files
+
+### Resilience and Error Handling
+- **Automatic retry logic**: Network failures are automatically retried with exponential backoff (3 attempts per operation)
+- **Checkpoint and resume**: Pipeline saves progress and can resume from last successful step if interrupted
+- **Graceful degradation**: Continues processing remaining items even if individual videos fail
+- **File validation**: Validates audio and subtitle files to ensure data quality
+- **Operation tracking**: Provides detailed success/failure statistics for each operation
+
+### Monitoring and Logging
+- **Comprehensive logging**: All operations logged to both console and file (pipeline.log)
+- **Dataset validation**: Automatic validation of generated dataset integrity
+- **Progress tracking**: Real-time progress updates during processing
+- **Failure reporting**: Detailed reports of failed operations with error messages
+
+## System Requirements
 
 ### Python Dependencies
+
+Install required Python packages:
+
 ```bash
 pip install yt-dlp pydub requests beautifulsoup4 pathlib
 ```
 
-### External Dependencies  
-- FFmpeg: Bắt buộc cho audio processing
-  - Windows: Tải từ https://ffmpeg.org/download.html
-  - macOS: `brew install ffmpeg`
-  - Ubuntu/Debian: `sudo apt install ffmpeg`
+### External Dependencies
 
-## Hướng dẫn sử dụng
+**FFmpeg** (Required for audio processing):
+- Windows: Download from https://ffmpeg.org/download.html and add to PATH
+- macOS: `brew install ffmpeg`
+- Ubuntu/Debian: `sudo apt install ffmpeg`
 
-### Method 1: Configuration File (Khuyến nghị)
+Verify FFmpeg installation:
+```bash
+ffmpeg -version
+```
 
-#### Bước 1: Tạo config file
+## Quick Start
+
+### Method 1: Configuration File (Recommended)
+
+This is the recommended method for production use as it provides full control over all pipeline settings.
+
+#### Step 1: Create Configuration File
+
 ```bash
 cp config.json.example config.json
 ```
 
-#### Bước 2: Chỉnh sửa config.json
+#### Step 2: Edit Configuration
+
+Edit `config.json` with your desired settings:
+
 ```json
 {
   "channels": [
-    "https://www.youtube.com/@sachnoivietnam15",
-    "https://www.youtube.com/@KhoaiLangThang"
+    "https://www.youtube.com/@channel1",
+    "https://www.youtube.com/@channel2"
   ],
   "crawl_settings": {
-    "max_videos_per_channel": 5,
-    "min_duration_seconds": 1800,
-    "max_duration_seconds": 7200,
+    "max_videos_per_channel": 20,
+    "min_duration_seconds": 60,
+    "max_duration_seconds": 3600,
     "video_selection_strategy": "longest",
     "batch_multiplier": 3
   },
@@ -59,76 +92,579 @@ cp config.json.example config.json
 }
 ```
 
-#### Bước 3: Chạy pipeline
+#### Step 3: Run Pipeline
+
 ```bash
 python channel_to_dataset_pipeline.py
 ```
 
-### Method 2: Interactive Single Channel
+The pipeline will:
+1. Crawl videos from specified channels
+2. Download subtitles for each video
+3. Download and segment audio files
+4. Generate dataset labels
+5. Validate dataset integrity
+6. Clean up intermediate files (if enabled)
+
+### Method 2: Interactive Mode
+
+For quick testing or single-channel processing:
+
 ```bash
 python channel_to_dataset_pipeline.py
-# Script sẽ hỏi channel URL và settings
 ```
 
-### Method 3: Bulk URL Processing
+Follow the interactive prompts to enter channel URL and settings.
 
-#### Bước 1: Tạo video URL list
+### Method 3: Custom URL List
+
+For processing a specific list of video URLs:
+
+#### Step 1: Create URL List
+
+Create a file named `youtube_video_urls.txt` with one URL per line:
+
+```
+https://www.youtube.com/watch?v=VIDEO_ID_1
+https://www.youtube.com/watch?v=VIDEO_ID_2
+```
+
+Or use the URL crawler:
+
 ```bash
 python run_url_crawler.py
-# Tạo file youtube_video_urls.txt
 ```
 
-#### Bước 2: Process URLs
+#### Step 2: Process URLs
+
 ```bash
 python youtube_audio_processor.py
 ```
 
-## Cấu hình chi tiết
+## Configuration Reference
 
 ### Crawl Settings
-- max_videos_per_channel: Số video tối đa/channel (default: 20)
-- min_duration_seconds: Thời lượng tối thiểu (default: 1800s = 30 phút)  
-- max_duration_seconds: Thời lượng tối đa (default: 7200s = 2 tiếng)
-- video_selection_strategy: Chiến lược chọn video
-  - "longest": Ưu tiên video dài nhất
-  - "shortest": Ưu tiên video ngắn nhất
-  - "first": Lấy theo thứ tự upload
-- batch_multiplier: Hệ số nhân để lọc (default: 3)
 
-### Audio Settings  
-- segment_duration_seconds: Độ dài segment (default: 30s)
-- audio_format: Format output (default: "wav")
-- sample_rate: Tần số lấy mẫu (default: 16000 Hz)
+Configuration for video selection and filtering.
+
+- **max_videos_per_channel** (integer, default: 20)
+  - Maximum number of videos to process per channel
+  - Higher values create larger datasets but take longer to process
+
+- **min_duration_seconds** (integer, default: 60)
+  - Minimum video duration in seconds
+  - Videos shorter than this are skipped
+  - Recommended: 300 seconds (5 minutes) for better transcript quality
+
+- **max_duration_seconds** (integer, default: 3600)
+  - Maximum video duration in seconds
+  - Videos longer than this are skipped
+  - Recommended: 1800 seconds (30 minutes) for manageable file sizes
+
+- **video_selection_strategy** (string, default: "longest")
+  - Strategy for selecting videos when more than max_videos are available
+  - Options:
+    - "longest": Prioritizes longest videos (best for maximizing dataset duration)
+    - "shortest": Prioritizes shortest videos
+    - "first": Takes videos in upload order
+
+- **batch_multiplier** (integer, default: 3)
+  - Multiplier for initial video fetch to ensure enough videos after filtering
+  - Example: If max_videos=20 and batch_multiplier=3, fetches 60 videos then filters to 20
+  - Increase if many videos are filtered out by duration constraints
+
+### Subtitle Settings
+
+Configuration for subtitle download.
+
+- **languages** (array, default: ["vi", "en"])
+  - List of preferred subtitle languages in priority order
+  - Falls back to auto-generated captions if manual subtitles unavailable
+  - Supported: "vi", "en", "zh", "ja", "ko", "fr", "de", "es"
+
+- **format** (string, default: "srt")
+  - Subtitle format to download
+  - Options: "srt", "vtt", "ass"
+
+### Audio Settings
+
+Configuration for audio processing and segmentation.
+
+- **segment_duration_seconds** (integer, default: 30)
+  - Duration of each audio segment in seconds
+  - Common values: 10, 20, 30 seconds depending on model requirements
+
+- **audio_format** (string, default: "wav")
+  - Output audio format
+  - Options: "wav" (recommended for ML), "mp3", "flac"
+
+- **sample_rate** (integer, default: 16000)
+  - Audio sample rate in Hz
+  - Common values:
+    - 16000 Hz: Standard for speech recognition (recommended)
+    - 8000 Hz: Lower quality, smaller files
+    - 22050 Hz: Higher quality
+    - 44100 Hz: CD quality (unnecessary for speech)
 
 ### Pipeline Settings
-- cleanup_intermediate_files: Xóa file tạm (default: true)
-- create_dataset_summary: Tạo file tổng kết (default: true)
-- parallel_processing: Xử lý song song (experimental)
 
-## Cấu trúc Input/Output
+Configuration for pipeline behavior.
+
+- **cleanup_intermediate_files** (boolean, default: true)
+  - Whether to delete intermediate files after successful completion
+  - When true: Saves disk space by removing audio/, audio_segments/, subtitles/ folders
+  - When false: Keeps all intermediate files for debugging or reprocessing
+
+- **create_dataset_summary** (boolean, default: true)
+  - Whether to generate dataset_summary.json with statistics
+  - Includes video counts, duration, segment counts, etc.
+
+### Output Settings
+
+Configuration for output directory structure.
+
+- **base_output_dir** (string, default: "datasets")
+  - Root directory for all generated datasets
+
+- **create_channel_folders** (boolean, default: true)
+  - Whether to create separate folders for each channel
+  - When true: Organizes datasets by channel name
+
+- **save_metadata** (boolean, default: true)
+  - Whether to save detailed metadata files
+
+## Pipeline Architecture
+
+### Processing Steps
+
+The pipeline executes the following steps sequentially:
+
+1. **Channel Crawling**
+   - Fetches video list from YouTube channel
+   - Filters videos by duration constraints
+   - Applies selection strategy
+   - Generates youtube_video_urls.txt
+
+2. **Subtitle Download**
+   - Downloads subtitles for each video
+   - Validates subtitle file integrity
+   - Creates .srt and .txt files
+   - Continues on failure for individual videos
+
+3. **Audio Processing**
+   - Downloads audio from YouTube
+   - Validates audio file integrity
+   - Segments audio into fixed-duration chunks
+   - Exports as WAV files
+
+4. **Label Generation**
+   - Matches subtitle timestamps with audio segments
+   - Creates JSON label files with transcripts
+   - Validates dataset pairs (WAV + JSON)
+
+5. **Dataset Validation**
+   - Checks for missing or orphaned files
+   - Validates file formats and content
+   - Generates validation report
+
+6. **Cleanup**
+   - Removes intermediate files (if enabled)
+   - Keeps only final dataset folder
+
+### Checkpoint System
+
+The pipeline implements an automatic checkpoint system:
+
+- Progress is saved after each successful step
+- If pipeline fails or is interrupted, rerun the same command
+- Pipeline automatically resumes from the last successful step
+- Prevents reprocessing already completed work
+- Checkpoint files are automatically cleaned on successful completion
+
+Example checkpoint recovery:
+
+```bash
+# First run - fails at Step 3
+$ python channel_to_dataset_pipeline.py
+# Output: "Pipeline failed at Step 3. Checkpoint saved for resume."
+
+# Second run - automatically resumes
+$ python channel_to_dataset_pipeline.py
+# Output: "Resuming from checkpoint: Steps 1-2 completed, starting Step 3..."
+```
+
+### Error Handling and Retry Logic
+
+All network operations implement automatic retry with exponential backoff:
+
+- **Retry attempts**: 3 attempts per operation
+- **Initial delay**: 2-5 seconds (varies by operation)
+- **Backoff multiplier**: 2x (delay doubles after each failure)
+- **Graceful degradation**: Pipeline continues even if individual videos fail
+
+Operation tracking provides detailed statistics:
+- Total attempts
+- Successful operations
+- Failed operations
+- Success rate percentage
+- List of failed items with error messages
+
+## Directory Structure
 
 ### Input Files
-- config.json: File cấu hình chính
-- Channel URLs: Link YouTube channels
-- youtube_video_urls.txt: Danh sách video URLs (optional)
+
+```
+crawl_data/
+├── config.json                      # Main configuration file
+├── config.json.example              # Example configuration template
+├── youtube_video_urls.txt           # Video URL list (optional)
+└── *.py                             # Pipeline modules
+```
 
 ### Output Structure
+
 ```
 datasets/
 └── {channel_name}/
-    ├── dataset/               # Dataset cuối cùng
-    │   ├── {video_id}_001.wav    # Audio segments (30s)
-    │   ├── {video_id}_001.json   # Transcript labels
-    │   ├── {video_id}_002.wav
-    │   ├── {video_id}_002.json
-    │   └── dataset_summary.json  # Metadata tổng kết
-    ├── subtitles/             # Temporary files
-    ├── audio/                 # Temporary files  
-    └── audio_segments/        # Temporary files
+    ├── dataset/                     # Final dataset (keep this)
+    │   ├── {video_id}_001.wav       # Audio segment 1 (30 seconds)
+    │   ├── {video_id}_001.json      # Transcript label for segment 1
+    │   ├── {video_id}_002.wav       # Audio segment 2
+    │   ├── {video_id}_002.json      # Transcript label for segment 2
+    │   └── dataset_summary.json     # Dataset metadata and statistics
+    │
+    ├── subtitles/                   # Intermediate (auto-deleted if cleanup=true)
+    │   ├── {video_id}.vi.srt        # Vietnamese subtitle
+    │   └── {video_id}.en.srt        # English subtitle
+    │
+    ├── audio/                       # Intermediate (auto-deleted if cleanup=true)
+    │   └── {video_id}.wav           # Full-length audio
+    │
+    └── audio_segments/              # Intermediate (auto-deleted if cleanup=true)
+        ├── {video_id}_segment_001.wav
+        └── {video_id}_segment_002.wav
 ```
 
-### Intermediate Files (Tự động xóa nếu cleanup=true)
-- `subtitles/`: File .srt subtitle gốc
-- `audio/`: File audio gốc từ YouTube
-- `audio_segments/`: File .wav đã chia segments
-- `processing_metadata.json`: Metadata xử lý audio
+### Generated Files
+
+**Dataset Files** (Final output - never deleted):
+- `{video_id}_{segment_number}.wav`: Audio segments for training
+- `{video_id}_{segment_number}.json`: Corresponding transcript labels
+- `dataset_summary.json`: Dataset statistics and metadata
+
+**Checkpoint Files** (Temporary):
+- `pipeline_{channel_name}_checkpoint.json`: Resume checkpoint data
+- Automatically deleted on successful completion
+
+**Log Files**:
+- `pipeline.log`: Complete execution log with timestamps and errors
+
+## Dataset Label Format
+
+Each JSON label file contains:
+
+```json
+{
+  "video_id": "VIDEO_ID",
+  "start": 0.0,
+  "end": 30.0,
+  "text": "Transcript text for this audio segment"
+}
+```
+
+Fields:
+- **video_id**: YouTube video identifier
+- **start**: Start time in seconds (relative to original video)
+- **end**: End time in seconds (relative to original video)
+- **text**: Transcript text synchronized with the audio segment
+
+## Monitoring and Logs
+
+### Console Output
+
+Real-time progress information displayed during execution:
+- Current step being executed
+- Video processing progress (X/Y videos)
+- Success/failure counts
+- Validation results
+
+### Log Files
+
+**pipeline.log**: Complete execution log including:
+- Timestamp for each operation
+- INFO: Normal operations and progress
+- WARNING: Non-critical issues (e.g., skipped videos)
+- ERROR: Critical failures with full stack traces
+- Summary statistics at completion
+
+### Operation Statistics
+
+At the end of each step, detailed statistics are displayed:
+
+```
+Audio Processing Summary:
+  Total: 20
+  Successful: 18
+  Failed: 2
+  Success Rate: 90.0%
+  Failed items: 2
+```
+
+## Troubleshooting
+
+### Common Issues
+
+**Issue**: "FFmpeg not found"
+- **Solution**: Install FFmpeg and ensure it's in system PATH
+- **Verify**: Run `ffmpeg -version` in terminal
+
+**Issue**: "No subtitles found for video"
+- **Solution**: This is expected for some videos. Pipeline continues with remaining videos
+- **Check**: Review failed videos list in operation summary
+
+**Issue**: "yt-dlp error: Video unavailable"
+- **Solution**: Video may be private, deleted, or region-restricted
+- **Action**: Pipeline automatically skips and continues
+
+**Issue**: "Out of disk space"
+- **Solution**: Enable cleanup_intermediate_files in config.json
+- **Alternative**: Reduce max_videos_per_channel or process fewer channels
+
+**Issue**: "Pipeline slow on large channels"
+- **Solution**: Reduce max_videos_per_channel or adjust batch_multiplier
+- **Alternative**: Use video_selection_strategy="first" for faster processing
+
+### Resume Failed Pipeline
+
+If pipeline fails or is interrupted:
+
+1. Check `pipeline.log` for error details
+2. Fix any configuration issues if needed
+3. Rerun the same command:
+   ```bash
+   python channel_to_dataset_pipeline.py
+   ```
+4. Pipeline automatically resumes from last successful step
+
+To start fresh (ignore checkpoint):
+```bash
+# Remove checkpoint file
+rm pipeline_*_checkpoint.json
+# Run pipeline
+python channel_to_dataset_pipeline.py
+```
+
+### Validate Dataset
+
+To validate an existing dataset:
+
+```python
+from file_validators import DatasetValidator
+from pathlib import Path
+
+validator = DatasetValidator(Path("datasets/channel_name/dataset"))
+results = validator.validate_dataset()
+validator.print_validation_report()
+```
+
+## Performance Optimization
+
+### Disk Space Management
+
+Estimated disk space usage per video:
+- Full audio: ~10-50 MB per video
+- Audio segments: ~10-50 MB per video (total)
+- Subtitles: ~100-500 KB per video
+- Final dataset: ~10-50 MB per video
+
+**Recommendation**: Enable `cleanup_intermediate_files: true` to reduce disk usage by 2-3x.
+
+### Processing Time
+
+Typical processing times (per video):
+- Channel crawling: 1-2 seconds per video
+- Subtitle download: 5-10 seconds per video
+- Audio download: 20-60 seconds per video (depends on video length)
+- Audio segmentation: 10-30 seconds per video
+- Label generation: 1-2 seconds per video
+
+**Example**: Processing 100 videos (30 minutes average) takes approximately 1-2 hours.
+
+### Network Considerations
+
+- **Bandwidth**: ~50-100 MB per video downloaded
+- **Rate limiting**: Built-in delays prevent YouTube throttling
+- **Retry logic**: Automatically handles transient network failures
+
+## Best Practices
+
+### Configuration Recommendations
+
+**For high-quality datasets**:
+```json
+{
+  "crawl_settings": {
+    "min_duration_seconds": 300,
+    "video_selection_strategy": "longest"
+  },
+  "audio_settings": {
+    "sample_rate": 16000,
+    "segment_duration_seconds": 30
+  }
+}
+```
+
+**For quick testing**:
+```json
+{
+  "crawl_settings": {
+    "max_videos_per_channel": 5,
+    "min_duration_seconds": 60,
+    "max_duration_seconds": 600
+  }
+}
+```
+
+**For production datasets**:
+```json
+{
+  "crawl_settings": {
+    "max_videos_per_channel": 50,
+    "min_duration_seconds": 300,
+    "max_duration_seconds": 1800
+  },
+  "pipeline_settings": {
+    "cleanup_intermediate_files": true
+  }
+}
+```
+
+### Dataset Quality Tips
+
+1. **Choose appropriate channels**: Select channels with clear speech and minimal background noise
+2. **Filter by duration**: Use min_duration_seconds >= 300 for better subtitle quality
+3. **Validate output**: Review validation report after pipeline completion
+4. **Check failed videos**: Investigate high failure rates (>20%)
+5. **Manual review**: Sample random segments to verify quality
+
+### Maintenance
+
+**Regular cleanup**:
+```bash
+# Remove old checkpoints
+rm *_checkpoint.json
+
+# Remove old logs (keep recent ones)
+find . -name "pipeline.log" -mtime +30 -delete
+```
+
+**Dataset versioning**:
+```bash
+# Archive completed datasets
+tar -czf dataset_v1_$(date +%Y%m%d).tar.gz datasets/
+
+# Upload to storage
+# aws s3 cp dataset_v1_*.tar.gz s3://your-bucket/
+```
+
+## Module Reference
+
+### Core Modules
+
+- **channel_to_dataset_pipeline.py**: Main pipeline orchestrator
+- **config_manager.py**: Configuration file handling
+- **single_channel_crawler.py**: YouTube channel video crawling
+- **youtube_audio_processor.py**: Audio download and segmentation
+- **download_subtitles_ytdlp.py**: Subtitle download via yt-dlp
+- **create_dataset_labels.py**: Dataset label generation
+
+### Utility Modules
+
+- **retry_utils.py**: Retry decorators and operation tracking
+- **checkpoint_manager.py**: Pipeline checkpoint and resume logic
+- **file_validators.py**: File integrity validation
+
+### Helper Scripts
+
+- **run_url_crawler.py**: Standalone URL crawler
+- **youtube_channel_crawler.py**: Multi-channel URL extraction
+
+## Advanced Usage
+
+### Custom Processing
+
+To integrate with existing pipelines:
+
+```python
+from channel_to_dataset_pipeline import ChannelToDatasetPipeline
+from config_manager import ConfigManager
+
+# Load config
+config = ConfigManager("custom_config.json")
+
+# Create pipeline instance
+pipeline = ChannelToDatasetPipeline(
+    channel_url="https://www.youtube.com/@channel",
+    config=config,
+    enable_checkpoint=True
+)
+
+# Run individual steps
+pipeline.step1_crawl_channel()
+pipeline.step2_download_subtitles()
+pipeline.step3_process_audio()
+pipeline.step4_create_labels()
+pipeline.step5_validate_dataset()
+pipeline.step6_cleanup_intermediate_files()
+```
+
+### Batch Processing
+
+Process multiple channels programmatically:
+
+```python
+from config_manager import ConfigManager
+from channel_to_dataset_pipeline import ChannelToDatasetPipeline
+
+config = ConfigManager()
+channels = config.get_channels()
+
+for channel_url in channels:
+    pipeline = ChannelToDatasetPipeline(channel_url, config)
+    success = pipeline.run_pipeline()
+
+    if not success:
+        print(f"Failed: {channel_url}")
+```
+
+## Support and Contributing
+
+### Reporting Issues
+
+When reporting issues, include:
+1. Python version (`python --version`)
+2. OS and version
+3. Relevant error messages from pipeline.log
+4. Configuration file (remove sensitive URLs)
+5. Steps to reproduce
+
+### Future Enhancements
+
+Planned features:
+- Parallel video processing
+- Additional language support
+- Audio quality enhancement
+- Speaker diarization
+- Custom segmentation strategies
+- Cloud storage integration (S3, GCS)
+
+## License
+
+This project is part of the Speech-to-Text dataset creation pipeline.
+
+## Acknowledgments
+
+Built with:
+- yt-dlp: YouTube video/audio downloading
+- pydub: Audio processing and segmentation
+- FFmpeg: Audio format conversion

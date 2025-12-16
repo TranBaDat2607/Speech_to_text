@@ -6,19 +6,34 @@ import json
 import re
 from pydub import AudioSegment
 import math
+import logging
+from retry_utils import retry_on_exception, OperationTracker
+from file_validators import FileValidator
+
+# Setup logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 class YouTubeAudioProcessor:
     def __init__(self, audio_folder="audio", output_folder="audio_segments"):
         self.audio_folder = Path(audio_folder)
         self.output_folder = Path(output_folder)
+        self.tracker = OperationTracker("Audio Processing")
         self.create_folders()
         
     def create_folders(self):
-        """Tạo thư mục cần thiết"""
-        self.audio_folder.mkdir(exist_ok=True)
-        self.output_folder.mkdir(exist_ok=True)
-        print(f"Thư mục audio: {self.audio_folder.absolute()}")
-        print(f"Thư mục output: {self.output_folder.absolute()}")
+        """Create necessary folders"""
+        try:
+            self.audio_folder.mkdir(exist_ok=True, parents=True)
+            self.output_folder.mkdir(exist_ok=True, parents=True)
+            logger.info(f"Audio folder: {self.audio_folder.absolute()}")
+            logger.info(f"Output folder: {self.output_folder.absolute()}")
+        except Exception as e:
+            logger.error(f"Error creating folders: {e}")
+            raise
         
     def extract_video_id(self, url):
         """Trích xuất video ID từ URL YouTube"""
@@ -32,15 +47,19 @@ class YouTubeAudioProcessor:
         """Làm sạch tên file"""
         return re.sub(r'[<>:"/\\|?*]', '_', filename)
         
+    @retry_on_exception(max_attempts=3, delay=5.0, backoff=2.0)
     def download_audio(self, youtube_url):
-        """Tải audio từ YouTube video"""
+        """Download audio from YouTube video with retry logic"""
+        video_id = None
         try:
             video_id = self.extract_video_id(youtube_url)
             if not video_id:
-                print(f"Không thể trích xuất video ID từ: {youtube_url}")
+                error_msg = f"Cannot extract video ID from: {youtube_url}"
+                logger.error(error_msg)
+                self.tracker.record_failure(youtube_url, error_msg)
                 return None
-                
-            print(f"Đang tải audio cho video ID: {video_id}")
+
+            logger.info(f"Downloading audio for video ID: {video_id}")
             
             # Cấu hình yt-dlp để tải audio chất lượng cao
             ydl_opts = {
@@ -56,30 +75,40 @@ class YouTubeAudioProcessor:
             
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 try:
-                    # Lấy thông tin video
+                    # Get video info
                     info = ydl.extract_info(youtube_url, download=False)
                     if not info:
-                        print(f"Không thể lấy thông tin video: {youtube_url}")
+                        error_msg = f"Cannot get video info: {youtube_url}"
+                        logger.error(error_msg)
+                        self.tracker.record_failure(video_id, error_msg)
                         return None
-                    
+
                     title = self.clean_filename(info.get('title', video_id))
                     duration = info.get('duration', 0)
-                    
-                    print(f"Tiêu đề: {title}")
-                    print(f"Thời lượng: {duration} giây")
-                    
-                    # Tải audio
+
+                    logger.info(f"Title: {title}")
+                    logger.info(f"Duration: {duration} seconds")
+
+                    # Download audio
                     ydl.download([youtube_url])
-                    
-                    # Tìm file audio đã tải
+
+                    # Find downloaded audio file
                     audio_file = None
                     for file_path in self.audio_folder.glob(f"{video_id}.*"):
                         if file_path.suffix in ['.wav', '.mp3', '.m4a']:
                             audio_file = file_path
                             break
-                    
+
                     if audio_file and audio_file.exists():
-                        print(f"Đã tải audio: {audio_file.name}")
+                        # Validate audio file
+                        is_valid, error = FileValidator.validate_audio_file(audio_file, min_size=10240)
+                        if not is_valid:
+                            logger.error(f"Audio validation failed: {error}")
+                            self.tracker.record_failure(video_id, f"Invalid audio: {error}")
+                            return None
+
+                        logger.info(f"Downloaded audio: {audio_file.name}")
+                        self.tracker.record_success(video_id)
                         return {
                             'video_id': video_id,
                             'title': title,
@@ -88,33 +117,40 @@ class YouTubeAudioProcessor:
                             'url': youtube_url
                         }
                     else:
-                        print(f"Không tìm thấy file audio cho {video_id}")
+                        error_msg = f"Audio file not found for {video_id}"
+                        logger.error(error_msg)
+                        self.tracker.record_failure(video_id, error_msg)
                         return None
-                        
+
                 except Exception as e:
-                    print(f"Lỗi khi tải audio: {e}")
+                    error_msg = f"Error downloading audio: {e}"
+                    logger.error(error_msg, exc_info=True)
+                    self.tracker.record_failure(video_id, error_msg)
                     return None
                     
         except Exception as e:
-            print(f"Lỗi khi xử lý {youtube_url}: {e}")
+            error_msg = f"Error processing {youtube_url}: {e}"
+            logger.error(error_msg, exc_info=True)
+            if video_id:
+                self.tracker.record_failure(video_id, error_msg)
             return None
             
     def split_audio_to_segments(self, audio_info, segment_duration=30):
-        """Chia audio thành các segment 30 giây"""
+        """Split audio into segments with error handling"""
+        video_id = audio_info.get('video_id', 'unknown')
         try:
             audio_file = audio_info['file_path']
-            video_id = audio_info['video_id']
-            
-            print(f"Đang chia audio {video_id} thành segments {segment_duration}s...")
-            
+
+            logger.info(f"Splitting audio {video_id} into {segment_duration}s segments...")
+
             # Load audio file
             audio = AudioSegment.from_file(audio_file)
-            
-            # Tính số segment
-            total_duration = len(audio) / 1000  # chuyển từ milliseconds sang seconds
+
+            # Calculate number of segments
+            total_duration = len(audio) / 1000  # Convert milliseconds to seconds
             num_segments = math.ceil(total_duration / segment_duration)
-            
-            print(f"Thời lượng total: {total_duration:.2f}s, sẽ tạo {num_segments} segments")
+
+            logger.info(f"Total duration: {total_duration:.2f}s, creating {num_segments} segments")
             
             segments_created = []
             
@@ -130,7 +166,13 @@ class YouTubeAudioProcessor:
                 
                 # Export segment
                 segment.export(segment_path, format="wav")
-                
+
+                # Validate created segment
+                is_valid, error = FileValidator.validate_audio_file(segment_path, min_size=1024)
+                if not is_valid:
+                    logger.warning(f"Invalid segment created: {segment_filename} - {error}")
+                    continue
+
                 segment_info = {
                     'video_id': video_id,
                     'segment_id': i + 1,
@@ -140,70 +182,96 @@ class YouTubeAudioProcessor:
                     'duration': (end_time - start_time) / 1000,
                     'file_path': str(segment_path)
                 }
-                
+
                 segments_created.append(segment_info)
-                print(f"Tạo segment {i+1}/{num_segments}: {segment_filename} ({segment_info['duration']:.2f}s)")
-            
+                logger.debug(f"Created segment {i+1}/{num_segments}: {segment_filename} ({segment_info['duration']:.2f}s)")
+
+            logger.info(f"Successfully created {len(segments_created)} segments for {video_id}")
             return segments_created
-            
+
         except Exception as e:
-            print(f"Lỗi khi chia audio: {e}")
+            logger.error(f"Error splitting audio for {video_id}: {e}", exc_info=True)
             return []
             
     def process_urls_from_file(self, file_path, limit=3):
-        """Xử lý URLs từ file, giới hạn số lượng"""
+        """Process URLs from file with error resilience"""
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 urls = [line.strip() for line in f if line.strip()]
-            
-            # Loại bỏ URL trùng lặp và lấy số lượng giới hạn
+
+            # Remove duplicates and limit
             unique_urls = list(set(urls))[:limit]
-            print(f"Sẽ xử lý {len(unique_urls)} video đầu tiên")
-            
+            logger.info(f"Processing {len(unique_urls)} videos")
+
             results = {
                 'processed_videos': [],
                 'all_segments': [],
+                'failed_videos': [],
                 'summary': {
                     'total_videos': len(unique_urls),
                     'successful_downloads': 0,
+                    'failed_downloads': 0,
                     'total_segments': 0
                 }
             }
-            
+
             for i, url in enumerate(unique_urls, 1):
-                print(f"\n=== Xử lý video {i}/{len(unique_urls)}: {url} ===")
-                
-                # Tải audio
-                audio_info = self.download_audio(url)
-                if audio_info:
-                    results['summary']['successful_downloads'] += 1
-                    results['processed_videos'].append(audio_info)
-                    
-                    # Chia thành segments
-                    segments = self.split_audio_to_segments(audio_info)
-                    if segments:
-                        results['all_segments'].extend(segments)
-                        results['summary']['total_segments'] += len(segments)
-                        print(f"Tạo thành công {len(segments)} segments")
+                logger.info(f"\n{'='*60}")
+                logger.info(f"Processing video {i}/{len(unique_urls)}: {url}")
+                logger.info(f"{'='*60}")
+
+                try:
+                    # Download audio
+                    audio_info = self.download_audio(url)
+                    if audio_info:
+                        results['summary']['successful_downloads'] += 1
+                        results['processed_videos'].append(audio_info)
+
+                        # Split into segments
+                        segments = self.split_audio_to_segments(audio_info)
+                        if segments:
+                            results['all_segments'].extend(segments)
+                            results['summary']['total_segments'] += len(segments)
+                            logger.info(f"Successfully created {len(segments)} segments")
+                        else:
+                            logger.warning("No segments created")
                     else:
-                        print("Không tạo được segments")
-                else:
-                    print("Không tải được audio")
+                        results['summary']['failed_downloads'] += 1
+                        results['failed_videos'].append(url)
+                        logger.error(f"Failed to download audio for: {url}")
+
+                except Exception as e:
+                    # Continue processing even if one video fails
+                    results['summary']['failed_downloads'] += 1
+                    results['failed_videos'].append(url)
+                    logger.error(f"Error processing video {url}: {e}", exc_info=True)
             
-            # Lưu metadata
+            # Save metadata
             metadata_file = self.output_folder / "processing_metadata.json"
             with open(metadata_file, 'w', encoding='utf-8') as f:
                 json.dump(results, f, ensure_ascii=False, indent=2, default=str)
-            
-            print(f"\nKET QUA TONG KET")
-            print(f"Videos xu ly thanh cong: {results['summary']['successful_downloads']}/{results['summary']['total_videos']}")
-            print(f"Tong so segments tao ra: {results['summary']['total_segments']}")
-            print(f"Metadata da luu: {metadata_file}")
-            
+
+            # Print summary
+            logger.info(f"\n{'='*60}")
+            logger.info("PROCESSING SUMMARY")
+            logger.info(f"{'='*60}")
+            logger.info(f"Videos successfully processed: {results['summary']['successful_downloads']}/{results['summary']['total_videos']}")
+            logger.info(f"Videos failed: {results['summary']['failed_downloads']}")
+            logger.info(f"Total segments created: {results['summary']['total_segments']}")
+            logger.info(f"Metadata saved: {metadata_file}")
+
+            if results['failed_videos']:
+                logger.warning(f"Failed videos ({len(results['failed_videos'])}):")
+                for url in results['failed_videos']:
+                    logger.warning(f"  - {url}")
+
+            # Print operation tracker summary
+            self.tracker.print_summary()
+
             return results
-            
+
         except Exception as e:
-            print(f"Lỗi khi xử lý file URLs: {e}")
+            logger.error(f"Error processing URL file: {e}", exc_info=True)
             return None
 
 def main():
