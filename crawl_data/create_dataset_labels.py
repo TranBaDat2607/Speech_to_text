@@ -136,10 +136,11 @@ class DatasetLabeler:
                     import shutil
                     shutil.copy2(segment_file, dataset_wav_path)
                     
-                    # Tạo JSON label
+                    # Create JSON label
                     label_data = {
                         "start": segment_start,
                         "end": segment_end,
+                        "duration": segment_end - segment_start,
                         "video_id": video_id,
                         "text": segment_text
                     }
