@@ -110,11 +110,15 @@ class ChannelToDatasetPipeline:
                 logger.error("Could not find file youtube_video_urls.txt")
                 return False
 
-            downloader = YouTubeSubtitleDownloader()
+            downloader = YouTubeSubtitleDownloader(
+                download_folder=self.config.get_subtitles_folder(),
+                languages=self.config.get_subtitle_languages(),
+                subtitle_format=self.config.get_subtitle_format()
+            )
             downloader.process_url_file("youtube_video_urls.txt")
 
             # Check results
-            subtitles_folder = Path("subtitles")
+            subtitles_folder = Path(self.config.get_subtitles_folder())
             if subtitles_folder.exists():
                 srt_files = list(subtitles_folder.glob("*.srt"))
                 logger.info(f"Downloaded {len(srt_files)} subtitle files")
@@ -148,21 +152,27 @@ class ChannelToDatasetPipeline:
         logger.info("="*60)
 
         try:
-            processor = YouTubeAudioProcessor()
+            processor = YouTubeAudioProcessor(
+                audio_folder=self.config.get_audio_folder(),
+                output_folder=self.config.get_audio_segments_folder(),
+                segment_duration=self.config.get_segment_duration(),
+                audio_format=self.config.get_audio_format()
+            )
             results = processor.process_urls_from_file("youtube_video_urls.txt", limit=self.max_videos)
 
             # Check results
-            segments_folder = Path("audio_segments")
+            segments_folder = Path(self.config.get_audio_segments_folder())
             if segments_folder.exists():
-                wav_files = list(segments_folder.glob("*.wav"))
-                logger.info(f"Created {len(wav_files)} audio segment files")
-                self.results['audio_segments'] = len(wav_files)
+                audio_pattern = f"*.{self.config.get_audio_format()}"
+                audio_files = list(segments_folder.glob(audio_pattern))
+                logger.info(f"Created {len(audio_files)} audio segment files")
+                self.results['audio_segments'] = len(audio_files)
 
                 # Save checkpoint
                 if self.checkpoint:
-                    self.checkpoint.mark_step_complete(step_name, len(wav_files))
+                    self.checkpoint.mark_step_complete(step_name, len(audio_files))
 
-                return len(wav_files) > 0
+                return len(audio_files) > 0
 
             logger.warning("Audio segments folder not found")
             return False
@@ -186,18 +196,25 @@ class ChannelToDatasetPipeline:
         logger.info("="*60)
 
         try:
-            labeler = DatasetLabeler()
+            labeler = DatasetLabeler(
+                subtitles_folder=self.config.get_subtitles_folder(),
+                segments_folder=self.config.get_audio_segments_folder(),
+                output_folder=self.config.get_dataset_folder(),
+                segment_duration=self.config.get_segment_duration(),
+                audio_format=self.config.get_audio_format()
+            )
             results = labeler.process_all_videos()
 
             # Check results
-            dataset_folder = Path("dataset")
+            dataset_folder = Path(self.config.get_dataset_folder())
             if dataset_folder.exists():
-                wav_files = list(dataset_folder.glob("*.wav"))
+                audio_pattern = f"*.{self.config.get_audio_format()}"
+                audio_files = list(dataset_folder.glob(audio_pattern))
                 json_files = list(dataset_folder.glob("*.json"))
-                logger.info(f"Created {len(wav_files)} .wav files and {len(json_files)} .json files")
+                logger.info(f"Created {len(audio_files)} audio files and {len(json_files)} .json files")
 
                 dataset_result = {
-                    'wav_files': len(wav_files),
+                    'audio_files': len(audio_files),
                     'json_files': len(json_files)
                 }
                 self.results['dataset'] = dataset_result
@@ -206,7 +223,7 @@ class ChannelToDatasetPipeline:
                 if self.checkpoint:
                     self.checkpoint.mark_step_complete(step_name, dataset_result)
 
-                return len(wav_files) > 0 and len(json_files) > 0
+                return len(audio_files) > 0 and len(json_files) > 0
 
             logger.warning("Dataset folder not found")
             return False
@@ -224,7 +241,7 @@ class ChannelToDatasetPipeline:
         logger.info("="*60)
 
         try:
-            dataset_folder = Path("dataset")
+            dataset_folder = Path(self.config.get_dataset_folder())
             if not dataset_folder.exists():
                 logger.error("Dataset folder does not exist")
                 return True  # Not critical, continue
@@ -254,8 +271,12 @@ class ChannelToDatasetPipeline:
         logger.info("\n" + "="*60)
         logger.info("STEP 6: CLEANUP - DELETE INTERMEDIATE FILES")
         logger.info("="*60)
-        
-        folders_to_remove = ["audio", "audio_segments", "subtitles"]
+
+        folders_to_remove = [
+            self.config.get_audio_folder(),
+            self.config.get_audio_segments_folder(),
+            self.config.get_subtitles_folder()
+        ]
         files_to_remove = ["youtube_video_urls.txt", "youtube_video_urls.json", "processing_metadata.json"]
         
         total_size_before = 0
@@ -299,7 +320,7 @@ class ChannelToDatasetPipeline:
                     print(f"Error deleting file {file_name}: {e}")
         
         # Tính dung lượng dataset còn lại
-        dataset_folder = Path("dataset")
+        dataset_folder = Path(self.config.get_dataset_folder())
         if dataset_folder.exists():
             for file_path in dataset_folder.rglob("*"):
                 if file_path.is_file():
@@ -337,23 +358,24 @@ class ChannelToDatasetPipeline:
         
         if 'dataset' in self.results:
             dataset_info = self.results['dataset']
-            print(f"- Dataset WAV: {dataset_info['wav_files']} files")
+            print(f"- Dataset audio: {dataset_info['audio_files']} files")
             print(f"- Dataset JSON: {dataset_info['json_files']} files")
         
         # Hiển thị mẫu dataset
-        dataset_folder = Path("dataset")
+        dataset_folder = Path(self.config.get_dataset_folder())
         if dataset_folder.exists():
-            wav_files = list(dataset_folder.glob("*.wav"))
+            audio_pattern = f"*.{self.config.get_audio_format()}"
+            audio_files = list(dataset_folder.glob(audio_pattern))
             json_files = list(dataset_folder.glob("*.json"))
-            
+
             print(f"\nDataset folder: {dataset_folder.absolute()}")
-            
-            if wav_files:
-                print(f"\nSample .wav files:")
-                for i, wav_file in enumerate(wav_files[:3]):
-                    print(f"  {i+1}. {wav_file.name}")
-                if len(wav_files) > 3:
-                    print(f"  ... and {len(wav_files) - 3} more files")
+
+            if audio_files:
+                print(f"\nSample audio files:")
+                for i, audio_file in enumerate(audio_files[:3]):
+                    print(f"  {i+1}. {audio_file.name}")
+                if len(audio_files) > 3:
+                    print(f"  ... and {len(audio_files) - 3} more files")
             
             # Hiển thị mẫu JSON
             if json_files:
@@ -445,19 +467,22 @@ class ChannelToDatasetPipeline:
                 self.checkpoint.print_status()
 
 def main():
-    """Hàm main tự động chạy tất cả channel URLs từ config"""
-    print("YouTube Channel to Dataset Pipeline - AUTO MODE")
+    """Main function - processes all channels from config.json"""
+    print("YouTube Channel to Dataset Pipeline")
     print("="*50)
-    
-    # Load cấu hình từ file JSON
+    print("Fully automated pipeline - all settings from config.json")
+    print()
+
+    # Load configuration from JSON
     config = ConfigManager()
     config.print_config_summary()
-    
-    # Lấy danh sách channels từ config
+
+    # Get channel list from config
     channels = config.get_channels()
-    
+
     if not channels:
-        print("No channels found in config!")
+        print("\nERROR: No channels found in config.json!")
+        print("Please add channel URLs to the 'channels' array in config.json")
         return
     
     # Thống kê tổng quá trình
@@ -476,19 +501,20 @@ def main():
         
         try:
             # Tạo thư mục riêng cho mỗi channel nếu được cấu hình
+            original_cwd = os.getcwd()
+
             if config.should_create_channel_folders():
-                channel_name = channel_url.split('@')[-1] if '@' in channel_url else f"channel_{i}"
-                channel_folder = Path(f"{config.get_output_dir()}/{channel_name}")
+                channel_name = channel_url.split('@')[-1].split('/')[0] if '@' in channel_url else f"channel_{i}"
+                channel_folder = Path(config.get_output_dir()) / channel_name
                 channel_folder.mkdir(parents=True, exist_ok=True)
-                
+
+                # Get absolute path BEFORE changing directory
+                abs_channel_folder = channel_folder.absolute()
+
                 # Chuyển vào thư mục channel
-                original_cwd = os.getcwd()
                 os.chdir(channel_folder)
-                
-                print(f"Processing in directory: {channel_folder.absolute()}")
-            else:
-                original_cwd = os.getcwd()
-            
+                print(f"Processing in directory: {abs_channel_folder}")
+
             # Chạy pipeline cho channel này với config
             pipeline = ChannelToDatasetPipeline(channel_url, config)
             success = pipeline.run_pipeline()
@@ -518,11 +544,12 @@ def main():
         # Thông báo tiến độ
         print(f"\nProgress: {i}/{len(channels)} channels processed")
         print(f"Success: {total_success}, Failed: {total_failed}")
-        
-        # Nghỉ giữa các channel để tránh quá tải
+
+        # Nghỉ giữa các channel để tránh quá tải YouTube
         if i < len(channels):
-            print("Waiting 10 seconds before processing next channel...")
-            time.sleep(10)
+            delay_seconds = 60  # Increased from 10 to 60 seconds
+            print(f"Waiting {delay_seconds} seconds before processing next channel to avoid YouTube rate limiting...")
+            time.sleep(delay_seconds)
     
     # Báo cáo cuối cùng
     print(f"\n{'='*60}")
@@ -542,53 +569,6 @@ def main():
         print(f"Each channel has its own folder containing .wav and .json files")
     
     print(f"\nAll completed!")
-
-def main_interactive():
-    """Hàm main với input channel URL (phiên bản cũ)"""
-    print("YouTube Channel to Dataset Pipeline - Interactive Mode")
-    print("="*50)
-    
-    # Input từ user
-    print("Enter channel URL:")
-    channel_url = input().strip()
-    
-    if not channel_url.startswith("https://"):
-        print("Invalid URL")
-        return
-    
-    # Nhập số video tối đa
-    print("Enter max videos (default 20):")
-    max_videos_input = input().strip()
-    
-    try:
-        max_videos = int(max_videos_input) if max_videos_input else 20
-    except ValueError:
-        max_videos = 20
-    
-    print(f"Will process up to {max_videos} videos from channel")
-    
-    # Hỏi về cleanup
-    print("Delete intermediate files after completion? (y/n, default y):")
-    cleanup_input = input().strip().lower()
-    cleanup = cleanup_input != 'n'
-    
-    if cleanup:
-        print("Will delete audio/, audio_segments/, subtitles/ folders after completion")
-    else:
-        print("Will keep all intermediate files")
-    
-    # Chạy pipeline
-    config = ConfigManager()
-    pipeline = ChannelToDatasetPipeline(channel_url, config)
-    success = pipeline.run_pipeline()
-    
-    if success:
-        print("\nDataset usage guide:")
-        print("1. .wav files: 30-second audio for training")
-        print("2. .json files: Labels corresponding to transcript")
-        print("3. dataset_summary.json: Overview information")
-    else:
-        print("\nPipeline failed. Check errors above.")
 
 if __name__ == "__main__":
     main()

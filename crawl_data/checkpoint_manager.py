@@ -104,12 +104,22 @@ class PipelineCheckpoint:
     def save(self):
         """Save checkpoint to file"""
         try:
+            # Convert Path objects to strings for JSON serialization
+            def convert_paths(obj):
+                if isinstance(obj, Path):
+                    return str(obj)
+                elif isinstance(obj, dict):
+                    return {k: convert_paths(v) for k, v in obj.items()}
+                elif isinstance(obj, list):
+                    return [convert_paths(item) for item in obj]
+                return obj
+
             data = {
                 'pipeline_name': self.pipeline_name,
                 'completed_steps': list(self.completed_steps),
                 'processed_items': list(self.processed_items),
                 'failed_items': self.failed_items,
-                'step_results': self.step_results,
+                'step_results': convert_paths(self.step_results),
                 'last_updated': datetime.now().isoformat()
             }
             with open(self.checkpoint_file, 'w', encoding='utf-8') as f:

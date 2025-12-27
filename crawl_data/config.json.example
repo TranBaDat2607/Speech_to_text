@@ -54,7 +54,15 @@
     "create_channel_folders": true,
     "_channel_folders_note": "Create separate folder for each channel",
     "save_metadata": true,
-    "_metadata_note": "Save detailed metadata files"
+    "_metadata_note": "Save detailed metadata files",
+    "subtitles_folder": "subtitles",
+    "_subtitles_folder_note": "Folder name for downloaded subtitles",
+    "audio_folder": "audio",
+    "_audio_folder_note": "Folder name for downloaded audio files",
+    "audio_segments_folder": "audio_segments",
+    "_audio_segments_folder_note": "Folder name for segmented audio files",
+    "dataset_folder": "dataset",
+    "_dataset_folder_note": "Folder name for final dataset output"
   },
   
   "_usage_examples": {

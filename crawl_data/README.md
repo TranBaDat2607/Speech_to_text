@@ -6,6 +6,12 @@ A production-ready automated pipeline for crawling audio and transcripts from Yo
 
 This pipeline provides an end-to-end solution for creating high-quality speech recognition datasets from YouTube content. It handles video crawling, audio extraction, subtitle downloading, audio segmentation, and dataset label generation with built-in error handling, retry mechanisms, and resume capabilities.
 
+**Key Philosophy:**
+- **Single workflow:** Configure everything in `config.json`, then run the pipeline
+- **No defaults:** All settings must be explicitly defined in config - fail fast with clear errors
+- **Fully reproducible:** Your config file documents exactly how your dataset was created
+- **Zero ambiguity:** One way to run, no interactive prompts, no hidden behaviors
+
 ## Key Features
 
 ### Core Functionality
@@ -53,17 +59,15 @@ ffmpeg -version
 
 ## Quick Start
 
-### Method 1: Configuration File (Recommended)
+The pipeline uses a single, simple workflow: configure everything in `config.json`, then run the pipeline.
 
-This is the recommended method for production use as it provides full control over all pipeline settings.
-
-#### Step 1: Create Configuration File
+### Step 1: Create Configuration File
 
 ```bash
 cp config.json.example config.json
 ```
 
-#### Step 2: Edit Configuration
+### Step 2: Edit Configuration
 
 Edit `config.json` with your desired settings:
 
@@ -80,6 +84,10 @@ Edit `config.json` with your desired settings:
     "video_selection_strategy": "longest",
     "batch_multiplier": 3
   },
+  "subtitle_settings": {
+    "languages": ["vi", "en"],
+    "format": "srt"
+  },
   "audio_settings": {
     "segment_duration_seconds": 30,
     "audio_format": "wav",
@@ -88,150 +96,167 @@ Edit `config.json` with your desired settings:
   "pipeline_settings": {
     "cleanup_intermediate_files": true,
     "create_dataset_summary": true
+  },
+  "output_settings": {
+    "base_output_dir": "datasets",
+    "create_channel_folders": true,
+    "save_metadata": true,
+    "subtitles_folder": "subtitles",
+    "audio_folder": "audio",
+    "audio_segments_folder": "audio_segments",
+    "dataset_folder": "dataset"
   }
 }
 ```
 
-#### Step 3: Run Pipeline
+### Step 3: Run Pipeline
 
 ```bash
 python channel_to_dataset_pipeline.py
 ```
 
-The pipeline will:
-1. Crawl videos from specified channels
+**That's it!** The pipeline will automatically:
+1. Crawl videos from all channels in config.json
 2. Download subtitles for each video
 3. Download and segment audio files
-4. Generate dataset labels
+4. Generate dataset labels (audio + JSON pairs)
 5. Validate dataset integrity
 6. Clean up intermediate files (if enabled)
 
-### Method 2: Interactive Mode
+### Resuming Failed Runs
 
-For quick testing or single-channel processing:
+If the pipeline fails or is interrupted, simply rerun the same command:
 
 ```bash
 python channel_to_dataset_pipeline.py
 ```
 
-Follow the interactive prompts to enter channel URL and settings.
-
-### Method 3: Custom URL List
-
-For processing a specific list of video URLs:
-
-#### Step 1: Create URL List
-
-Create a file named `youtube_video_urls.txt` with one URL per line:
-
-```
-https://www.youtube.com/watch?v=VIDEO_ID_1
-https://www.youtube.com/watch?v=VIDEO_ID_2
-```
-
-Or use the URL crawler:
-
-```bash
-python run_url_crawler.py
-```
-
-#### Step 2: Process URLs
-
-```bash
-python youtube_audio_processor.py
-```
+The pipeline automatically resumes from the last successful step using checkpoint files.
 
 ## Configuration Reference
+
+**Important:** All configuration settings are **required**. The pipeline will fail with a clear error message if any setting is missing. There are no default values.
 
 ### Crawl Settings
 
 Configuration for video selection and filtering.
 
-- **max_videos_per_channel** (integer, default: 20)
+- **max_videos_per_channel** (integer, required)
   - Maximum number of videos to process per channel
   - Higher values create larger datasets but take longer to process
+  - Example: 20
 
-- **min_duration_seconds** (integer, default: 60)
+- **min_duration_seconds** (integer, required)
   - Minimum video duration in seconds
   - Videos shorter than this are skipped
   - Recommended: 300 seconds (5 minutes) for better transcript quality
+  - Example: 60
 
-- **max_duration_seconds** (integer, default: 3600)
+- **max_duration_seconds** (integer, required)
   - Maximum video duration in seconds
   - Videos longer than this are skipped
   - Recommended: 1800 seconds (30 minutes) for manageable file sizes
+  - Example: 3600
 
-- **video_selection_strategy** (string, default: "longest")
+- **video_selection_strategy** (string, required)
   - Strategy for selecting videos when more than max_videos are available
   - Options:
     - "longest": Prioritizes longest videos (best for maximizing dataset duration)
     - "shortest": Prioritizes shortest videos
     - "first": Takes videos in upload order
+  - Example: "longest"
 
-- **batch_multiplier** (integer, default: 3)
+- **batch_multiplier** (integer, required)
   - Multiplier for initial video fetch to ensure enough videos after filtering
   - Example: If max_videos=20 and batch_multiplier=3, fetches 60 videos then filters to 20
   - Increase if many videos are filtered out by duration constraints
+  - Example: 3
 
 ### Subtitle Settings
 
 Configuration for subtitle download.
 
-- **languages** (array, default: ["vi", "en"])
+- **languages** (array, required)
   - List of preferred subtitle languages in priority order
   - Falls back to auto-generated captions if manual subtitles unavailable
   - Supported: "vi", "en", "zh", "ja", "ko", "fr", "de", "es"
+  - Example: ["vi", "en"]
 
-- **format** (string, default: "srt")
+- **format** (string, required)
   - Subtitle format to download
   - Options: "srt", "vtt", "ass"
+  - Example: "srt"
 
 ### Audio Settings
 
 Configuration for audio processing and segmentation.
 
-- **segment_duration_seconds** (integer, default: 30)
+- **segment_duration_seconds** (integer, required)
   - Duration of each audio segment in seconds
   - Common values: 10, 20, 30 seconds depending on model requirements
+  - Example: 30
 
-- **audio_format** (string, default: "wav")
+- **audio_format** (string, required)
   - Output audio format
   - Options: "wav" (recommended for ML), "mp3", "flac"
+  - Example: "wav"
 
-- **sample_rate** (integer, default: 16000)
+- **sample_rate** (integer, required)
   - Audio sample rate in Hz
   - Common values:
     - 16000 Hz: Standard for speech recognition (recommended)
     - 8000 Hz: Lower quality, smaller files
     - 22050 Hz: Higher quality
     - 44100 Hz: CD quality (unnecessary for speech)
+  - Example: 16000
 
 ### Pipeline Settings
 
 Configuration for pipeline behavior.
 
-- **cleanup_intermediate_files** (boolean, default: true)
+- **cleanup_intermediate_files** (boolean, required)
   - Whether to delete intermediate files after successful completion
   - When true: Saves disk space by removing audio/, audio_segments/, subtitles/ folders
   - When false: Keeps all intermediate files for debugging or reprocessing
+  - Example: true
 
-- **create_dataset_summary** (boolean, default: true)
+- **create_dataset_summary** (boolean, required)
   - Whether to generate dataset_summary.json with statistics
   - Includes video counts, duration, segment counts, etc.
+  - Example: true
 
 ### Output Settings
 
 Configuration for output directory structure.
 
-- **base_output_dir** (string, default: "datasets")
+- **base_output_dir** (string, required)
   - Root directory for all generated datasets
+  - Example: "datasets"
 
-- **create_channel_folders** (boolean, default: true)
+- **create_channel_folders** (boolean, required)
   - Whether to create separate folders for each channel
   - When true: Organizes datasets by channel name
+  - Example: true
 
-- **save_metadata** (boolean, default: true)
+- **save_metadata** (boolean, required)
   - Whether to save detailed metadata files
+  - Example: true
+
+- **subtitles_folder** (string, required)
+  - Folder name for downloaded subtitle files
+  - Example: "subtitles"
+
+- **audio_folder** (string, required)
+  - Folder name for downloaded full-length audio files
+  - Example: "audio"
+
+- **audio_segments_folder** (string, required)
+  - Folder name for segmented audio files
+  - Example: "audio_segments"
+
+- **dataset_folder** (string, required)
+  - Folder name for final dataset output (audio + JSON pairs)
+  - Example: "dataset"
 
 ## Pipeline Architecture
 
@@ -439,7 +464,7 @@ Audio Processing Summary:
 If pipeline fails or is interrupted:
 
 1. Check `pipeline.log` for error details
-2. Fix any configuration issues if needed
+2. Fix any configuration issues in `config.json` if needed
 3. Rerun the same command:
    ```bash
    python channel_to_dataset_pipeline.py
@@ -448,7 +473,7 @@ If pipeline fails or is interrupted:
 
 To start fresh (ignore checkpoint):
 ```bash
-# Remove checkpoint file
+# Remove checkpoint files
 rm pipeline_*_checkpoint.json
 # Run pipeline
 python channel_to_dataset_pipeline.py
@@ -490,11 +515,6 @@ Typical processing times (per video):
 
 **Example**: Processing 100 videos (30 minutes average) takes approximately 1-2 hours.
 
-### Network Considerations
-
-- **Bandwidth**: ~50-100 MB per video downloaded
-- **Rate limiting**: Built-in delays prevent YouTube throttling
-- **Retry logic**: Automatically handles transient network failures
 
 ## Best Practices
 
@@ -591,16 +611,39 @@ tar -czf dataset_v1_$(date +%Y%m%d).tar.gz datasets/
 
 ## Advanced Usage
 
-### Custom Processing
+### Using Custom Config File
 
-To integrate with existing pipelines:
+To use a different configuration file:
+
+```python
+from config_manager import ConfigManager
+from channel_to_dataset_pipeline import ChannelToDatasetPipeline
+
+# Load custom config
+config = ConfigManager("my_custom_config.json")
+
+# Get channels from config
+channels = config.get_channels()
+
+# Process each channel
+for channel_url in channels:
+    pipeline = ChannelToDatasetPipeline(channel_url, config, enable_checkpoint=True)
+    success = pipeline.run_pipeline()
+
+    if not success:
+        print(f"Failed: {channel_url}")
+```
+
+### Running Individual Pipeline Steps
+
+For debugging or custom workflows, you can run individual steps:
 
 ```python
 from channel_to_dataset_pipeline import ChannelToDatasetPipeline
 from config_manager import ConfigManager
 
-# Load config
-config = ConfigManager("custom_config.json")
+# Load config (required)
+config = ConfigManager("config.json")
 
 # Create pipeline instance
 pipeline = ChannelToDatasetPipeline(
@@ -609,7 +652,7 @@ pipeline = ChannelToDatasetPipeline(
     enable_checkpoint=True
 )
 
-# Run individual steps
+# Run steps individually
 pipeline.step1_crawl_channel()
 pipeline.step2_download_subtitles()
 pipeline.step3_process_audio()
@@ -618,53 +661,4 @@ pipeline.step5_validate_dataset()
 pipeline.step6_cleanup_intermediate_files()
 ```
 
-### Batch Processing
-
-Process multiple channels programmatically:
-
-```python
-from config_manager import ConfigManager
-from channel_to_dataset_pipeline import ChannelToDatasetPipeline
-
-config = ConfigManager()
-channels = config.get_channels()
-
-for channel_url in channels:
-    pipeline = ChannelToDatasetPipeline(channel_url, config)
-    success = pipeline.run_pipeline()
-
-    if not success:
-        print(f"Failed: {channel_url}")
-```
-
-## Support and Contributing
-
-### Reporting Issues
-
-When reporting issues, include:
-1. Python version (`python --version`)
-2. OS and version
-3. Relevant error messages from pipeline.log
-4. Configuration file (remove sensitive URLs)
-5. Steps to reproduce
-
-### Future Enhancements
-
-Planned features:
-- Parallel video processing
-- Additional language support
-- Audio quality enhancement
-- Speaker diarization
-- Custom segmentation strategies
-- Cloud storage integration (S3, GCS)
-
-## License
-
-This project is part of the Speech-to-Text dataset creation pipeline.
-
-## Acknowledgments
-
-Built with:
-- yt-dlp: YouTube video/audio downloading
-- pydub: Audio processing and segmentation
-- FFmpeg: Audio format conversion
+**Note:** All steps require a valid `config.json` file with all required settings. There are no default values.

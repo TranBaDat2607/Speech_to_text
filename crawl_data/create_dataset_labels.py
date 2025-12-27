@@ -5,10 +5,22 @@ from pathlib import Path
 from datetime import datetime, timedelta
 
 class DatasetLabeler:
-    def __init__(self, subtitles_folder="subtitles", segments_folder="audio_segments", output_folder="dataset"):
+    def __init__(self, subtitles_folder=None, segments_folder=None, output_folder=None, segment_duration=None, audio_format=None):
+        if subtitles_folder is None:
+            raise ValueError("Subtitles folder must be provided. Cannot use default folder.")
+        if segments_folder is None:
+            raise ValueError("Segments folder must be provided. Cannot use default folder.")
+        if output_folder is None:
+            raise ValueError("Output folder must be provided. Cannot use default folder.")
+        if segment_duration is None:
+            raise ValueError("Segment duration must be provided. Cannot use default segment duration.")
+        if audio_format is None:
+            raise ValueError("Audio format must be provided. Cannot use default format.")
         self.subtitles_folder = Path(subtitles_folder)
         self.segments_folder = Path(segments_folder)
         self.output_folder = Path(output_folder)
+        self.segment_duration = segment_duration
+        self.audio_format = audio_format
         self.create_output_folder()
         
     def create_output_folder(self):
@@ -100,7 +112,7 @@ class DatasetLabeler:
             return []
         
         # Tìm tất cả segments của video này
-        segment_files = list(self.segments_folder.glob(f"{video_id}_segment_*.wav"))
+        segment_files = list(self.segments_folder.glob(f"{video_id}_segment_*.{self.audio_format}"))
         segment_files.sort()  # Sắp xếp theo thứ tự
         
         print(f"Tìm thấy {len(segment_files)} segments cho video {video_id}")
@@ -115,27 +127,27 @@ class DatasetLabeler:
             
             if match:
                 segment_num = int(match.group(1))
-                
-                # Tính thời gian segment (mỗi segment 30s)
-                segment_start = (segment_num - 1) * 30
-                segment_end = segment_num * 30
+
+                # Tính thời gian segment
+                segment_start = (segment_num - 1) * self.segment_duration
+                segment_end = segment_num * self.segment_duration
                 
                 # Lấy text tương ứng
                 segment_text = self.get_text_for_segment(subtitles, segment_start, segment_end)
                 
                 if segment_text:  # Chỉ tạo label nếu có text
                     # Tạo tên file mới cho dataset
-                    dataset_wav_name = f"{video_id}_{segment_num:03d}.wav"
+                    dataset_audio_name = f"{video_id}_{segment_num:03d}.{self.audio_format}"
                     dataset_json_name = f"{video_id}_{segment_num:03d}.json"
-                    
-                    # Copy file wav
-                    dataset_wav_path = self.output_folder / dataset_wav_name
+
+                    # Copy file audio
+                    dataset_audio_path = self.output_folder / dataset_audio_name
                     dataset_json_path = self.output_folder / dataset_json_name
-                    
-                    # Copy file WAV
+
+                    # Copy file audio
                     import shutil
-                    shutil.copy2(segment_file, dataset_wav_path)
-                    
+                    shutil.copy2(segment_file, dataset_audio_path)
+
                     # Create JSON label
                     label_data = {
                         "start": segment_start,
@@ -144,18 +156,18 @@ class DatasetLabeler:
                         "video_id": video_id,
                         "text": segment_text
                     }
-                    
+
                     with open(dataset_json_path, 'w', encoding='utf-8') as f:
                         json.dump(label_data, f, ensure_ascii=False, indent=2)
-                    
+
                     labels_created.append({
-                        'wav_file': dataset_wav_name,
+                        'audio_file': dataset_audio_name,
                         'json_file': dataset_json_name,
                         'segment_num': segment_num,
                         'text': segment_text
                     })
-                    
-                    print(f"Tạo: {dataset_wav_name} + {dataset_json_name}")
+
+                    print(f"Tạo: {dataset_audio_name} + {dataset_json_name}")
                 else:
                     print(f"Bỏ qua segment {segment_num}: không có text")
         
@@ -164,12 +176,13 @@ class DatasetLabeler:
     def process_all_videos(self):
         """Xử lý tất cả video có segments"""
         # Tìm tất cả video IDs từ segments
-        segment_files = list(self.segments_folder.glob("*_segment_*.wav"))
+        segment_files = list(self.segments_folder.glob(f"*_segment_*.{self.audio_format}"))
         video_ids = set()
-        
+
         for segment_file in segment_files:
             # Trích xuất video ID từ tên file
-            match = re.match(r'(.+)_segment_\d+\.wav$', segment_file.name)
+            pattern = rf'(.+)_segment_\d+\.{re.escape(self.audio_format)}$'
+            match = re.match(pattern, segment_file.name)
             if match:
                 video_ids.add(match.group(1))
         

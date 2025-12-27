@@ -18,9 +18,19 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 class YouTubeAudioProcessor:
-    def __init__(self, audio_folder="audio", output_folder="audio_segments"):
+    def __init__(self, audio_folder=None, output_folder=None, segment_duration=None, audio_format=None):
+        if audio_folder is None:
+            raise ValueError("Audio folder must be provided. Cannot use default folder.")
+        if output_folder is None:
+            raise ValueError("Output folder must be provided. Cannot use default folder.")
+        if segment_duration is None:
+            raise ValueError("Segment duration must be provided. Cannot use default segment duration.")
+        if audio_format is None:
+            raise ValueError("Audio format must be provided. Cannot use default format.")
         self.audio_folder = Path(audio_folder)
         self.output_folder = Path(output_folder)
+        self.segment_duration = segment_duration
+        self.audio_format = audio_format
         self.tracker = OperationTracker("Audio Processing")
         self.create_folders()
         
@@ -67,10 +77,14 @@ class YouTubeAudioProcessor:
                 'outtmpl': str(self.audio_folder / f'{video_id}.%(ext)s'),
                 'postprocessors': [{
                     'key': 'FFmpegExtractAudio',
-                    'preferredcodec': 'wav',
+                    'preferredcodec': self.audio_format,
                     'preferredquality': '192',
                 }],
                 'ignoreerrors': True,
+                'quiet': True,
+                'no_warnings': False,
+                'sleep_interval': 3,
+                'max_sleep_interval': 8,
             }
             
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -135,11 +149,12 @@ class YouTubeAudioProcessor:
                 self.tracker.record_failure(video_id, error_msg)
             return None
             
-    def split_audio_to_segments(self, audio_info, segment_duration=30):
+    def split_audio_to_segments(self, audio_info):
         """Split audio into segments with error handling"""
         video_id = audio_info.get('video_id', 'unknown')
         try:
             audio_file = audio_info['file_path']
+            segment_duration = self.segment_duration
 
             logger.info(f"Splitting audio {video_id} into {segment_duration}s segments...")
 
@@ -159,13 +174,13 @@ class YouTubeAudioProcessor:
                 end_time = min((i + 1) * segment_duration * 1000, len(audio))
                 
                 segment = audio[start_time:end_time]
-                
+
                 # Tạo tên file segment
-                segment_filename = f"{video_id}_segment_{i+1:03d}.wav"
+                segment_filename = f"{video_id}_segment_{i+1:03d}.{self.audio_format}"
                 segment_path = self.output_folder / segment_filename
-                
+
                 # Export segment
-                segment.export(segment_path, format="wav")
+                segment.export(segment_path, format=self.audio_format)
 
                 # Validate created segment
                 is_valid, error = FileValidator.validate_audio_file(segment_path, min_size=1024)

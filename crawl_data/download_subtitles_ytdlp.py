@@ -14,8 +14,16 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 class YouTubeSubtitleDownloader:
-    def __init__(self, download_folder="subtitles"):
+    def __init__(self, download_folder=None, languages=None, subtitle_format=None):
+        if download_folder is None:
+            raise ValueError("Download folder must be provided. Cannot use default folder.")
+        if languages is None:
+            raise ValueError("Subtitle languages must be provided. Cannot use default languages.")
+        if subtitle_format is None:
+            raise ValueError("Subtitle format must be provided. Cannot use default format.")
         self.download_folder = Path(download_folder)
+        self.languages = languages
+        self.subtitle_format = subtitle_format
         self.tracker = OperationTracker("Subtitle Download")
         self.create_download_folder()
         
@@ -58,8 +66,8 @@ class YouTubeSubtitleDownloader:
             ydl_opts = {
                 'writesubtitles': True,           # Tải subtitle
                 'writeautomaticsub': True,       # Tải auto-generated subtitle
-                'subtitleslangs': ['vi', 'en'],  # Ưu tiên tiếng Việt và tiếng Anh
-                'subtitlesformat': 'srt/best',   # Format SRT
+                'subtitleslangs': self.languages,  # Languages from config
+                'subtitlesformat': f'{self.subtitle_format}/best',   # Format from config
                 'skip_download': True,           # Không tải video
                 'outtmpl': str(self.download_folder / f'{video_id}.%(ext)s'),
                 'ignoreerrors': True,            # Bỏ qua lỗi và tiếp tục
