@@ -85,6 +85,7 @@ class YouTubeAudioProcessor:
                 'no_warnings': False,
                 'sleep_interval': 3,
                 'max_sleep_interval': 8,
+                'extractor_args': {'youtube': {'player_client': ['android', 'ios', 'web']}},  # Use multiple clients to bypass restrictions
             }
             
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:

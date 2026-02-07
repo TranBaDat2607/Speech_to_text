@@ -61,20 +61,21 @@ class YouTubeSubtitleDownloader:
                 return False
 
             logger.info(f"Processing video ID: {video_id}")
-            
+
             # Cấu hình yt-dlp để chỉ tải subtitle
             ydl_opts = {
                 'writesubtitles': True,           # Tải subtitle
                 'writeautomaticsub': True,       # Tải auto-generated subtitle
-                'subtitleslangs': self.languages,  # Languages from config
+                'subtitleslangs': ['all'],        # Get all available languages
                 'subtitlesformat': f'{self.subtitle_format}/best',   # Format from config
                 'skip_download': True,           # Không tải video
                 'outtmpl': str(self.download_folder / f'{video_id}.%(ext)s'),
                 'ignoreerrors': True,            # Bỏ qua lỗi và tiếp tục
+                'extractor_args': {'youtube': {'player_client': ['android', 'web']}},  # Use multiple clients
             }
-            
+
             downloaded_files = []
-            
+
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 try:
                     # Get video info
@@ -87,9 +88,33 @@ class YouTubeSubtitleDownloader:
                     subtitles = info.get('subtitles', {})
                     automatic_captions = info.get('automatic_captions', {})
 
-                    if subtitles or automatic_captions:
-                        logger.info("Downloading subtitle...")
-                        ydl.download([youtube_url])
+                    # Find available languages that match our preferences
+                    available_langs = []
+                    all_subs = {**automatic_captions, **subtitles}  # Merge both
+
+                    if all_subs:
+                        logger.info(f"Available subtitle languages: {list(all_subs.keys())}")
+
+                        # Try to find matching languages in priority order
+                        for lang in self.languages:
+                            if lang in all_subs:
+                                available_langs.append(lang)
+                                logger.info(f"Found subtitle for language: {lang}")
+
+                        # If no preferred languages, use the first available
+                        if not available_langs and all_subs:
+                            first_lang = list(all_subs.keys())[0]
+                            available_langs.append(first_lang)
+                            logger.info(f"No preferred languages found, using: {first_lang}")
+
+                    if available_langs:
+                        # Update ydl_opts with specific languages
+                        ydl_opts['subtitleslangs'] = available_langs
+
+                        # Create new YoutubeDL instance with updated options
+                        with yt_dlp.YoutubeDL(ydl_opts) as ydl2:
+                            logger.info(f"Downloading subtitles for languages: {available_langs}")
+                            ydl2.download([youtube_url])
 
                         # Check downloaded files and validate
                         for file_path in self.download_folder.glob(f"{video_id}.*"):
@@ -102,7 +127,7 @@ class YouTubeSubtitleDownloader:
 
                                 downloaded_files.append(file_path.name)
                                 logger.info(f"Downloaded: {file_path.name}")
-                                
+
                                 # Tạo bản sao .txt từ .srt
                                 if file_path.suffix == '.srt':
                                     txt_path = file_path.with_suffix('.txt')
@@ -116,10 +141,10 @@ class YouTubeSubtitleDownloader:
                                                 line = line.strip()
                                                 if line and not line.isdigit() and '-->' not in line:
                                                     text_lines.append(line)
-                                            
+
                                         with open(txt_path, 'w', encoding='utf-8') as txt_file:
                                             txt_file.write('\n'.join(text_lines))
-                                        
+
                                         downloaded_files.append(txt_path.name)
                                         logger.info(f"Created: {txt_path.name}")
                                     except Exception as e:

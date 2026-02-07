@@ -1,0 +1,181 @@
+(dat301m) PS C:\Users\Admin\Desktop\Speech_to_text\crawl_data> python .\channel_to_dataset_pipeline.py
+YouTube Channel to Dataset Pipeline
+==================================================
+Fully automated pipeline - all settings from config.json
+
+Loaded config from: config.json
+
+============================================================
+CRAWL PIPELINE CONFIGURATION
+============================================================
+Number of channels: 1
+  1. https://www.youtube.com/@vtv24
+
+Crawl settings:
+- Max videos/channel: 5
+- Video duration: 300s - 600s
+- Video selection strategy: longest
+- Batch multiplier: 4
+
+Subtitle settings:
+- Languages: vi, en
+
+Audio settings:
+- Segment duration: 30s
+
+Pipeline settings:
+- Cleanup files: Yes
+- Output directory: datasets
+- Create channel folders: Yes
+
+Target total videos: 5
+============================================================
+
+Starting processing...
+============================================================
+
+============================================================
+PROCESSING CHANNEL 1/1
+URL: https://www.youtube.com/@vtv24
+============================================================
+Processing in directory: C:\Users\Admin\Desktop\Speech_to_text\crawl_data\datasets\vtv24
+2026-02-07 20:18:52,226 - checkpoint_manager - INFO - Loaded checkpoint: 2 steps completed, 0 items processed
+2026-02-07 20:18:52,226 - __main__ - INFO - Initialized pipeline for channel: https://www.youtube.com/@vtv24
+2026-02-07 20:18:52,226 - __main__ - INFO - ============================================================ 
+2026-02-07 20:18:52,226 - __main__ - INFO - YOUTUBE CHANNEL TO SPEECH DATASET PIPELINE
+2026-02-07 20:18:52,226 - __main__ - INFO - ============================================================ 
+2026-02-07 20:18:52,226 - __main__ - INFO - Channel URL: https://www.youtube.com/@vtv24
+2026-02-07 20:18:52,227 - __main__ - INFO - Max videos: 5
+2026-02-07 20:18:52,227 - __main__ - INFO - Checkpoint enabled: True
+2026-02-07 20:18:52,227 - __main__ - INFO - ============================================================ 
+2026-02-07 20:18:52,227 - __main__ - INFO -
+Resuming from checkpoint:
+
+Checkpoint Status for pipeline_vtv24:
+  Completed steps: 2
+    - crawl_channel, download_subtitles
+  Processed items: 0
+  Failed items: 0
+2026-02-07 20:18:52,227 - __main__ - INFO - Step 'crawl_channel' already completed, skipping...
+2026-02-07 20:18:52,227 - __main__ - INFO - Step 'download_subtitles' already completed, skipping...     
+2026-02-07 20:18:52,228 - __main__ - INFO -
+============================================================
+2026-02-07 20:18:52,228 - __main__ - INFO - STEP 3: PROCESS AUDIO
+2026-02-07 20:18:52,228 - __main__ - INFO - ============================================================ 
+2026-02-07 20:18:52,228 - youtube_audio_processor - INFO - Audio folder: C:\Users\Admin\Desktop\Speech_to_text\crawl_data\datasets\vtv24\audio
+2026-02-07 20:18:52,229 - youtube_audio_processor - INFO - Output folder: C:\Users\Admin\Desktop\Speech_to_text\crawl_data\datasets\vtv24\audio_segments
+2026-02-07 20:18:52,229 - youtube_audio_processor - INFO - Processing 5 videos
+2026-02-07 20:18:52,229 - youtube_audio_processor - INFO -
+============================================================
+2026-02-07 20:18:52,229 - youtube_audio_processor - INFO - Processing video 1/5: https://www.youtube.com/watch?v=hKtGhCf-NSo
+2026-02-07 20:18:52,229 - youtube_audio_processor - INFO - ============================================================
+2026-02-07 20:18:52,229 - youtube_audio_processor - INFO - Downloading audio for video ID: hKtGhCf-NSo   
+WARNING: [youtube] hKtGhCf-NSo: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+2026-02-07 20:18:54,580 - youtube_audio_processor - INFO - Title: Tiêu điểm_ Rộn ràng Hội chợ Mùa Xuân 2026_ Vừa sắm Tết vừa ăn, chơi _ VTV24
+2026-02-07 20:18:54,581 - youtube_audio_processor - INFO - Duration: 531 seconds
+WARNING: [youtube] hKtGhCf-NSo: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+ERROR: unable to download video data: HTTP Error 403: Forbidden 
+2026-02-07 20:19:03,135 - youtube_audio_processor - ERROR - Audio file not found for hKtGhCf-NSo
+2026-02-07 20:19:03,135 - retry_utils - ERROR - Audio Processing failed for hKtGhCf-NSo: Audio file not found for hKtGhCf-NSo
+2026-02-07 20:19:03,137 - youtube_audio_processor - ERROR - Failed to download audio for: https://www.youtube.com/watch?v=hKtGhCf-NSo
+2026-02-07 20:19:03,137 - youtube_audio_processor - INFO -
+============================================================
+2026-02-07 20:19:03,137 - youtube_audio_processor - INFO - Processing video 2/5: https://www.youtube.com/watch?v=7QThMUWVas0
+2026-02-07 20:19:03,137 - youtube_audio_processor - INFO - ============================================================
+2026-02-07 20:19:03,137 - youtube_audio_processor - INFO - Downloading audio for video ID: 7QThMUWVas0   
+WARNING: [youtube] 7QThMUWVas0: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+2026-02-07 20:19:05,600 - youtube_audio_processor - INFO - Title: Cuba kêu gọi đối thoại bình đẳng với Mỹ _ Cụm tin Quốc tế _ VTV24
+2026-02-07 20:19:05,600 - youtube_audio_processor - INFO - Duration: 311 seconds
+WARNING: [youtube] 7QThMUWVas0: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+ERROR: unable to download video data: HTTP Error 403: Forbidden 
+2026-02-07 20:19:14,676 - youtube_audio_processor - ERROR - Audio file not found for 7QThMUWVas0
+2026-02-07 20:19:14,676 - retry_utils - ERROR - Audio Processing failed for 7QThMUWVas0: Audio file not found for 7QThMUWVas0
+2026-02-07 20:19:14,678 - youtube_audio_processor - ERROR - Failed to download audio for: https://www.youtube.com/watch?v=7QThMUWVas0
+2026-02-07 20:19:14,678 - youtube_audio_processor - INFO -
+============================================================
+2026-02-07 20:19:14,678 - youtube_audio_processor - INFO - Processing video 3/5: https://www.youtube.com/watch?v=EjB7WlLzh-g
+2026-02-07 20:19:14,678 - youtube_audio_processor - INFO - ============================================================
+2026-02-07 20:19:14,678 - youtube_audio_processor - INFO - Downloading audio for video ID: EjB7WlLzh-g   
+WARNING: [youtube] EjB7WlLzh-g: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+2026-02-07 20:19:16,841 - youtube_audio_processor - INFO - Title: Ăn Tết bên Nội hay bên Ngoại_ _ VTV24  
+2026-02-07 20:19:16,841 - youtube_audio_processor - INFO - Duration: 345 seconds
+WARNING: [youtube] EjB7WlLzh-g: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+ERROR: unable to download video data: HTTP Error 403: Forbidden 
+2026-02-07 20:19:24,923 - youtube_audio_processor - ERROR - Audio file not found for EjB7WlLzh-g
+2026-02-07 20:19:24,923 - retry_utils - ERROR - Audio Processing failed for EjB7WlLzh-g: Audio file not found for EjB7WlLzh-g
+2026-02-07 20:19:24,924 - youtube_audio_processor - ERROR - Failed to download audio for: https://www.youtube.com/watch?v=EjB7WlLzh-g
+2026-02-07 20:19:24,924 - youtube_audio_processor - INFO -
+============================================================
+2026-02-07 20:19:24,924 - youtube_audio_processor - INFO - Processing video 4/5: https://www.youtube.com/watch?v=cFZozI-3vqE
+2026-02-07 20:19:24,924 - youtube_audio_processor - INFO - ============================================================
+2026-02-07 20:19:24,924 - youtube_audio_processor - INFO - Downloading audio for video ID: cFZozI-3vqE   
+WARNING: [youtube] cFZozI-3vqE: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+2026-02-07 20:19:27,100 - youtube_audio_processor - INFO - Title: 'KPop Demon Hunters' - Cú hích lớn cho kinh tế Hàn Quốc _ VTV24
+2026-02-07 20:19:27,100 - youtube_audio_processor - INFO - Duration: 415 seconds
+WARNING: [youtube] cFZozI-3vqE: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+ERROR: unable to download video data: HTTP Error 403: Forbidden 
+2026-02-07 20:19:35,206 - youtube_audio_processor - ERROR - Audio file not found for cFZozI-3vqE
+2026-02-07 20:19:35,206 - retry_utils - ERROR - Audio Processing failed for cFZozI-3vqE: Audio file not found for cFZozI-3vqE
+2026-02-07 20:19:35,207 - youtube_audio_processor - ERROR - Failed to download audio for: https://www.youtube.com/watch?v=cFZozI-3vqE
+2026-02-07 20:19:35,207 - youtube_audio_processor - INFO -
+============================================================
+2026-02-07 20:19:35,207 - youtube_audio_processor - INFO - Processing video 5/5: https://www.youtube.com/watch?v=NRbIvznisSQ
+2026-02-07 20:19:35,207 - youtube_audio_processor - INFO - ============================================================
+2026-02-07 20:19:35,208 - youtube_audio_processor - INFO - Downloading audio for video ID: NRbIvznisSQ   
+WARNING: [youtube] NRbIvznisSQ: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+2026-02-07 20:19:37,225 - youtube_audio_processor - INFO - Title: Cục CSGT khuyến cáo thực hiện sang tên, đổi chủ với phương tiện đã bán, cho hoặc tặng _ VTV24
+2026-02-07 20:19:37,225 - youtube_audio_processor - INFO - Duration: 572 seconds
+WARNING: [youtube] NRbIvznisSQ: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+ERROR: unable to download video data: HTTP Error 403: Forbidden 
+2026-02-07 20:19:44,331 - youtube_audio_processor - ERROR - Audio file not found for NRbIvznisSQ
+2026-02-07 20:19:44,331 - retry_utils - ERROR - Audio Processing failed for NRbIvznisSQ: Audio file not found for NRbIvznisSQ
+2026-02-07 20:19:44,332 - youtube_audio_processor - ERROR - Failed to download audio for: https://www.youtube.com/watch?v=NRbIvznisSQ
+2026-02-07 20:19:44,333 - youtube_audio_processor - INFO -
+============================================================
+2026-02-07 20:19:44,333 - youtube_audio_processor - INFO - PROCESSING SUMMARY
+2026-02-07 20:19:44,333 - youtube_audio_processor - INFO - ============================================================
+2026-02-07 20:19:44,333 - youtube_audio_processor - INFO - Videos successfully processed: 0/5
+2026-02-07 20:19:44,333 - youtube_audio_processor - INFO - Videos failed: 5
+2026-02-07 20:19:44,333 - youtube_audio_processor - INFO - Total segments created: 0
+2026-02-07 20:19:44,333 - youtube_audio_processor - INFO - Metadata saved: audio_segments\processing_metadata.json
+2026-02-07 20:19:44,334 - youtube_audio_processor - WARNING - Failed videos (5):
+2026-02-07 20:19:44,334 - youtube_audio_processor - WARNING -   - https://www.youtube.com/watch?v=hKtGhCf-NSo
+2026-02-07 20:19:44,334 - youtube_audio_processor - WARNING -   - https://www.youtube.com/watch?v=7QThMUWVas0
+2026-02-07 20:19:44,334 - youtube_audio_processor - WARNING -   - https://www.youtube.com/watch?v=EjB7WlLzh-g
+2026-02-07 20:19:44,334 - youtube_audio_processor - WARNING -   - https://www.youtube.com/watch?v=cFZozI-3vqE
+2026-02-07 20:19:44,334 - youtube_audio_processor - WARNING -   - https://www.youtube.com/watch?v=NRbIvznisSQ
+
+Audio Processing Summary:
+  Total: 5
+  Successful: 0
+  Failed: 5
+  Success Rate: 0.0%
+  Failed items: 5
+2026-02-07 20:19:44,337 - __main__ - INFO - Created 0 audio segment files
+2026-02-07 20:19:44,338 - checkpoint_manager - INFO - Step completed: process_audio
+2026-02-07 20:19:44,338 - __main__ - ERROR - ERROR: Could not process audio
+2026-02-07 20:19:44,338 - __main__ - INFO -
+Pipeline incomplete. To resume, run the same command again.
+
+Checkpoint Status for pipeline_vtv24:
+  Completed steps: 3
+    - crawl_channel, download_subtitles, process_audio
+  Processed items: 0
+  Failed items: 0
+
+FAILED: Channel 1 encountered error
+
+Progress: 1/1 channels processed
+Success: 0, Failed: 1
+
+============================================================
+FINAL REPORT
+============================================================
+Total channels: 1
+Success: 0
+Failed: 1
+
+Failed channels:
+  1. https://www.youtube.com/@vtv24
+
+All completed!

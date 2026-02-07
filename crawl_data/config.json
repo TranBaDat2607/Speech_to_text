@@ -1,0 +1,67 @@
+{
+  "_comment": "Configuration for crawling VTV24 YouTube channel - Vietnamese news content",
+  "_description": "Crawl 5 videos from VTV24, targeting 5-10 minute duration videos",
+
+  "channels": [
+    "https://www.youtube.com/@vtv24"
+  ],
+
+  "crawl_settings": {
+    "_comment": "Video crawling configuration for VTV24",
+    "max_videos_per_channel": 5,
+    "min_duration_seconds": 300,
+    "_min_duration_note": "5 minutes minimum",
+    "max_duration_seconds": 600,
+    "_max_duration_note": "10 minutes maximum",
+    "video_selection_strategy": "longest",
+    "_video_selection_options": ["longest", "shortest", "first"],
+    "batch_multiplier": 4,
+    "_batch_multiplier_note": "Fetch 20 videos initially to filter down to 5 within 5-10 min range"
+  },
+
+  "subtitle_settings": {
+    "_comment": "Subtitle download configuration - prioritize Vietnamese",
+    "languages": ["vi", "en"],
+    "_language_note": "Vietnamese first, English as fallback",
+    "format": "srt",
+    "_format_options": ["srt", "vtt", "ass"]
+  },
+
+  "audio_settings": {
+    "_comment": "Audio processing configuration",
+    "segment_duration_seconds": 30,
+    "_segment_duration_note": "30-second segments for training",
+    "audio_format": "wav",
+    "_audio_format_options": ["wav", "mp3", "flac"],
+    "sample_rate": 16000,
+    "_sample_rate_note": "16kHz standard for speech recognition"
+  },
+
+  "pipeline_settings": {
+    "_comment": "Pipeline behavior configuration",
+    "cleanup_intermediate_files": true,
+    "_cleanup_note": "Delete intermediate files to save disk space",
+    "create_dataset_summary": true,
+    "_summary_note": "Generate dataset statistics",
+    "parallel_processing": false,
+    "_parallel_note": "Sequential processing for stability"
+  },
+
+  "output_settings": {
+    "_comment": "Output directory and file organization",
+    "base_output_dir": "datasets",
+    "_base_dir_note": "Main directory to store VTV24 dataset",
+    "create_channel_folders": true,
+    "_channel_folders_note": "Create vtv24 folder",
+    "save_metadata": true,
+    "_metadata_note": "Save detailed metadata files",
+    "subtitles_folder": "subtitles",
+    "_subtitles_folder_note": "Folder for downloaded subtitles",
+    "audio_folder": "audio",
+    "_audio_folder_note": "Folder for full-length audio files",
+    "audio_segments_folder": "audio_segments",
+    "_audio_segments_folder_note": "Folder for 30-second audio segments",
+    "dataset_folder": "dataset",
+    "_dataset_folder_note": "Final dataset output (WAV + JSON pairs)"
+  }
+}
