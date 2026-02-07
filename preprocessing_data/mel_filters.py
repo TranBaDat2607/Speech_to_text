@@ -3,6 +3,11 @@ Mel filter bank generation for TensorFlow - matching OpenAI Whisper exactly
 Uses librosa-compatible mel filter generation
 """
 
+import os
+# Fix TensorFlow memory issues BEFORE importing TensorFlow
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+
 import tensorflow as tf
 import numpy as np
 from audio_constants import SAMPLE_RATE, N_FFT, N_MELS

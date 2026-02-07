@@ -10,6 +10,8 @@ crawl_data/subtitles/
 crawl_data/raw_data/
 crawl_data/temp/
 crawl_data/downloads/
+preprocessing_data/preprocessed_data/
+output.txt
 
 # Specific dataset files
 *.wav

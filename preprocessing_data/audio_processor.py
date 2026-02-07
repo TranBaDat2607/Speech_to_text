@@ -2,6 +2,14 @@
 TensorFlow implementation of Whisper audio preprocessing
 """
 
+import os
+# Fix TensorFlow memory issues BEFORE importing TensorFlow
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os.environ['OPENBLAS_NUM_THREADS'] = '1'
+os.environ['MKL_NUM_THREADS'] = '1'
+
 import tensorflow as tf
 import numpy as np
 from audio_constants import *

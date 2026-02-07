@@ -33,7 +33,7 @@ cd c:\Users\Admin\Desktop\dat301m\Speech_to_text\preprocessing_data
 python test_preprocessing.py
 ```
 
-### 2. Process default dataset (sachnoivietnam15)
+### 2. Process default dataset
 
 ```bash
 python preprocess_dataset.py
