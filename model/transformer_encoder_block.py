@@ -1,88 +1,13 @@
 """
 TensorFlow implementation of Whisper Transformer Encoder Blocks
-Contains MultiHeadAttention, MLP, ResidualAttentionBlock, and ConformerBlock
+Contains MLP and ResidualAttentionBlock for encoder
 """
 
 import tensorflow as tf
 from typing import Optional
 
-
-class MultiHeadAttention(tf.keras.layers.Layer):
-    """
-    Multi-head attention matching OpenAI Whisper implementation exactly
-    
-    Key differences from standard attention:
-    - Key projection has no bias (bias=False)
-    - Scale factor is (head_dim ** -0.25) instead of -0.5
-    - Pre-norm architecture (LayerNorm applied before attention)
-    """
-    
-    def __init__(self, n_state: int, n_head: int, name: str = "multi_head_attention"):
-        super().__init__(name=name)
-        assert n_state % n_head == 0, f"n_state ({n_state}) must be divisible by n_head ({n_head})"
-        
-        self.n_state = n_state
-        self.n_head = n_head
-        self.head_dim = n_state // n_head
-        self.scale = self.head_dim ** -0.25
-        
-        # Query, Key, Value projections matching OpenAI exactly
-        self.query = tf.keras.layers.Dense(n_state, use_bias=True, name="query")
-        self.key = tf.keras.layers.Dense(n_state, use_bias=False, name="key")  # No bias!
-        self.value = tf.keras.layers.Dense(n_state, use_bias=True, name="value")
-        self.out = tf.keras.layers.Dense(n_state, use_bias=True, name="out")
-        
-    def call(self, x: tf.Tensor, mask: Optional[tf.Tensor] = None, training: Optional[bool] = None) -> tf.Tensor:
-        """
-        Forward pass of multi-head attention
-        
-        Args:
-            x: Input tensor of shape [batch_size, seq_len, n_state]
-            mask: Optional attention mask
-            training: Whether in training mode
-            
-        Returns:
-            tf.Tensor: Output of shape [batch_size, seq_len, n_state]
-        """
-        batch_size = tf.shape(x)[0]
-        seq_len = tf.shape(x)[1]
-        
-        # Project to Q, K, V
-        q = self.query(x)  # [batch, seq_len, n_state]
-        k = self.key(x)    # [batch, seq_len, n_state] 
-        v = self.value(x)  # [batch, seq_len, n_state]
-        
-        # Reshape for multi-head: [batch, seq_len, n_head, head_dim]
-        q = tf.reshape(q, [batch_size, seq_len, self.n_head, self.head_dim])
-        k = tf.reshape(k, [batch_size, seq_len, self.n_head, self.head_dim])
-        v = tf.reshape(v, [batch_size, seq_len, self.n_head, self.head_dim])
-        
-        # Transpose to [batch, n_head, seq_len, head_dim] for attention computation
-        q = tf.transpose(q, [0, 2, 1, 3])
-        k = tf.transpose(k, [0, 2, 1, 3])
-        v = tf.transpose(v, [0, 2, 1, 3])
-        
-        # Scaled dot-product attention matching OpenAI exactly
-        attention_scores = tf.matmul(q * self.scale, k * self.scale, transpose_b=True)
-        
-        # Apply mask if provided
-        if mask is not None:
-            attention_scores += mask
-            
-        # Softmax over last dimension
-        attention_weights = tf.nn.softmax(attention_scores, axis=-1)
-        
-        # Apply attention to values
-        attention_output = tf.matmul(attention_weights, v)
-        
-        # Transpose back: [batch, n_head, seq_len, head_dim] -> [batch, seq_len, n_head, head_dim]
-        attention_output = tf.transpose(attention_output, [0, 2, 1, 3])
-        
-        # Reshape to [batch, seq_len, n_state]
-        attention_output = tf.reshape(attention_output, [batch_size, seq_len, self.n_state])
-        
-        # Final output projection
-        return self.out(attention_output)
+# Import MultiHeadAttention from decoder module (unified implementation)
+from transformer_decoder_block import MultiHeadAttention
 
 
 class MLP(tf.keras.layers.Layer):
@@ -162,123 +87,33 @@ class ResidualAttentionBlock(tf.keras.layers.Layer):
     def call(self, x: tf.Tensor, training: Optional[bool] = None) -> tf.Tensor:
         """
         Forward pass of residual attention block
-        
+
         Args:
             x: Input tensor of shape [batch_size, seq_len, n_state]
             training: Whether in training mode
-            
+
         Returns:
             tf.Tensor: Output of shape [batch_size, seq_len, n_state]
         """
         # Pre-norm self-attention with residual connection
         # x = x + self_attention(layer_norm(x))
         attn_input = self.attn_ln(x, training=training)
-        attn_output = self.attn(attn_input, training=training)
+        # MultiHeadAttention returns (output, attention_weights), we only need output
+        attn_output, _ = self.attn(attn_input, xa=None, mask=None, kv_cache=None, training=training)
         x = x + attn_output
-        
+
         # Pre-norm MLP with residual connection
         # x = x + mlp(layer_norm(x))
         mlp_input = self.mlp_ln(x, training=training)
         mlp_output = self.mlp(mlp_input, training=training)
         x = x + mlp_output
-        
-        return x
 
-
-class ConformerConvModule(tf.keras.layers.Layer):
-    """
-    Conformer Convolution Module
-    Captures local temporal patterns through depthwise separable convolution
-    """
-
-    def __init__(self, channels: int, kernel_size: int = 31, dropout: float = 0.1, name: str = "conformer_conv"):
-        super().__init__(name=name)
-
-        self.ln = tf.keras.layers.LayerNormalization(epsilon=1e-5)
-        self.pw_conv1 = tf.keras.layers.Conv1D(filters=channels * 2, kernel_size=1, padding='same')
-        self.dw_conv = tf.keras.layers.Conv1D(filters=channels, kernel_size=kernel_size, padding='same', groups=channels)
-        self.bn = tf.keras.layers.BatchNormalization()
-        self.pw_conv2 = tf.keras.layers.Conv1D(filters=channels, kernel_size=1, padding='same')
-        self.dropout = tf.keras.layers.Dropout(dropout)
-
-    def call(self, x: tf.Tensor, training: Optional[bool] = None) -> tf.Tensor:
-        x = self.ln(x, training=training)
-        x = self.pw_conv1(x, training=training)
-        x, gate = tf.split(x, 2, axis=-1)
-        x = x * tf.nn.sigmoid(gate)
-        x = self.dw_conv(x, training=training)
-        x = self.bn(x, training=training)
-        x = x * tf.nn.sigmoid(x)
-        x = self.pw_conv2(x, training=training)
-        x = self.dropout(x, training=training)
-        return x
-
-
-class ConformerFeedForward(tf.keras.layers.Layer):
-    """
-    Feed-Forward module with Swish activation for Conformer
-    """
-
-    def __init__(self, d_model: int, expansion: int = 4, dropout: float = 0.1, name: str = "conformer_ffn"):
-        super().__init__(name=name)
-
-        self.ln = tf.keras.layers.LayerNormalization(epsilon=1e-5)
-        self.linear1 = tf.keras.layers.Dense(d_model * expansion)
-        self.dropout1 = tf.keras.layers.Dropout(dropout)
-        self.linear2 = tf.keras.layers.Dense(d_model)
-        self.dropout2 = tf.keras.layers.Dropout(dropout)
-
-    def call(self, x: tf.Tensor, training: Optional[bool] = None) -> tf.Tensor:
-        x = self.ln(x, training=training)
-        x = self.linear1(x)
-        x = x * tf.nn.sigmoid(x)
-        x = self.dropout1(x, training=training)
-        x = self.linear2(x)
-        x = self.dropout2(x, training=training)
-        return x
-
-
-class ConformerBlock(tf.keras.layers.Layer):
-    """
-    Conformer Block - IMPROVED encoder block for speech recognition
-
-    Combines Convolution (local patterns) + Self-Attention (global context)
-    Expected improvement: +2-5% WER over ResidualAttentionBlock
-
-    Architecture:
-    1. Feed-Forward (1/2 step)
-    2. Multi-Head Self-Attention
-    3. Convolution Module
-    4. Feed-Forward (1/2 step)
-    5. LayerNorm
-    """
-
-    def __init__(self, n_state: int, n_head: int, conv_kernel_size: int = 31, dropout: float = 0.1, name: str = "conformer_block"):
-        super().__init__(name=name)
-
-        self.ffn1 = ConformerFeedForward(n_state, dropout=dropout, name='ffn1')
-        self.ln_attn = tf.keras.layers.LayerNormalization(epsilon=1e-5)
-        self.mha = tf.keras.layers.MultiHeadAttention(num_heads=n_head, key_dim=n_state // n_head, dropout=dropout)
-        self.dropout_attn = tf.keras.layers.Dropout(dropout)
-        self.conv = ConformerConvModule(n_state, kernel_size=conv_kernel_size, dropout=dropout)
-        self.ffn2 = ConformerFeedForward(n_state, dropout=dropout, name='ffn2')
-        self.ln_final = tf.keras.layers.LayerNormalization(epsilon=1e-5)
-
-    def call(self, x: tf.Tensor, training: Optional[bool] = None) -> tf.Tensor:
-        x = x + 0.5 * self.ffn1(x, training=training)
-        attn_input = self.ln_attn(x, training=training)
-        attn_output = self.mha(attn_input, attn_input, training=training)
-        attn_output = self.dropout_attn(attn_output, training=training)
-        x = x + attn_output
-        x = x + self.conv(x, training=training)
-        x = x + 0.5 * self.ffn2(x, training=training)
-        x = self.ln_final(x, training=training)
         return x
 
 
 def create_encoder_blocks(n_state: int, n_head: int, n_layer: int) -> list:
     """
-    Create encoder blocks using Conformer architecture
+    Create encoder blocks using ResidualAttentionBlock (matching OpenAI Whisper)
 
     Args:
         n_state: Model dimension (embedding size)
@@ -286,9 +121,9 @@ def create_encoder_blocks(n_state: int, n_head: int, n_layer: int) -> list:
         n_layer: Number of transformer layers
 
     Returns:
-        list: List of ConformerBlock layers
+        list: List of ResidualAttentionBlock layers
     """
     return [
-        ConformerBlock(n_state, n_head, name=f"encoder_block_{i}")
+        ResidualAttentionBlock(n_state, n_head, name=f"encoder_block_{i}")
         for i in range(n_layer)
     ]

@@ -13,7 +13,7 @@ from typing import Optional, Dict
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "model"))
 
 from model_dimensions import get_whisper_dimensions
-from model import create_whisper_model, Whisper
+from model import Whisper
 
 
 class WhisperStudentTensorFlow:
@@ -74,11 +74,11 @@ class WhisperStudentTensorFlow:
     def _load_model(self):
         """Load TensorFlow Whisper model"""
         try:
-            # Create model using factory function
-            self.model = create_whisper_model(self.model_name)
-            
             # Get model dimensions
             self.dims = get_whisper_dimensions(self.model_name)
+
+            # Create model directly
+            self.model = Whisper(self.dims)
             
             # Build model with dummy inputs to initialize weights
             dummy_mel = tf.random.normal([1, self.dims.n_mels, 3000])

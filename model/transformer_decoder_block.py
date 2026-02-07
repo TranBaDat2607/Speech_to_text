@@ -92,40 +92,40 @@ class MultiHeadAttention(tf.keras.layers.Layer):
     def qkv_attention(self, q: tf.Tensor, k: tf.Tensor, v: tf.Tensor, mask: Optional[tf.Tensor] = None) -> Tuple[tf.Tensor, Optional[tf.Tensor]]:
         """
         QKV attention computation matching OpenAI Whisper exactly
-        
+
         Args:
             q: Query tensor
-            k: Key tensor  
+            k: Key tensor
             v: Value tensor
             mask: Optional attention mask
-            
+
         Returns:
             Tuple[tf.Tensor, Optional[tf.Tensor]]: (attention_output, attention_weights)
         """
         # PyTorch: n_batch, n_ctx, n_state = q.shape
         n_batch = tf.shape(q)[0]
-        n_ctx = tf.shape(q)[1] 
+        n_ctx = tf.shape(q)[1]
         n_state = tf.shape(q)[2]
-        
-        # PyTorch: scale = (n_state // self.n_head) ** -0.25
+
+        # PyTorch: scale = (n_state // self.n_head) ** -0.5
         # Convert n_state to float for power calculation
         n_state_float = tf.cast(n_state, tf.float32)
         head_dim_float = n_state_float / tf.cast(self.n_head, tf.float32)
-        scale = tf.cast(head_dim_float ** -0.25, q.dtype)
-        
+        scale = tf.cast(head_dim_float ** -0.5, q.dtype)
+
         # PyTorch: q = q.view(*q.shape[:2], self.n_head, -1).permute(0, 2, 1, 3)
         head_dim = n_state // self.n_head
         q = tf.reshape(q, [n_batch, n_ctx, self.n_head, head_dim])
         k = tf.reshape(k, [tf.shape(k)[0], tf.shape(k)[1], self.n_head, head_dim])
         v = tf.reshape(v, [tf.shape(v)[0], tf.shape(v)[1], self.n_head, head_dim])
-        
+
         # permute(0, 2, 1, 3) = transpose([0, 2, 1, 3])
         q = tf.transpose(q, [0, 2, 1, 3])
         k = tf.transpose(k, [0, 2, 1, 3])
         v = tf.transpose(v, [0, 2, 1, 3])
-        
-        # PyTorch: qk = (q * scale) @ (k * scale).transpose(-1, -2)
-        qk = tf.matmul(q * scale, k * scale, transpose_b=True)
+
+        # PyTorch: qk = (q @ k.transpose(-1, -2)) / math.sqrt(q.size(-1))
+        qk = tf.matmul(q, k, transpose_b=True) * scale
         
         # PyTorch: if mask is not None: qk = qk + mask[:n_ctx, :n_ctx]
         if mask is not None:

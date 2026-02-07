@@ -19,15 +19,14 @@ from transformer_decoder_block import ResidualAttentionBlock, create_causal_mask
 from transformer_encoder_block import create_encoder_blocks
 from learned_positional_encoding import LearnedPositionalEncoding
 from positional_encoding import sinusoidal_positional_encoding
-from vocabulary_compression import CompactFactorizedEmbedding
 
 
 class TextDecoder(tf.keras.Model):
     """
-    Text Decoder with compact factorized embedding
+    Text Decoder matching OpenAI Whisper exactly
 
     Architecture:
-    1. Compact factorized token embedding (15k vocab, 64 bottleneck)
+    1. Standard token embedding (n_vocab, n_text_state)
     2. Learned positional embedding (n_text_ctx, n_text_state)
     3. N × ResidualAttentionBlock with cross_attention=True
     4. Final layer normalization
@@ -36,21 +35,15 @@ class TextDecoder(tf.keras.Model):
 
     def __init__(self,
                  dims: ModelDimensions,
-                 compact_vocab_size: int = 15000,
-                 embedding_bottleneck: int = 64,
-                 vocab_mapping: Optional[Dict[int, int]] = None,
                  name: str = "text_decoder"):
         super().__init__(name=name)
 
         self.dims = dims
-        self.compact_vocab_size = compact_vocab_size
 
-        # Compact factorized token embedding
-        self.token_embedding = CompactFactorizedEmbedding(
-            compact_vocab_size=compact_vocab_size,
-            d_model=dims.n_text_state,
-            bottleneck_dim=embedding_bottleneck,
-            old_to_new_mapping=vocab_mapping,
+        # Standard token embedding (matching OpenAI Whisper)
+        self.token_embedding = tf.keras.layers.Embedding(
+            dims.n_vocab,
+            dims.n_text_state,
             name="token_embedding"
         )
         
@@ -135,10 +128,10 @@ class TextDecoder(tf.keras.Model):
         x_embedded = self.ln(x_embedded, training=training)
 
         # Output projection: logits = x @ token_embedding.weight.T
-        # For compact factorized embedding, compute embedding matrix
-        token_weights = self.token_embedding.get_weights_for_output_projection()
-        token_weights = tf.cast(token_weights, x_embedded.dtype)  # [compact_vocab, n_text_state]
-        logits = tf.matmul(x_embedded, token_weights, transpose_b=True)  # [batch, seq_len, compact_vocab]
+        # Matching OpenAI Whisper: tied weights (same as input embedding)
+        token_weights = self.token_embedding.embeddings  # [n_vocab, n_text_state]
+        token_weights = tf.cast(token_weights, x_embedded.dtype)
+        logits = tf.matmul(x_embedded, token_weights, transpose_b=True)  # [batch, seq_len, n_vocab]
 
         # Ensure float32 output for numerical stability
         logits = tf.cast(logits, tf.float32)
@@ -159,13 +152,13 @@ class TextDecoder(tf.keras.Model):
 
 class AudioEncoder(tf.keras.Model):
     """
-    Audio Encoder with Conformer blocks (improved architecture)
+    Audio Encoder matching OpenAI Whisper exactly
 
     Architecture:
     1. Conv1D (n_mels -> n_audio_state, kernel=3, stride=1) + GELU
     2. Conv1D (n_audio_state -> n_audio_state, kernel=3, stride=2) + GELU
     3. Sinusoidal positional encoding addition
-    4. N × ConformerBlock (Conv + Attention for better speech modeling)
+    4. N × ResidualAttentionBlock (self-attention + MLP)
     5. Final layer normalization
     """
 
@@ -174,7 +167,7 @@ class AudioEncoder(tf.keras.Model):
 
         self.dims = dims
 
-        # Two convolutional layers
+        # Two convolutional layers (matching OpenAI Whisper exactly)
         self.conv1 = tf.keras.layers.Conv1D(
             filters=dims.n_audio_state,
             kernel_size=3,
@@ -204,7 +197,7 @@ class AudioEncoder(tf.keras.Model):
             name="positional_embedding"
         )
 
-        # Conformer encoder blocks
+        # ResidualAttentionBlock encoder blocks (matching OpenAI Whisper)
         self.blocks = create_encoder_blocks(
             dims.n_audio_state,
             dims.n_audio_head,
@@ -277,45 +270,25 @@ class AudioEncoder(tf.keras.Model):
         }
 
 
-def create_text_decoder(model_name: str = "base") -> TextDecoder:
-    """
-    Factory function to create TextDecoder with predefined configurations
-    
-    Args:
-        model_name: Model size ("tiny", "base", "small", "medium", "large")
-        
-    Returns:
-        TextDecoder: Initialized text decoder
-    """
-    dims = get_whisper_dimensions(model_name)
-    return TextDecoder(dims)
-
-
-def create_audio_encoder(model_name: str = "base") -> AudioEncoder:
-    """
-    Factory function to create AudioEncoder with Conformer blocks
-
-    Args:
-        model_name: Model size ("tiny", "base", "small", "medium", "large")
-
-    Returns:
-        AudioEncoder: Initialized audio encoder with Conformer blocks
-    """
-    dims = get_whisper_dimensions(model_name)
-    return AudioEncoder(dims)
+# Removed redundant factory functions (create_text_decoder, create_audio_encoder)
+# Use direct instantiation instead:
+#   dims = get_whisper_dimensions(model_name)
+#   decoder = TextDecoder(dims)
+#   encoder = AudioEncoder(dims)
 
 
 class Whisper(tf.keras.Model):
     """
-    Improved Whisper model with Conformer encoder and compact vocabulary
+    Whisper model matching OpenAI architecture exactly
 
     Architecture:
-    - AudioEncoder: mel spectrogram -> audio features (with Conformer blocks)
-    - TextDecoder: tokens + audio features -> logits (with compact factorized embedding)
+    - AudioEncoder: mel spectrogram -> audio features (ResidualAttentionBlocks)
+    - TextDecoder: tokens + audio features -> logits (standard embedding)
 
-    Improvements over original:
-    - Conformer encoder: +2-5% WER improvement
-    - Compact vocabulary: 96% embedding parameter reduction
+    Features:
+    - Matches original Whisper architecture exactly (can load pretrained weights)
+    - Full vocabulary (51,865 tokens for multilingual)
+    - Compatible with knowledge distillation (same vocab as teacher)
 
     Key methods:
     - embed_audio(): encode audio to features
@@ -325,25 +298,16 @@ class Whisper(tf.keras.Model):
 
     def __init__(self,
                  dims: ModelDimensions,
-                 compact_vocab_size: int = 15000,
-                 embedding_bottleneck: int = 64,
-                 vocab_mapping: Optional[Dict[int, int]] = None,
                  name: str = "whisper"):
         super().__init__(name=name)
 
         self.dims = dims
 
-        # Initialize Conformer encoder
+        # Initialize encoder (matches OpenAI Whisper architecture)
         self.encoder = AudioEncoder(dims, name="encoder")
 
-        # Initialize decoder with compact factorized embedding
-        self.decoder = TextDecoder(
-            dims,
-            compact_vocab_size=compact_vocab_size,
-            embedding_bottleneck=embedding_bottleneck,
-            vocab_mapping=vocab_mapping,
-            name="decoder"
-        )
+        # Initialize decoder with standard embedding
+        self.decoder = TextDecoder(dims, name="decoder")
         
         # Alignment heads for word-level timing (matching PyTorch)
         # PyTorch: use the last half among the decoder layers for time alignment by default
@@ -435,40 +399,8 @@ class Whisper(tf.keras.Model):
         }
 
 
-def create_whisper_model(model_name: str = "base",
-                         compact_vocab_size: int = 15000,
-                         embedding_bottleneck: int = 64,
-                         vocab_mapping: Optional[Dict[int, int]] = None) -> Whisper:
-    """
-    Factory function to create improved Whisper model
-
-    Model includes:
-    - Conformer encoder (better speech modeling)
-    - Compact factorized vocabulary (smaller model size)
-
-    Args:
-        model_name: Model size ("tiny", "base", "small", "medium", "large")
-        compact_vocab_size: Vocabulary size (default: 15000 for Vietnamese+English)
-        embedding_bottleneck: Factorization bottleneck dimension (default: 64)
-        vocab_mapping: Optional token ID mapping from analysis
-
-    Returns:
-        Whisper: Improved Whisper model
-
-    Examples:
-        # Default (Vietnamese + English, ~15k vocab)
-        model = create_whisper_model("base")
-
-        # Custom vocabulary size
-        model = create_whisper_model("base", compact_vocab_size=20000)
-
-        # With pre-analyzed vocabulary mapping
-        model = create_whisper_model("base", vocab_mapping=analyzed_mapping)
-    """
-    dims = get_whisper_dimensions(model_name)
-    return Whisper(
-        dims,
-        compact_vocab_size=compact_vocab_size,
-        embedding_bottleneck=embedding_bottleneck,
-        vocab_mapping=vocab_mapping
-    )
+# Removed redundant factory function (create_whisper_model)
+# Use direct instantiation instead:
+#   from model_dimensions import get_whisper_dimensions
+#   dims = get_whisper_dimensions(model_name)
+#   model = Whisper(dims)

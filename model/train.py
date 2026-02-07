@@ -13,7 +13,8 @@ import tensorflow as tf
 import os
 import time
 from pathlib import Path
-from model import create_whisper_model
+from model import Whisper
+from model_dimensions import get_whisper_dimensions
 from data_loader import WhisperDataLoader
 from training_optimization import GPUOptimizer, create_optimized_training_config
 
@@ -58,8 +59,9 @@ class OptimizedTrainer:
         GPUOptimizer.configure_gpu()
 
         # 2. Create model
-        print("\nCreating improved Whisper model...")
-        self.model = create_whisper_model(self.model_size)
+        print("\nCreating Whisper model...")
+        dims = get_whisper_dimensions(self.model_size)
+        self.model = Whisper(dims)
 
         # Build model
         mel = tf.random.normal([1, 80, 3000])
@@ -100,7 +102,7 @@ class OptimizedTrainer:
         self.optimizer = tf.keras.optimizers.Adam(learning_rate=final_schedule)
         self.optimizer = tf.keras.mixed_precision.LossScaleOptimizer(self.optimizer)
 
-        print(f"✓ Optimizer created with warmup schedule")
+        print(f"Optimizer created with warmup schedule")
 
         # 4. Load and optimize dataset
         print("\nLoading dataset...")
@@ -110,7 +112,7 @@ class OptimizedTrainer:
         # Optimize dataset
         self.dataset = self.dataset.prefetch(tf.data.AUTOTUNE)
 
-        print(f"✓ Dataset loaded and optimized")
+        print(f"Dataset loaded and optimized")
 
         # 5. Create loss function
         self.loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
@@ -119,7 +121,7 @@ class OptimizedTrainer:
         self.train_loss = tf.keras.metrics.Mean(name='train_loss')
         self.train_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(name='train_accuracy')
 
-        print("\n✓ Setup complete!")
+        print("\nSetup complete!")
 
     @tf.function(jit_compile=True)  # XLA compilation for speed
     def train_step_optimized(self, mel, tokens, targets):
@@ -216,7 +218,7 @@ class OptimizedTrainer:
                         best_loss = current_loss
                         best_path = self.output_dir / "best_model.h5"
                         self.model.save_weights(str(best_path))
-                        print(f"✓ Saved best model (loss: {best_loss:.4f})")
+                        print(f"Saved best model (loss: {best_loss:.4f})")
 
             # Epoch summary
             epoch_time = time.time() - epoch_start
