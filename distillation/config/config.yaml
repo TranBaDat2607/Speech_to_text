@@ -1,0 +1,80 @@
+# Minimal Configuration - Only Essential Settings
+# All other settings use sensible defaults
+
+project:
+  name: "whisper_distillation"
+
+# REQUIRED: Change these paths!
+paths:
+  preprocessed_dataset: "./distillation/preprocessing_data/phoaudiobook_100h/"
+  teacher_logits_dir: "./data/teacher_logits/"
+  checkpoints_dir: "./checkpoints/"
+  logs_dir: "./logs/"
+  final_model_dir: "./final_model/"
+
+teacher:
+  model_name: "vinai/PhoWhisper-large"
+  temperature: 2.0
+  batch_size: 8
+  use_pytorch: true
+  save_logits_format: "npy"
+
+student:
+  model_name: "base"  # "tiny", "base", or "small"
+  pretrained: true
+  freeze_encoder_initially: false
+
+# Core Training Settings (optimized for 8GB VRAM)
+distillation:
+  epochs: 1
+  batch_size: 2
+  gradient_accumulation_steps: 4
+  effective_batch_size: 8
+
+  soft_loss_weight: 0.7
+  hard_loss_weight: 0.3
+  temperature: 2.0
+
+  learning_rate: 0.00005
+  weight_decay: 0.01
+  max_gradient_norm: 1.0
+
+  lr_schedule: "cosine"
+  warmup_steps: 500
+  min_learning_rate: 0.000001
+
+  mixed_precision: true
+
+  save_every_n_steps: 1000
+  keep_last_n_checkpoints: 3
+  save_best_only: false
+
+  eval_every_n_steps: 10000
+  eval_samples: 100
+
+  early_stopping_patience: 100
+  early_stopping_metric: "wer"
+  early_stopping_mode: "min"
+
+  enable_mini_batch: true
+  mini_batch_size: 100
+  auto_cleanup_logits: true
+
+data:
+  sample_rate: 16000
+  n_mels: 80
+  n_fft: 400
+  hop_length: 160
+  max_audio_length: 30.0
+  max_text_length: 224
+  language: "vi"
+  return_timestamps: false
+  timestamp_granularity: "word"
+  train_split: 0.95
+  random_seed: 42
+
+hardware:
+  device: "GPU"
+  gpu_id: 0
+  allow_growth: true
+  num_workers: 8

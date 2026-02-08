@@ -345,42 +345,42 @@ class DistillationTrainer:
         
         # Compute gradients from scaled loss
         gradients = tape.gradient(scaled_loss, self.model.trainable_variables)
-        
+
         # Initialize accumulated gradients on first step
         if self.accumulated_gradients is None:
-            self.accumulated_gradients = [
-                tf.Variable(tf.zeros_like(g), trainable=False) if g is not None else None
-                for g in gradients
-            ]
-        
-        # Accumulate gradients
+            # Use Python list (not tf.Variables) - saves ~296MB VRAM!
+            self.accumulated_gradients = [None for _ in gradients]
+
+        # Accumulate gradients (store as tensors, not Variables)
         for i, grad in enumerate(gradients):
             if grad is not None:
-                self.accumulated_gradients[i].assign_add(grad)
-        
+                if self.accumulated_gradients[i] is None:
+                    # First accumulation - just store the gradient
+                    self.accumulated_gradients[i] = grad
+                else:
+                    # Add to accumulated gradient
+                    self.accumulated_gradients[i] = self.accumulated_gradients[i] + grad
+
         self.accumulation_counter += 1
-        
+
         # Apply gradients when accumulation is complete
         should_apply = (self.accumulation_counter >= self.gradient_accumulation_steps)
-        
+
         if should_apply:
-            # Clip accumulated gradients
-            accumulated_grads_list = [g.read_value() if g is not None else None for g in self.accumulated_gradients]
+            # Clip accumulated gradients (clip_by_global_norm handles None values)
             clipped_gradients, global_norm = tf.clip_by_global_norm(
-                accumulated_grads_list,
+                self.accumulated_gradients,
                 self.config.training.max_gradient_norm
             )
-            
+
             # Apply gradients
             # LossScaleOptimizer automatically handles loss scaling and gradient unscaling
             self.optimizer.apply_gradients(
                 [(g, v) for g, v in zip(clipped_gradients, self.model.trainable_variables) if g is not None]
             )
-            
-            # Reset accumulation
-            for g in self.accumulated_gradients:
-                if g is not None:
-                    g.assign(tf.zeros_like(g))
+
+            # Reset accumulation (just create new list of None)
+            self.accumulated_gradients = [None for _ in self.accumulated_gradients]
             self.accumulation_counter = 0
         else:
             # No gradient norm to report when not applying
