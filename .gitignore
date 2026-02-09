@@ -12,6 +12,7 @@ crawl_data/temp/
 crawl_data/downloads/
 preprocessing_data/preprocessed_data/
 output.txt
+readme_temp.md
 ARCHITECTURE_ANALYSIS.md
 
 # Specific dataset files

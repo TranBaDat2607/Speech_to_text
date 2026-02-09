@@ -97,7 +97,7 @@ class MultiHeadAttention(tf.keras.layers.Layer):
             q: Query tensor
             k: Key tensor
             v: Value tensor
-            mask: Optional attention mask
+            mask: Optional causal mask flag (if True, creates causal mask on-the-fly)
 
         Returns:
             Tuple[tf.Tensor, Optional[tf.Tensor]]: (attention_output, attention_weights)
@@ -126,12 +126,13 @@ class MultiHeadAttention(tf.keras.layers.Layer):
 
         # PyTorch: qk = (q @ k.transpose(-1, -2)) / math.sqrt(q.size(-1))
         qk = tf.matmul(q, k, transpose_b=True) * scale
-        
-        # PyTorch: if mask is not None: qk = qk + mask[:n_ctx, :n_ctx]
+
+        # Create causal mask on-the-fly with actual sequence length (memory efficient)
         if mask is not None:
             kv_seq_len = tf.shape(k)[2]  # k shape: [batch, n_head, kv_seq_len, head_dim]
-            cropped_mask = mask[:n_ctx, :kv_seq_len]
-            qk = qk + cropped_mask
+            # Create mask dynamically - only allocate what's needed
+            causal_mask = create_causal_mask_dynamic(n_ctx, kv_seq_len)
+            qk = qk + causal_mask
             
         # PyTorch: qk = qk.float(); w = F.softmax(qk, dim=-1).to(q.dtype)
         qk_float = tf.cast(qk, tf.float32)
@@ -155,25 +156,62 @@ class MultiHeadAttention(tf.keras.layers.Layer):
 def create_causal_mask(n_ctx: int) -> tf.Tensor:
     """
     Create causal attention mask matching OpenAI Whisper exactly
-    
+
+    NOTE: This function is kept for backward compatibility.
+    Use create_causal_mask_dynamic() for memory-efficient on-the-fly masking.
+
     PyTorch equivalent:
     ```python
     mask = torch.empty(n_ctx, n_ctx).fill_(-np.inf).triu_(1)
     ```
-    
+
     Args:
         n_ctx: Maximum context length
-        
+
     Returns:
         tf.Tensor: Causal mask of shape [n_ctx, n_ctx]
     """
     # Create upper triangular matrix with 1s above diagonal
     mask = tf.linalg.band_part(tf.ones((n_ctx, n_ctx)), 0, -1)  # Upper triangular
     mask = mask - tf.linalg.band_part(mask, 0, 0)  # Remove diagonal, keep upper tri
-    
+
     # Replace 1s with -inf to mask future tokens
     mask = tf.where(mask == 1, -np.inf, 0.0)
-    
+
+    return tf.cast(mask, tf.float32)
+
+
+def create_causal_mask_dynamic(q_len: int, kv_len: int) -> tf.Tensor:
+    """
+    Create causal attention mask on-the-fly with actual sequence lengths
+
+    Memory efficient: only allocates [q_len × kv_len] instead of [448 × 448]
+    Typical savings: ~95% memory (e.g., 10×10 vs 448×448)
+
+    PyTorch equivalent:
+    ```python
+    mask = torch.empty(q_len, kv_len).fill_(-np.inf).triu_(1)
+    ```
+
+    Args:
+        q_len: Query sequence length (actual, not max)
+        kv_len: Key/value sequence length (actual, not max)
+
+    Returns:
+        tf.Tensor: Causal mask of shape [q_len, kv_len]
+    """
+    # For cross-attention or when kv_len < q_len, adjust mask shape
+    # Create a range for queries and keys
+    q_indices = tf.range(q_len, dtype=tf.int32)
+    kv_indices = tf.range(kv_len, dtype=tf.int32)
+
+    # Broadcasting: [q_len, 1] > [1, kv_len] => [q_len, kv_len]
+    # This creates True where query position < key position (future tokens)
+    mask = tf.expand_dims(q_indices, 1) < tf.expand_dims(kv_indices, 0)
+
+    # Replace True with -inf, False with 0.0
+    mask = tf.where(mask, -np.inf, 0.0)
+
     return tf.cast(mask, tf.float32)
 
 

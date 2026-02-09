@@ -1,19 +1,9 @@
-"""
-TensorFlow implementation of Whisper Model matching OpenAI Whisper exactly.
-
-This is the main model file that combines all components into a complete Whisper model.
-Architecture matches PyTorch version in whisper/model.py exactly.
-"""
-
 import tensorflow as tf
 import numpy as np
 import warnings
 from typing import Dict, Optional, Tuple
-
-# Suppress TensorFlow warnings
 tf.get_logger().setLevel('ERROR')
 warnings.filterwarnings('ignore', category=UserWarning, module='keras')
-
 from model_dimensions import ModelDimensions, get_whisper_dimensions
 from transformer_decoder_block import ResidualAttentionBlock, create_causal_mask
 from transformer_encoder_block import create_encoder_blocks
@@ -23,8 +13,6 @@ from positional_encoding import sinusoidal_positional_encoding
 
 class TextDecoder(tf.keras.Model):
     """
-    Text Decoder matching OpenAI Whisper exactly
-
     Architecture:
     1. Standard token embedding (n_vocab, n_text_state)
     2. Learned positional embedding (n_text_ctx, n_text_state)
@@ -67,25 +55,13 @@ class TextDecoder(tf.keras.Model):
         
         # Final layer normalization
         self.ln = tf.keras.layers.LayerNormalization(epsilon=1e-5, name="final_layer_norm")
-        
-        # Causal mask for autoregressive generation
-        # PyTorch: mask = torch.empty(n_ctx, n_ctx).fill_(-np.inf).triu_(1)
-        mask = create_causal_mask(dims.n_text_ctx)
-        # Convert to non-trainable variable to avoid gradient issues
-        self.mask = tf.Variable(
-            mask,
-            trainable=False,
-            name="causal_mask"
-        )
-    
+
     def call(self, 
              x: tf.Tensor, 
              xa: tf.Tensor, 
              kv_cache: Optional[dict] = None,
              training: Optional[bool] = None) -> tf.Tensor:
         """
-        Forward pass of TextDecoder matching OpenAI Whisper exactly
-        
         Args:
             x: Token indices of shape [batch_size, seq_len]
             xa: Encoder output of shape [batch_size, n_audio_ctx, n_audio_state]
@@ -95,31 +71,25 @@ class TextDecoder(tf.keras.Model):
         Returns:
             tf.Tensor: Logits of shape [batch_size, seq_len, n_vocab]
         """
-        # PyTorch: offset = next(iter(kv_cache.values())).shape[1] if kv_cache else 0
         offset = 0
         if kv_cache is not None and len(kv_cache) > 0:
             # Get offset from first cached tensor
             first_cache_tensor = next(iter(kv_cache.values()))
             offset = tf.shape(first_cache_tensor)[1]
-        
-        # Token embedding: [batch_size, seq_len] -> [batch_size, seq_len, n_text_state]
+
         x_embedded = self.token_embedding(x)
-        
-        # Add positional embedding with offset support for generation
-        # PyTorch: x = self.token_embedding(x) + self.positional_embedding[offset : offset + x.shape[-1]]
+
         seq_len = tf.shape(x)[1]
         pos_embedding = self.positional_embedding(offset=offset, sequence_length=seq_len)
         x_embedded = x_embedded + pos_embedding
         
-        # Cast to match encoder output dtype (important for mixed precision)
         x_embedded = tf.cast(x_embedded, xa.dtype)
-        
-        # Pass through decoder blocks
+
         for block in self.blocks:
             x_embedded = block(
                 x_embedded,
                 xa=xa,
-                mask=self.mask,
+                mask=True,  
                 kv_cache=kv_cache,
                 training=training
             )
@@ -152,8 +122,6 @@ class TextDecoder(tf.keras.Model):
 
 class AudioEncoder(tf.keras.Model):
     """
-    Audio Encoder matching OpenAI Whisper exactly
-
     Architecture:
     1. Conv1D (n_mels -> n_audio_state, kernel=3, stride=1) + GELU
     2. Conv1D (n_audio_state -> n_audio_state, kernel=3, stride=2) + GELU
@@ -208,9 +176,7 @@ class AudioEncoder(tf.keras.Model):
         self.ln_post = tf.keras.layers.LayerNormalization(epsilon=1e-5, name="ln_post")
     
     def call(self, x: tf.Tensor, training: Optional[bool] = None) -> tf.Tensor:
-        """
-        Forward pass of AudioEncoder matching OpenAI Whisper exactly
-        
+        """ 
         Args:
             x: Mel spectrogram of shape [batch_size, n_mels, n_frames]
                where n_frames=3000 (30 seconds at 16kHz)
@@ -269,18 +235,8 @@ class AudioEncoder(tf.keras.Model):
             }
         }
 
-
-# Removed redundant factory functions (create_text_decoder, create_audio_encoder)
-# Use direct instantiation instead:
-#   dims = get_whisper_dimensions(model_name)
-#   decoder = TextDecoder(dims)
-#   encoder = AudioEncoder(dims)
-
-
 class Whisper(tf.keras.Model):
     """
-    Whisper model matching OpenAI architecture exactly
-
     Architecture:
     - AudioEncoder: mel spectrogram -> audio features (ResidualAttentionBlocks)
     - TextDecoder: tokens + audio features -> logits (standard embedding)
@@ -303,14 +259,10 @@ class Whisper(tf.keras.Model):
 
         self.dims = dims
 
-        # Initialize encoder (matches OpenAI Whisper architecture)
         self.encoder = AudioEncoder(dims, name="encoder")
 
-        # Initialize decoder with standard embedding
         self.decoder = TextDecoder(dims, name="decoder")
-        
-        # Alignment heads for word-level timing (matching PyTorch)
-        # PyTorch: use the last half among the decoder layers for time alignment by default
+
         all_heads = tf.zeros((dims.n_text_layer, dims.n_text_head), dtype=tf.bool)
         all_heads = tf.concat([
             tf.zeros((dims.n_text_layer // 2, dims.n_text_head), dtype=tf.bool),
@@ -397,10 +349,3 @@ class Whisper(tf.keras.Model):
                 "n_text_layer": self.dims.n_text_layer,
             }
         }
-
-
-# Removed redundant factory function (create_whisper_model)
-# Use direct instantiation instead:
-#   from model_dimensions import get_whisper_dimensions
-#   dims = get_whisper_dimensions(model_name)
-#   model = Whisper(dims)
