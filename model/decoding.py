@@ -615,17 +615,13 @@ class TensorFlowInference(Inference):
         if not self.kv_cache:
             self.kv_cache = {}
         
-        # Debug: Check input tokens
-        print(f"[DEBUG TFInference.logits START] input tokens.shape={tokens.shape}")
-        
         # NOTE: KV cache disabled - decoder blocks need proper implementation
         # TODO: Implement KV cache hooks in decoder blocks like OpenAI Whisper
         # For now, process full sequence each time (slower but correct)
         
         # Forward pass through decoder WITHOUT KV cache
         logits_output = self.model.decoder(tokens, audio_features, kv_cache=None, training=False)
-        
-        print(f"[DEBUG TFInference.logits END] output logits.shape={logits_output.shape}")
+
         return logits_output
     
     def cleanup_caching(self) -> None:
@@ -747,9 +743,6 @@ class DecodingTask:
         self.initial_tokens = self._get_initial_tokens()
         self.sample_begin = len(self.initial_tokens)
         self.sot_index = self.initial_tokens.index(tokenizer.sot)
-        
-        print(f"[DEBUG] Initial tokens: {self.initial_tokens}")
-        print(f"[DEBUG] Tokenizer sot_sequence: {tokenizer.sot_sequence}")
 
         self.inference = TensorFlowInference(model, len(self.initial_tokens))
 
@@ -963,25 +956,14 @@ class DecodingTask:
                 
                 # Consider only logits at last token position
                 logits = logits[:, -1]
-                
-                if i == 0:
-                    top_vals, top_idx = tf.nn.top_k(logits[0], k=10)
-                    print(f"[DEBUG] Step 0 BEFORE filter: top10 tokens={top_idx.numpy()}, values={top_vals.numpy()}")
-                
+
                 # Apply logit filters
                 for logit_filter in self.logit_filters:
                     logits = logit_filter.apply(logits, tokens)
-                
-                if i == 0:
-                    top_vals, top_idx = tf.nn.top_k(logits[0], k=10)
-                    print(f"[DEBUG] Step 0 AFTER filter: top10 tokens={top_idx.numpy()}, values={top_vals.numpy()}")
-                
+
                 # Select next tokens using decoder (greedy or beam search)
                 tokens, completed = self.decoder.update(tokens, logits, sum_logprobs)
-                
-                if i < 3:
-                    print(f"[DEBUG main_loop] Step {i}: tokens[0]={tokens[0].numpy()}, completed={completed}")
-                
+
                 # Check termination conditions
                 if completed or tf.shape(tokens)[-1] > self.n_ctx:
                     break

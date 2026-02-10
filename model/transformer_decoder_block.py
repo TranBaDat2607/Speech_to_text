@@ -153,34 +153,6 @@ class MultiHeadAttention(tf.keras.layers.Layer):
         return out, qk_detached
 
 
-def create_causal_mask(n_ctx: int) -> tf.Tensor:
-    """
-    Create causal attention mask matching OpenAI Whisper exactly
-
-    NOTE: This function is kept for backward compatibility.
-    Use create_causal_mask_dynamic() for memory-efficient on-the-fly masking.
-
-    PyTorch equivalent:
-    ```python
-    mask = torch.empty(n_ctx, n_ctx).fill_(-np.inf).triu_(1)
-    ```
-
-    Args:
-        n_ctx: Maximum context length
-
-    Returns:
-        tf.Tensor: Causal mask of shape [n_ctx, n_ctx]
-    """
-    # Create upper triangular matrix with 1s above diagonal
-    mask = tf.linalg.band_part(tf.ones((n_ctx, n_ctx)), 0, -1)  # Upper triangular
-    mask = mask - tf.linalg.band_part(mask, 0, 0)  # Remove diagonal, keep upper tri
-
-    # Replace 1s with -inf to mask future tokens
-    mask = tf.where(mask == 1, -np.inf, 0.0)
-
-    return tf.cast(mask, tf.float32)
-
-
 def create_causal_mask_dynamic(q_len: int, kv_len: int) -> tf.Tensor:
     """
     Create causal attention mask on-the-fly with actual sequence lengths
@@ -369,19 +341,12 @@ def create_encoder_blocks(n_state: int, n_head: int, n_layer: int) -> list:
 
 class CausalMask:
     """
-    Utility class for managing causal masks
+    Utility class for managing causal masks using dynamic mask creation
     """
-    
+
     def __init__(self, n_ctx: int):
         self.n_ctx = n_ctx
-        self._mask = None
-    
-    @property 
-    def mask(self) -> tf.Tensor:
-        if self._mask is None:
-            self._mask = create_causal_mask(self.n_ctx)
-        return self._mask
-    
+
     def get_mask(self, seq_len: int) -> tf.Tensor:
-        """Get causal mask cropped to sequence length"""
-        return self.mask[:seq_len, :seq_len]
+        """Get causal mask for given sequence length using dynamic creation"""
+        return create_causal_mask_dynamic(seq_len, seq_len)
