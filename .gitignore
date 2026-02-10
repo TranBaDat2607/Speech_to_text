@@ -14,6 +14,7 @@ preprocessing_data/preprocessed_data/
 output.txt
 readme_temp.md
 ARCHITECTURE_ANALYSIS.md
+crawl_data/datasets/
 
 # Specific dataset files
 *.wav
@@ -180,7 +181,6 @@ api_keys.txt
 *.tar.gz
 *.rar
 *.7z
-data/
 raw_data/
 processed_data/
 
